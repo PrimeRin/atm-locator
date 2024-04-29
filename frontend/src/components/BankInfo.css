@@ -1,0 +1,35 @@
+.bank-info-container{
+    display: flex;
+    flex-direction: column;
+    padding-top: 3vh ; 
+    align-items: flex-start;
+}
+
+.bank-des-container{
+    padding: 20px 10px 20px 10px;
+    background: rgb(239, 238, 238);
+    text-align: left;
+    line-height: 1.5;
+
+}
+
+.heading{
+    font-size: 2.5rem;
+    color: rgb(27, 19, 19);
+    font-weight: 700;
+}
+
+.sub-heading{
+   margin-top: 10px;
+   display: block;
+   font-weight: bold; 
+}
+
+ul li a{
+    text-decoration: none;
+}
+
+.atm-service{
+    margin-top: 10px;
+    display: block;
+}
