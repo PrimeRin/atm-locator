@@ -1,0 +1,58 @@
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 8vh;
+  background: linear-gradient(
+    90deg,
+    rgba(0, 212, 255, 1) 0%,
+    rgba(9, 9, 121, 1) 45%,
+    rgb(4, 0, 84) 90%
+  );
+  border-bottom: 6px solid rgb(243, 7, 46);
+}
+
+.left-side {
+  display: flex;
+  align-items: center;
+  margin: 10px 0px 10px 5px;
+}
+
+.logo {
+    height: 50px;
+    margin-right: 1rem;
+  }
+  
+  .rma-text {
+    color: white;
+    font-size: 1.5rem;
+  }
+
+.right-side {
+  display: flex;
+  height: 100%;
+  align-items: center;
+}
+
+.country {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  color: white;
+  height: 100%;
+  font-size: 1rem;
+  padding-right: 0.5vw;
+  padding-left: 1vw;
+}
+
+.login-btn {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  background: rgb(117, 18, 18);
+  color: white;
+  font-size: 1rem;
+  padding-right: 2vw;
+  padding-left: 2vw;
+}
