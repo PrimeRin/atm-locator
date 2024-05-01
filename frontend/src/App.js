@@ -1,9 +1,9 @@
 import "./App.css";
-import NavBar from "./components/NavBar";
-import BankInfo from "./components/BankInfo";
-import Map from "./components/Map";
-import FilterAtm from "./components/FilterAtm";
-import Footer from "./components/Footer";
+import NavBar from "./components/js/NavBar";
+import BankInfo from "./components/js/BankInfo";
+import Map from "./components/js/Map";
+import FilterAtm from "./components/js/FilterAtm";
+import Footer from "./components/js/Footer";
 
 function App() {
   return (

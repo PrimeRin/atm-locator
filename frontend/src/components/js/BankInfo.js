@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./BankInfo.css";
+import "../css/BankInfo.css";
 import { faDisplay } from "@fortawesome/free-solid-svg-icons";
 
 export default function BankInfo() {

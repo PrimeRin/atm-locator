@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./FilterAtm.css";
+import "../css/FilterAtm.css";
 import { dzongkhags } from "./dzongkhags_list";
 import Pagination from "./Pagination";
 

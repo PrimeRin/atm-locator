@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./Map.css";
+import "../css/Map.css";
 import AtmCategory from "./AtmCategory";
 import MarkerImg from "./MarkerImg";
 import {

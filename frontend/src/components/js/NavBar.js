@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import "./NavBar.css";
-import rma_logo from "../assets/img/rma-logo.png";
+import "../css/NavBar.css";
+import rma_logo from "../../assets/img/rma-logo.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLock } from "@fortawesome/free-solid-svg-icons";
 

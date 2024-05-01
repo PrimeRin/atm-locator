@@ -1,5 +1,5 @@
 import React from 'react';
-import "./AtmCategory.css";
+import "../css/AtmCategory.css";
 
 export default function AtmCategory({ imageSrc, text, checked, onChange }) {
   return (
