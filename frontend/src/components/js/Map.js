@@ -1,18 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../css/Map.css";
 import AtmCategory from "./AtmCategory";
-import MarkerImg from "./MarkerImg";
-import {
-  useJsApiLoader,
-  GoogleMap,
-  Autocomplete,
-  DirectionsRenderer,
-  Marker,
-} from "@react-google-maps/api";
+import { categoryToImage } from "./MarkerImg";
+import { fetchAtmData } from "./fetchAtmData";
+import { useJsApiLoader, GoogleMap, Marker } from "@react-google-maps/api";
 
 export default function Map() {
   const [map, setMap] = useState(/** @type google.maps.Map */ (null));
-  const rma = { lat: 27.482344, lng: 89.63364 };
+  const center = { lat: 27.522087, lng: 90.253892 };
+
   const [checkboxStates, setCheckboxStates] = useState({
     amc: true,
     hotel: true,
@@ -24,6 +20,16 @@ export default function Map() {
     dpnb_atm: true,
     tbl_atm: true,
   });
+
+  const [atmData, setAtmData] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await fetchAtmData();
+      setAtmData(data);
+    };
+    fetchData();
+  }, []);
 
   const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: process.env.GOOGLE_MAP_API,
@@ -41,13 +47,11 @@ export default function Map() {
     });
   };
 
-  console.log(MarkerImg({category:"bob_atm"}));
-
   return (
     <div className="map-container">
       <GoogleMap
-        center={rma}
-        zoom={8.5}
+        center={center}
+        zoom={8.45}
         mapContainerStyle={{ width: "60vw", height: "40vw" }}
         options={{
           zoomControl: true,
@@ -56,42 +60,61 @@ export default function Map() {
           fullscreenControl: true,
         }}
         onLoad={(map) => setMap(map)}
-      ></GoogleMap>
+      >
+        {atmData
+          .filter((atm) => checkboxStates[atm.category])
+          .map((atm, index) => (
+            <Marker
+              key={index}
+              position={{
+                lat: atm.lat,
+                lng: atm.lng,
+              }}
+              icon={{
+                url: categoryToImage[atm.category],
+                scaledSize: new window.google.maps.Size(40, 40),
+              }}
+              onClick={() => {
+                // openDialog(atm);
+              }}
+            />
+          ))}
+      </GoogleMap>
       <div className="atm-filter">
         <span className="atm-heading">Filter ATM</span>
         <ul className="atm-categories">
           <AtmCategory
-            imageSrc={MarkerImg({category:"hotel"})}
+            imageSrc={categoryToImage["hotel"]}
             text="AMC"
             checked={checkboxStates.amc}
             onChange={() => handleCheckboxChange("amc")}
           />
           <AtmCategory
-            imageSrc={MarkerImg({category:"hotel"})}
+            imageSrc={categoryToImage["hotel"]}
             text="BDBL"
             checked={checkboxStates.bdbl_atm}
             onChange={() => handleCheckboxChange("bdbl_atm")}
           />
           <AtmCategory
-            imageSrc={MarkerImg({category:"bnb_atm"})}
+            imageSrc={categoryToImage["bnb_atm"]}
             text="BNB"
             checked={checkboxStates.bnb_atm}
             onChange={() => handleCheckboxChange("bnb_atm")}
           />
           <AtmCategory
-            imageSrc={MarkerImg({category:"bob_atm"})}
+            imageSrc={categoryToImage["bob_atm"]}
             text="BOB"
             checked={checkboxStates.bob_atm}
             onChange={() => handleCheckboxChange("bob_atm")}
           />
           <AtmCategory
-            imageSrc={MarkerImg({category:"dpnb_atm"})}
+            imageSrc={categoryToImage["dpnb_atm"]}
             text="DPNB"
             checked={checkboxStates.dpnb_atm}
             onChange={() => handleCheckboxChange("dpnb_atm")}
           />
           <AtmCategory
-            imageSrc={MarkerImg({category:"tbl_atm"})}
+            imageSrc={categoryToImage["tbl_atm"]}
             text="Tbank"
             checked={checkboxStates.tbl_atm}
             onChange={() => handleCheckboxChange("tbl_atm")}

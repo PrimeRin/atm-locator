@@ -7,7 +7,7 @@ import hotel from "../../assets/img/icon_hotel.png";
 import resort from "../../assets/img/icon_resort.png";
 import standalone from "../../assets/img/icon_standalone.png";
 
-const categoryToImage = {
+export const categoryToImage = {
     bob_atm: bob_atm,
     bdbl_atm: bdbl_atm,
     bnb_atm: bnb_atm,
@@ -16,9 +16,4 @@ const categoryToImage = {
     hotel: hotel,
     resort: resort,
     standalone: standalone,
-};
-
-export default function MarkerImg({category }){
-    const imageSrc = categoryToImage[category];
-    return imageSrc;
 };

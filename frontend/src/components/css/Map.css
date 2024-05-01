@@ -24,6 +24,22 @@
     background: blue;
 }
 
+@keyframes pulse {
+    0% {
+      transform: scale(1);
+   }
+    50% {
+      transform: scale(1.2);
+   }
+    100% {
+      transform: scale(1);
+   }
+  }
+  
+  .marker-hover {
+   animation: pulse 1s infinite;
+  }  
+
 @media (max-width: 700px) {
     .map-container{
         display: flex;
@@ -38,6 +54,4 @@
     .atm-filter{
         width: 35vw;
     }
-
-
 }
