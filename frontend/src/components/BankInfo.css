@@ -3,6 +3,7 @@
     flex-direction: column;
     padding-top: 3vh ; 
     align-items: flex-start;
+    margin-top: 10px;
 }
 
 .bank-des-container{

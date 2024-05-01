@@ -1,0 +1,43 @@
+.map-container{
+    display: flex;
+    margin-top: 30px;
+    justify-content: space-between;
+}
+
+.atm-filter{
+    width: 20vw;
+}
+
+.atm-heading{
+    font-size: 1.2rem;
+    font-weight: 800;
+}
+
+.atm-categories{
+    border: 1px solid  #ccc;
+    padding-left: 10px !important;
+}
+
+.map-div {
+    width: "60vw";
+    height: "40vh";
+    background: blue;
+}
+
+@media (max-width: 700px) {
+    .map-container{
+        display: flex;
+        flex-direction: column;
+    } 
+
+    .map{
+        width: "60vw";
+        height: "40vw";
+    }
+
+    .atm-filter{
+        width: 35vw;
+    }
+
+
+}

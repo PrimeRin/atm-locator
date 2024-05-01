@@ -18,3 +18,24 @@ function App() {
 }
 
 export default App;
+
+
+map
+{ATM_DATA.features
+  .filter((atm) => checkboxStates[atm.properties.category])
+  .map((atm, index) => (
+    <Marker
+      key={index}
+      position={{
+        lat: atm.geometry.coordinates[1],
+        lng: atm.geometry.coordinates[0],
+      }}
+      icon={{
+        url: categoryToImage[atm.properties.category],
+        scaledSize: new window.google.maps.Size(50, 50),
+      }}
+      onClick={() => {
+        openDialog(atm);
+      }}
+    />
+  ))} 

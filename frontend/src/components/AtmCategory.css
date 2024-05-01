@@ -1,0 +1,21 @@
+
+.atm-category {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    padding: 10px 0px;
+    border-bottom: 1px solid #ccc;
+    gap: 10px;
+  }
+
+  .atm-category input {
+    transform: scale(1.2);
+  }
+  
+  .atm-category img {
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 10%;
+    border: 1px solid #ccc;
+  }
+  
