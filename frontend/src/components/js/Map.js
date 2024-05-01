@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "../css/Map.css";
 import AtmCategory from "./AtmCategory";
 import { categoryToImage } from "./MarkerImg";
-import { fetchAtmData } from "./fetchAtmData";
+import { allAtmData } from "../service/allAtmData";
 import { useJsApiLoader, GoogleMap, Marker } from "@react-google-maps/api";
 
 export default function Map() {
@@ -25,11 +25,13 @@ export default function Map() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await fetchAtmData();
+      const data = await allAtmData();
       setAtmData(data);
     };
     fetchData();
   }, []);
+
+  console.log('I am hjere',atmData);
 
   const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: process.env.GOOGLE_MAP_API,
@@ -61,9 +63,7 @@ export default function Map() {
         }}
         onLoad={(map) => setMap(map)}
       >
-        {atmData
-          .filter((atm) => checkboxStates[atm.category])
-          .map((atm, index) => (
+        {atmData.map((atm, index) => (
             <Marker
               key={index}
               position={{

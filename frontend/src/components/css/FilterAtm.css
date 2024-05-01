@@ -59,7 +59,7 @@
   .custom-table th,
   .custom-table td {
     border: 1px solid #dddddd;
-    text-align: left;
+    text-align: center;
     padding: 8px;
   }
   
@@ -78,5 +78,9 @@
 
   .pagination {
     width: 100%;
+  }
+
+  .map-icon{
+    width: 3rem;
   }
   
