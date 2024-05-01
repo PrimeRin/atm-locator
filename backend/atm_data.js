@@ -1,4 +1,4 @@
-export const ATM_DATA = {
+const ATM_DATA = {
     type: "FeatureCollection",
     features: [
       {
@@ -4315,4 +4315,6 @@ export const ATM_DATA = {
       },
     ],
   };
+
+  module.exports = ATM_DATA;
   
