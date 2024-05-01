@@ -1,0 +1,82 @@
+.filter-con{
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+}
+
+.filter-heading{
+    font-size: 1.2rem;
+    font-weight: 800;
+}
+
+.drop-down {
+    position: relative;
+    display: inline-block;
+}
+
+.drop-down select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-color: #f8f9fa;
+    border: 1px solid #ced4da;
+    padding: 8px 16px;
+    font-size: 16px;
+    cursor: pointer;
+    width: 40vw;
+}
+
+.drop-down select:focus {
+    outline: none;
+    border-color: #495057;
+}
+
+.drop-down select option {
+    background-color: #fff;
+    color: #495057;
+}
+
+.drop-down select option:hover {
+    background-color: #f1f1f1;
+}
+
+.drop-down select option:checked {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.table-con{
+    width: 100%;
+}
+
+.custom-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .custom-table th,
+  .custom-table td {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+  }
+  
+  .custom-table th {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  .custom-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  .custom-table tbody tr:hover {
+    background-color: #f1f1f1;
+  }
+
+  .pagination {
+    width: 100%;
+  }
+  
