@@ -1,7 +1,10 @@
+
 .App {
   text-align: center;
   overflow-x: no-scroll;
   white-space: wrap;
+  position: relative;
+  /* font-family: 'Poppins', sans-serif; */
 }
 
 .App-logo {
@@ -43,3 +46,4 @@
   padding-left: 8vw;
   padding-right: 8vw;
 }
+

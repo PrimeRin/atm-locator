@@ -1,0 +1,47 @@
+.Logincontainer{
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    max-width: 40vh;
+    max-width: 40vw;
+    padding-inline: 90px;
+    padding-block: 40px;
+    box-shadow: lightblue 5px 5px 10px;
+    border-radius: 20px;
+}
+.logo{
+    max-height: 500px;
+    max-width: 500px;
+}
+.loginform{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+
+}
+.logininputs{
+    height: 40px;
+    border-radius: 10px;
+    border: none;
+    padding-inline: 20px;
+    outline: none;
+    box-shadow: lightblue 5px 5px 10px;
+
+}
+
+.loginbutton{
+    height: 40px;
+    border-radius: 10px;
+    border: none;
+    padding-inline: 20px;
+    outline: none;
+    background-color: blue;
+    color: white;
+    box-shadow: lightblue 5px 5px 10px;
+    cursor: pointer;
+
+}

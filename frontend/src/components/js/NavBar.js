@@ -1,10 +1,15 @@
-import React, { useState } from "react";
+import React from "react";
 import "../css/NavBar.css";
 import rma_logo from "../../assets/img/rma-logo.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLock } from "@fortawesome/free-solid-svg-icons";
 
-export default function NavBar() {
+export default function NavBar({showLoginBox}) {
+
+  const handleLoginToggle=()=>{
+    showLoginBox();
+  }
+
   return (
     <div className="nav-container">
       <div className="left-side">
@@ -13,7 +18,7 @@ export default function NavBar() {
       </div>
       <div className="right-side">
         <div className="country">Bhutan</div>
-        <div className="login-btn">
+        <div className="login-btn" onClick={handleLoginToggle}>
         <FontAwesomeIcon icon={faLock} size="lg"/>
           Login
         </div>

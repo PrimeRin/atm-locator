@@ -1,21 +1,16 @@
-import "./App.css";
-import NavBar from "./components/js/NavBar";
-import BankInfo from "./components/js/BankInfo";
-import Map from "./components/js/Map";
-import FilterAtm from "./components/js/FilterAtm";
-import Footer from "./components/js/Footer";
+import {BrowserRouter,Routes,Route} from "react-router-dom"
+import LandingPage from "./pages/Landing";
+// import Login from "../src/components/auth/Login"
 
 function App() {
   return (
-    <div className="App">
-      <NavBar/>
-      <div className="App-body">
-         <BankInfo/>
-         <Map/>
-         <FilterAtm/>
-      </div>
-      <Footer/>
-    </div>
+    <BrowserRouter>
+    <Routes>
+      <Route path="/" element={<LandingPage/>}></Route>
+      {/* <Route path="/userlogin" element={<Login/>}></Route> */}
+    </Routes>
+    </BrowserRouter>
+ 
   );
 }
 
