@@ -1,21 +1,22 @@
 .Logincontainer{
     box-sizing: border-box;
     display: flex;
+    position: fixed;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: white;
-    max-width: 40vh;
-    max-width: 40vw;
-    padding-inline: 90px;
-    padding-block: 40px;
+    background-color: rgb(241, 238, 238);
+    width: 30vw;
+    padding: 30px;
     box-shadow: lightblue 5px 5px 10px;
     border-radius: 20px;
 }
+
 .logo{
     max-height: 500px;
     max-width: 500px;
 }
+
 .loginform{
     display: flex;
     flex-direction: column;
@@ -23,6 +24,15 @@
     width: 100%;
 
 }
+.cross-btn{
+    align-self: flex-end;
+    padding: 5px;
+    cursor: pointer;
+    font-size: 1.3rem;
+    font-weight: 500;
+    border: none;
+}
+
 .logininputs{
     height: 40px;
     border-radius: 10px;
@@ -43,5 +53,8 @@
     color: white;
     box-shadow: lightblue 5px 5px 10px;
     cursor: pointer;
+}
 
+.error{
+    color: brown;
 }

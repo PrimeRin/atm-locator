@@ -31,8 +31,6 @@ export default function Map() {
     fetchData();
   }, []);
 
-  console.log('I am hjere',atmData);
-
   const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: process.env.GOOGLE_MAP_API,
     libraries: ["places"],

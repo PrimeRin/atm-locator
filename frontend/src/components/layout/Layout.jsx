@@ -16,7 +16,7 @@ const Layout = ({ children }) => {
       <NavBar showLoginBox={handleLoginToggle} />
       <div className="App-body">
         <div className="login" style={{ position: "absolute", top: "150px", left: "40%", zIndex: 999, display: showLoginDialogBox ? "block" : "none" }}>
-          {showLoginDialogBox && <Login />}
+          {showLoginDialogBox && <Login onClose={handleLoginToggle}/>}
         </div>
         {children}
       </div>
