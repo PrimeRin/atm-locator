@@ -1,0 +1,68 @@
+
+.search-con{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    margin-top: 30px;
+}
+
+.heading{
+    font-size: 1.2rem;
+    color: rgb(27, 19, 19);
+    font-weight: 700;
+}
+
+.search-con {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+.search-items {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  
+.search-input-container {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 5px;
+    width: 40vw;
+  }
+  
+  .search-icon {
+    color: #888;
+    margin-right: 5px;
+  }
+
+  .plus-icon{
+    color: #888;
+    margin-right: 5px;
+  }
+  
+  .search-input {
+    border: none;
+    outline: none;
+    padding: 5px;
+    font-size: 15px;
+    width: 100%;
+  }
+  
+  .create-atm-btn {
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f1f1f1;
+    cursor: pointer;
+  }
+  
+  .create-atm-btn:hover {
+    background-color: #ddd;
+  }
+  
+  

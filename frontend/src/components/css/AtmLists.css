@@ -1,0 +1,8 @@
+.atmlists-con {
+    margin-top: 30px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 300px); 
+    grid-gap: 10px; 
+    grid-auto-flow: row; 
+   }
+   

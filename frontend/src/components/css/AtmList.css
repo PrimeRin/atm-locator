@@ -1,0 +1,71 @@
+.atmlist-con{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 15vw;
+    padding: 10px;
+    border: 1px solid rgb(111, 106, 106);
+    border-radius: 10px;
+    gap: 10px;
+}
+
+.atm-top{
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-right: 10px;
+}
+
+.contact-details{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 90%;
+    background: rgb(238, 236, 236);
+    padding: 10px;
+    border-radius: 2px;
+}
+
+.phone, .email{
+    padding-left: 10px;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.atm-id{
+    font-weight: 700;
+}
+
+.dialog {
+    position: absolute;
+    top: 18px;
+    right: 5px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+    padding: 5px;
+    cursor: pointer;
+  }
+  
+  .dialog button {
+    display: block;
+    width: 100%;
+    padding: 8px 10px;
+    border: none;
+    background-color: transparent;
+    text-align: left;
+    cursor: pointer;
+  }
+  
+  .dialog button:hover {
+    background-color: #f9f9f9;
+  }
+  
+
+
+
