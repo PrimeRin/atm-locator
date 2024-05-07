@@ -1,9 +1,17 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { useHistory } from "react-router-dom";
 import "../css/SearchAtm.css";
 
 export default function SearchAtm() {
+  const navigate = useNavigate();
+
+  const handleCreateAtm = () => {
+    navigate("/create-atm");
+  };
+
   return (
     <div className="search-con">
       <span className="heading">Search ATM</span>
@@ -16,7 +24,7 @@ export default function SearchAtm() {
             placeholder="Search By ATM ID"
           />
         </div>
-        <button className="create-atm-btn">
+        <button className="create-atm-btn" onClick={handleCreateAtm}>
           <FontAwesomeIcon  className='plus-icon' icon={faPlus} />
           Create ATM
         </button>

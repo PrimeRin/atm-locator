@@ -1,0 +1,31 @@
+.labeled-input-xl{
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    width: 30vw;
+    align-items: flex-start;
+    font-size: 15px;
+    margin-bottom: 4px;
+}
+
+  label {
+    display: block;
+    font-weight: 400;
+    margin-bottom: 5px;
+  }
+  
+  input {
+    width: 100%;
+    padding: 6px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    font-size: 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+  }
+  
+  /* Hover and focus styles */
+  input:hover,
+  input:focus {
+    border-color: #888;
+  }
+  

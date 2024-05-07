@@ -1,0 +1,78 @@
+.out-con{
+    display: flex;
+    flex-direction: row;
+}
+
+.img-con{
+    width: 34vw;
+    
+    background: aqua;
+}
+
+.img-atm{
+    width: 100%;
+    height: 90vh;
+}
+
+.new-atm-con{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 30px;
+    margin-top: 0px;
+    padding: 10px;
+    padding-left: 20px;
+}
+
+.heading{
+    margin-top: 30px;
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+    font-weight: 800;
+}
+
+.location, .lat-lng{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 50px; 
+}
+
+.location-detail{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.contact-detail{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.service-info{
+  
+}
+
+.btn-con{
+    margin-top: 30px;
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.submit-btn {
+  display: inline-block;
+  padding: 10px 40px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+.submit-btn:hover {
+  background-color: #0056b3;
+}
