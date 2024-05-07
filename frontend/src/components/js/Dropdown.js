@@ -1,7 +1,7 @@
 import React from "react";
 import "../css/Dropdown.css";
 
-function Dropdown({ label, options, value, onChange }) {
+function Dropdown({ label, options, value, onChange, disabled}) {
   return (
     <div className="dropdown">
       <label>{label}</label>

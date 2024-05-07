@@ -8,7 +8,7 @@ import {
 import "../css/AtmList.css";
 import { useState } from "react";
 
-export default function AtmList({atm}) {
+export default function AtmList({atm, onSelect}) {
   const [showDialog, setShowDialog] = useState(false);
 
   const toggleDialog = () => {
@@ -16,7 +16,7 @@ export default function AtmList({atm}) {
   };
 
   return (
-    <div className="atmlist-con">
+    <div className="atmlist-con" onClick={() => onSelect(atm)}>
       <div className="atm-top">
         <span className="atm-id">ATM_ID_{atm.id}</span>
         <FontAwesomeIcon icon={faEllipsisV} onClick={toggleDialog} className="icon" />

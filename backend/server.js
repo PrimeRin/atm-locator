@@ -106,6 +106,16 @@ app.get("/all_atms", (req, res) => {
   });
 });
 
+app.get('/atm/:id', (req, res) => {
+  const { id } = req.params;
+  const sql = 'SELECT * FROM atm_info WHERE id =?';
+  db.query(sql, [id], (err, results) => {
+    if (err) throw err;
+    res.json(results[0]);
+  });
+});
+
+
 app.get("/query_atm", (req, res) => {
   const { dzongkhag, page, limit = 10 } = req.query;
   let offset = 0;

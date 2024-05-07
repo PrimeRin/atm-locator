@@ -4,11 +4,13 @@ import "../css/AtmLists.css";
 import AtmList from "./AtmList";
 import Pagination from "./Pagination";
 import { queryAtmData } from "../service/queryAtmData";
+import { useNavigate } from 'react-router-dom';
 
 export default function AtmLists() {
   const [atmData, setAtmData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = 20;
+  const navigate = useNavigate();
 
   const onPageChange = async (pageNumber) => {
     setCurrentPage(pageNumber);
@@ -24,11 +26,15 @@ export default function AtmLists() {
     fetchData();
   }, [currentPage]);
 
+  const handleOnClick = (atm) => {
+    navigate(`/atm/${atm.id}`);
+  };
+
   return (
     <div>
       <div className="atmlists-con">
         {atmData.map((atm) => (
-          <AtmList key={atm.id} atm={atm}/>
+          <AtmList key={atm.id} atm={atm} onSelect={handleOnClick}/>
         ))}
       </div>
       <div>
