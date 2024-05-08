@@ -4,7 +4,7 @@ import Dashboard from "./components/js/Dashboard";
 import Login from "../src/components/auth/Login"
 import NewAtm from "./components/js/NewAtm";
 import AtmDetail from "./components/js/AtmDetail";
-import AdminDashboard from "./components/js/AdminDashboard";
+import AdminDashboard from "./components/layout/AdminDashboard";
 
 function App() {
   return (
@@ -14,6 +14,7 @@ function App() {
       <Route path="/login" element={<Login/>}></Route> 
       <Route path="/dashboard" element={<Dashboard/>}></Route>
       <Route path="/admin-dashboard" element={<AdminDashboard/>}></Route>
+
       <Route path="/create-atm" element={<NewAtm/>}></Route>
       <Route path="/atm/:id" component={<AtmDetail/>} />
     </Routes>
