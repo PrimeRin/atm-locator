@@ -1,8 +1,21 @@
+
+.atm-list-card{
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    background-color:   rgb(233, 235, 236);
+    width: 100%;
+    margin: 10px 10px;
+    padding: 20px 20px;
+    justify-content: space-between;
+    align-items: end;
+}
+
 .atmlists-con {
-    margin-top: 30px;
+    margin-top: 20px;
     display: grid;
-    grid-template-columns: repeat(auto-fill, 300px); 
-    grid-gap: 10px; 
+    grid-template-columns: 1fr 1fr 1fr 1fr; 
+    grid-gap: 1rem; 
     grid-auto-flow: row; 
    }
    

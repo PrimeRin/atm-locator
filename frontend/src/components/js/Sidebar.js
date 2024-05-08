@@ -12,12 +12,7 @@ import {
 } from "react-icons/bs";
 import rma_logo from "../../assets/img/rma-logo.png";
 
-function Sidebar({ openSidebarToggle, OpenSidebar }) {
-  const [activeTab, setActiveTab] = useState("dashboard");
-
-  const handleTabClick = (tab) => {
-    setActiveTab(tab);
-  };
+function Sidebar({ active, openSidebarToggle, OpenSidebar, handleTabClick }) {
 
   return (
     <aside
@@ -38,39 +33,19 @@ function Sidebar({ openSidebarToggle, OpenSidebar }) {
       </div>
 
       <ul className="sidebar-list">
-        <li className={`sidebar-list-item ${activeTab === 'dashboard' ? 'active' : ''}`} onClick={() => handleTabClick('dashboard')}>
+        <li className={`sidebar-list-item ${active === 'admin-dashboard' ? 'active' : ''}`} onClick={() => handleTabClick('admin-dashboard')}>
           <a href="">
             <BsGrid1X2Fill className="icon" /> Dashboard
           </a>
         </li>
-        <li className={`sidebar-list-item ${activeTab === 'atms' ? 'active' : ''}`} onClick={() => handleTabClick('atms')}>
+        <li className={`sidebar-list-item ${active === 'admin-atm-list' ? 'active' : ''}`} onClick={() => handleTabClick('admin-atm-list')}>
           <a href="">
             <BsFillArchiveFill className="icon" /> ATMS
           </a>
         </li>
-        <li className={`sidebar-list-item ${activeTab === 'register-atm' ? 'active' : ''}`} onClick={() => handleTabClick('register-atm')}>
+        <li className={`sidebar-list-item ${active === 'admin-register-atm' ? 'active' : ''}`} onClick={() => handleTabClick('admin-register-atm')}>
           <a href="">
             <BsFillGrid3X3GapFill className="icon" /> Register ATM
-          </a>
-        </li>
-        <li className="sidebar-list-item">
-          <a href="">
-            <BsPeopleFill className="icon" /> Customers
-          </a>
-        </li>
-        <li className="sidebar-list-item">
-          <a href="">
-            <BsListCheck className="icon" /> Inventory
-          </a>
-        </li>
-        <li className="sidebar-list-item">
-          <a href="">
-            <BsMenuButtonWideFill className="icon" /> Reports
-          </a>
-        </li>
-        <li className="sidebar-list-item">
-          <a href="">
-            <BsFillGearFill className="icon" /> Setting
           </a>
         </li>
       </ul>

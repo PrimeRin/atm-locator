@@ -1,0 +1,54 @@
+.admin-search{
+    display: flex;
+    flex-direction: column;
+    padding: 14px 20px 30px 20px;
+    height: 50px;
+    margin: 10px 10px;
+    border-radius: 10px;
+    background-color: rgb(233, 235, 236);
+    gap: 6px;
+    box-shadow: 1px;
+}
+
+.search-icon{
+    color: rgb(189, 192, 195);
+}
+
+.search-field{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    justify-content: space-between;
+    width: 45vw;
+}
+
+.search-input{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    background: white;
+    padding: 4px 10px;
+    border-radius: 10px;
+}
+
+#search{
+    outline: none;
+    border: none;
+    box-shadow: none;
+}
+
+#submit{
+    background: rgb(39, 56, 169);
+    padding: 10px 0px;
+    border-radius: 4px;
+    color: white;
+    width: 130px;
+}
+
+.atm-heading{
+    font-weight: 600;
+    font-size: 18px;
+}
+

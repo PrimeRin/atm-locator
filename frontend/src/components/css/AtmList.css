@@ -5,7 +5,7 @@
     width: 15vw;
     padding: 10px;
     border: 1px solid rgb(111, 106, 106);
-    border-radius: 10px;
+    border-radius: 0px;
     gap: 10px;
 }
 
@@ -64,6 +64,21 @@
   
   .dialog button:hover {
     background-color: #f9f9f9;
+  }
+
+  .admin-atm-list-con{
+    display: flex;
+    flex-direction: column;
+    grid-column-start: 2; 
+    grid-column-end: 6; 
+    grid-row-start: 2; 
+    grid-row-end: 2; 
+  }
+
+  .admin-atm-inner-con{
+    display: flex;
+    flex-direction: row;
+    height: 100%;
   }
   
 

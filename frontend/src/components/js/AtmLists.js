@@ -31,7 +31,7 @@ export default function AtmLists() {
   };
 
   return (
-    <div>
+    <div className="atm-list-card">
       <div className="atmlists-con">
         {atmData.map((atm) => (
           <AtmList key={atm.id} atm={atm} onSelect={handleOnClick}/>

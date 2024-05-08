@@ -1,11 +1,11 @@
-import AdminLayout from './AdminLayout'
-import AtmLists from '../js/AtmLists'
+import AdminLayout from '../components/layout/AdminLayout'
+import Home from '../components/js/Home';
 
 function AdminDashboard() {
 
   return (
     <AdminLayout>
-      <AtmLists/>
+      <Home/>
     </AdminLayout>
   )
 }

@@ -1,7 +1,10 @@
 .pagination {
     display: flex;
     justify-content: center;
-    margin-top: 20px;
+    background-color: (233, 235, 236);
+    padding: 10px;
+    border-radius: 50px;
+    width: 30vw;
   }
   
   .pagination-btn {

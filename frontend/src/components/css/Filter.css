@@ -1,0 +1,34 @@
+.admin-filter{
+    display: flex;
+    flex-direction: column;
+    padding: 20px 20px 20px 20px;
+    margin: 10px 10px;
+    border-radius: 10px;
+    background-color: rgb(233, 235, 236);
+    gap: 8px;
+    width: 270px;
+}
+
+.dzongkhag-con{
+    display: flex;
+    flex-direction: row;
+    gap: 6px;
+    padding-left: 20px;
+    justify-content: flex-start;
+}
+
+.atm-heading{
+    font-weight: 600;
+    font-size: 16px;
+    margin-bottom: 4px;
+}
+
+.filter-item{
+    padding: 0px;
+    border-radius: 0px;
+    border: none;
+    box-shadow: none;
+    margin: 0px;
+    width: 18px;
+}
+
