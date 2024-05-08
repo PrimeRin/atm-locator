@@ -11,8 +11,10 @@ import {
   BsFillGearFill,
 } from "react-icons/bs";
 import rma_logo from "../../assets/img/rma-logo.png";
+import usePath from "./usePath";
 
-function Sidebar({ active, openSidebarToggle, OpenSidebar, handleTabClick }) {
+function Sidebar({ openSidebarToggle, OpenSidebar, handleTabClick }) {
+  const isActive = usePath();
 
   return (
     <aside
@@ -33,17 +35,17 @@ function Sidebar({ active, openSidebarToggle, OpenSidebar, handleTabClick }) {
       </div>
 
       <ul className="sidebar-list">
-        <li className={`sidebar-list-item ${active === 'admin-dashboard' ? 'active' : ''}`} onClick={() => handleTabClick('admin-dashboard')}>
+        <li className={`sidebar-list-item ${isActive('/admin-dashboard') ? 'active' : ''}`} onClick={() => handleTabClick('admin-dashboard')}>
           <a href="">
             <BsGrid1X2Fill className="icon" /> Dashboard
           </a>
         </li>
-        <li className={`sidebar-list-item ${active === 'admin-atm-list' ? 'active' : ''}`} onClick={() => handleTabClick('admin-atm-list')}>
+        <li className={`sidebar-list-item ${isActive('/admin-atm-list') ? 'active' : ''}`} onClick={() => handleTabClick('admin-atm-list')}>
           <a href="">
             <BsFillArchiveFill className="icon" /> ATMS
           </a>
         </li>
-        <li className={`sidebar-list-item ${active === 'admin-register-atm' ? 'active' : ''}`} onClick={() => handleTabClick('admin-register-atm')}>
+        <li className={`sidebar-list-item ${isActive('/admin-register-atm') ? 'active' : ''}`} onClick={() => handleTabClick('admin-register-atm')}>
           <a href="">
             <BsFillGrid3X3GapFill className="icon" /> Register ATM
           </a>

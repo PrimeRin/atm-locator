@@ -7,14 +7,12 @@ import { useNavigate } from "react-router-dom";
 const AdminLayout = ({ children }) => {
   const [openSidebarToggle, setOpenSidebarToggle] = useState(false);
   const navigate = useNavigate();
-  const [active, setActive] = useState('admin-dashboard');
 
   const OpenSidebar = () => {
     setOpenSidebarToggle(!openSidebarToggle);
   };
 
   const handleTabClick = (tab) => {
-    setActive(tab);
     navigate(`/${tab}`); 
   };
   
@@ -22,7 +20,6 @@ const AdminLayout = ({ children }) => {
     <div className="grid-container">
       <Header />
       <Sidebar
-        active={active}
         activeTabName={"admin-dashboard"}
         openSidebarToggle={openSidebarToggle}
         OpenSidebar={OpenSidebar}
