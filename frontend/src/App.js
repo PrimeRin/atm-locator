@@ -6,6 +6,7 @@ import NewAtm from "./components/js/NewAtm";
 import AtmDetail from "./components/js/AtmDetail";
 import AdminDashboard from "./pages/AdminDashboard";
 import AdminAtmList from "./pages/AdminAtmList";
+import AdminNewAtm from "./pages/AdminNewAtm";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
       <Route path="/atm/:id" component={<AtmDetail/>} />
       <Route path="/admin-dashboard" element={<AdminDashboard/>}></Route>
       <Route path="/admin-atm-list" element={<AdminAtmList/>}></Route>
+      <Route path="/admin-register-atm" element={<AdminNewAtm/>}></Route>
     </Routes>
     </BrowserRouter>
   );

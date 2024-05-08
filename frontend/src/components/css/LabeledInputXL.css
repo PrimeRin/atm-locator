@@ -8,15 +8,15 @@
     margin-bottom: 4px;
 }
 
-  label {
+.label-input {
     display: block;
     font-weight: 400;
     margin-bottom: 5px;
   }
   
-  input {
+ .input-input{
     width: 100%;
-    padding: 6px;
+    padding: 10px;
     border-radius: 4px;
     border: 1px solid #ccc;
     font-size: 15px;
@@ -24,8 +24,8 @@
   }
   
   /* Hover and focus styles */
-  input:hover,
-  input:focus {
+  .input-input:hover,
+  .input-input:focus {
     border-color: #888;
   }
   

@@ -1,12 +1,22 @@
 .out-con{
     display: flex;
     flex-direction: row;
+    grid-column-start: 2; 
+    grid-column-end: 6; 
+    grid-row-start: 2; 
+    grid-row-end: 2;
+    margin: 14px 14px;
+    background-color:  rgb(233, 235, 236);
+    border-radius: 10px;
 }
 
 .img-con{
-    width: 34vw;
-    
-    background: aqua;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 30vw;
+    padding-left: 4px;
 }
 
 .img-atm{

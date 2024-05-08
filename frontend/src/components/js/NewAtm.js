@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import "../css/NewAtm.css";
-import Layout from "../layout/Layout";
 import LabeledInput from "./LabeledInput";
 import LabeledInputXL from "./LabeledInputXL";
 import Dropdown from "./Dropdown";
@@ -55,7 +54,6 @@ export default function NewAtm() {
   };
 
   return (
-    <Layout>
       <div className="out-con">
         <div className="img-con">
           <img src={atm} className="img-atm" />
@@ -156,6 +154,5 @@ export default function NewAtm() {
           </div>
         </div>
       </div>
-    </Layout>
   );
 }
