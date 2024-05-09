@@ -20,6 +20,7 @@ function App() {
       <Route path="/admin-dashboard" element={<AdminDashboard/>}></Route>
       <Route path="/admin-register-atm" element={<AdminNewAtm/>}></Route>
       <Route path="/admin-atm-list" element={<AdminAtmList/>}></Route>
+      <Route path="/admin-atm-list/:id" element={<AdminAtmDetails/>}></Route>
       <Route path="/test" element={<AdminAtmDetails/>}></Route>
     </Routes>
     </BrowserRouter>

@@ -6,7 +6,7 @@ const usePath = () => {
  const currentPath = location.pathname;
 
  const isActive = (path) => {
-    return currentPath === path;
+   return currentPath.startsWith(path);
  };
 
  return isActive;

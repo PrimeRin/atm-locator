@@ -1,12 +1,11 @@
 import React from "react";
 import "../css/Dropdown.css";
 
-function Dropdown({ label, options, value, onChange, disabled}) {
+function Dropdown({ label, options, value, onChange}) {
   return (
     <div className="dropdown">
       <label className="dropdown-label">{label}</label>
       <select className="dropdown-select" value={value} onChange={onChange}>
-        <option value=""></option>
         {options.map((option) => (
           <option
             key={option.value}

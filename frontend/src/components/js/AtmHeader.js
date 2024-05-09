@@ -5,23 +5,24 @@ import { SlArrowLeft } from "react-icons/sl";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { MdOutlineModeEdit } from "react-icons/md";
 import { MdDeleteOutline } from "react-icons/md";
+import { useNavigate } from "react-router-dom";
 
-export default function AtmHeader() {
-  const [showDropdown, setShowDropdown] = useState(false);
+export default function AtmHeader({showDropdown, onSelect}) {
+  const navigate = useNavigate();
 
-  const toggleDropdown = () => {
-    setShowDropdown(!showDropdown);
-  };
+  const navigateBack= () => {
+    navigate('/admin-atm-list');
+  }
 
   return (
     <div className="admin-atm-header">
       <div className="back-and-details">
         <div className="back-btn">
-          <SlArrowLeft className="back-icon" />
+          <SlArrowLeft className="back-icon" onClick={navigateBack} />
         </div>
         <div className="atm-details"> ATM DETAILS</div>
       </div>
-      <BsThreeDotsVertical className="dots-icon" onClick={toggleDropdown} />
+      <BsThreeDotsVertical className="dots-icon" onClick={onSelect} />
 
       {showDropdown && (
         <div className="dropdown-menu">

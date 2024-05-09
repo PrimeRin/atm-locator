@@ -31,6 +31,11 @@
     background: white;
     padding: 4px 10px;
     border-radius: 10px;
+    font-size: 18px;
+}
+
+.search-input:hover{
+    border-bottom: 2px solid rgb(67, 120, 211);
 }
 
 #search{

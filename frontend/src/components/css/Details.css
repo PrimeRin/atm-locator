@@ -1,11 +1,12 @@
 .admin-atm-details{
     background-color: rgb(233, 235, 236);
     border-radius: 10px;
+    margin-bottom: 10px;
     height: 100%;
 }
 
 .atm-details-header{
-    background-color: bisque;
+    background-color: rgb(202, 219, 228);
     height: 150px;
     border-radius: 10px 10px 0px 0px;
 }
@@ -31,7 +32,6 @@
     display: flex;
     flex-direction: row;
     justify-content: center;
-    height: 100%;
 }
 
 .atm-details-fields{
@@ -42,7 +42,6 @@
     padding-left: 70px;
     padding-top: 80px;
     gap: 8px;
-    height: 100%;
 }
 
 .atm-details-map{
@@ -123,7 +122,6 @@
     flex-direction: column;
     gap: 6px;
     padding-left: 50px;
-    height: 100%;
 }
 
 .atm-details-location{
