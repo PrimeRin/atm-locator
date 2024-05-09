@@ -27,7 +27,7 @@ export default function AtmLists() {
   }, [currentPage]);
 
   const handleOnClick = (atm) => {
-    navigate(`/atm/${atm.id}`);
+    navigate(`/admin-atm-list/${atm.id}`);
   };
 
   return (

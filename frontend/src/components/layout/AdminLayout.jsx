@@ -9,6 +9,7 @@ const AdminLayout = ({ children }) => {
   const navigate = useNavigate();
 
   const OpenSidebar = () => {
+    console.log('im hehehehheh');
     setOpenSidebarToggle(!openSidebarToggle);
   };
 
