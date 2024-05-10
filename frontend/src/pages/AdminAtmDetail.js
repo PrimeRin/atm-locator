@@ -6,16 +6,32 @@ import { useState } from "react";
 
 function AdminAtmDetails() {
   const [showDropdown, setShowDropdown] = useState(false);
+  const [showWarning, setShowWarning] = useState(false);
   const toggleDropdown = (value) => {
     console.log(value);
     setShowDropdown(value);
   };
 
+  const handleCancel = () => {
+    setShowWarning(false);
+  }
+
+  const handleDeleteConfirm = () => {
+    setShowWarning(false);
+  }
+
   return (
     <AdminLayout>
-      <div className="admin-atm-details-con" >
-        <AtmHeader showDropdown={showDropdown} onSelect={()=>toggleDropdown(!showDropdown)} />
-        <Details onSelect={()=>toggleDropdown(false)} />
+      <div className="admin-atm-details-con">
+        <AtmHeader
+          showDropdown={showDropdown}
+          onSelect={() => toggleDropdown(!showDropdown)}
+          showWarning={showWarning}
+          onDelete={() => { setShowWarning(true); setShowDropdown(false) }}
+          onCancel={handleCancel}
+          onDeleteConfirm={handleDeleteConfirm}
+        />
+        <Details onSelect={() => toggleDropdown(false)} />
       </div>
     </AdminLayout>
   );
