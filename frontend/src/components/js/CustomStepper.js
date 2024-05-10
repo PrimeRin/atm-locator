@@ -1,0 +1,23 @@
+import React, { useState } from "react";
+import { MdOutlineModeEdit } from "react-icons/md";
+import { TiTick } from "react-icons/ti";
+import { PiLineVertical } from "react-icons/pi";
+import "../css/CustomStepper.css";
+
+export default function CustomStepper() {
+  return (
+    <div className="custom-stepper-con">
+        <div className="stepper-item active">
+            <TiTick size={25} className="stepper-icon" />
+            <span>Basic Information</span>
+        </div>
+        <div className="custom-stepper-item">
+            <PiLineVertical size={25}/>
+        </div>
+        <div className="stepper-item">
+            <MdOutlineModeEdit size={25} className="stepper-icon" />
+            <span>Location</span>
+        </div>
+    </div>
+  );
+}

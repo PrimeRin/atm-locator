@@ -1,0 +1,57 @@
+.admin-atm-edits-con{
+    display: flex;
+    flex-direction: column;
+    padding: 0px 10px;
+    grid-column-start: 2; 
+    grid-column-end: 6; 
+    grid-row-start: 2; 
+    grid-row-end: 2; 
+    height: 100%;
+}
+
+.admin-atm-edits-form-con{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    gap: 10px;
+    margin-bottom: 10px;
+    height: 100%;
+}
+
+.custom-stepper-con{
+    display: flex;
+    flex-direction: column;
+    padding: 10px 20px;
+    background-color:rgb(233, 235, 236);
+    border-radius: 10px;
+    flex: 1;
+    height: fit-content;
+}
+
+.custom-stepper-item{
+    margin-left: 20px;
+}
+
+.stepper-item{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap:10px;
+    padding: 10px;
+    border-radius: 20px;
+}
+
+.stepper-item.active{
+    background-color: beige;
+}
+
+.stepper-item:hover{
+    background-color: beige;
+}
+
+.stepper-icon{
+    padding: 10px;
+    border-radius: 50%;
+    background-color: rgb(112, 188, 226);
+}

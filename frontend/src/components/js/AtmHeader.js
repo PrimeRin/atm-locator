@@ -5,7 +5,7 @@ import { SlArrowLeft } from "react-icons/sl";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { MdOutlineModeEdit } from "react-icons/md";
 import { MdDeleteOutline } from "react-icons/md";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,  useLocation} from "react-router-dom";
 import DeleteWarning from "./DeleteWarning";
 
 export default function AtmHeader({
@@ -15,12 +15,21 @@ export default function AtmHeader({
   onDelete,
   onCancel,
   onDeleteConfirm,
+  text,
+  showThreeDot,
 }) {
   const navigate = useNavigate();
+  const location = useLocation();
 
   const navigateBack = () => {
     navigate("/admin-atm-list");
   };
+
+  const navigateEdit = () => {
+    const currentPath = location.pathname;
+    const newPath = `${currentPath}/edit`;
+    navigate(newPath);
+  }
 
   return (
     <div className="admin-atm-header">
@@ -28,19 +37,19 @@ export default function AtmHeader({
         <div className="back-btn">
           <SlArrowLeft className="back-icon" onClick={navigateBack} />
         </div>
-        <div className="atm-details"> ATM DETAILS</div>
+        <div className="atm-details"> {text} </div>
       </div>
-      <BsThreeDotsVertical className="dots-icon" onClick={onSelect} />
+      {showThreeDot && <BsThreeDotsVertical className="dots-icon" onClick={onSelect} />}
 
       {showDropdown && (
         <div className="dropdown-menu">
-          <div className="dropdown-item-con">
+          <div className="dropdown-item-con" onClick={navigateEdit}>
             <MdOutlineModeEdit size={25} />
             <span className="atm-edit-btn">Edit</span>
           </div>
-          <div className="dropdown-item-con">
+          <div className="dropdown-item-con" onClick={onDelete}>
             <MdDeleteOutline size={25} />
-            <span className="atm-edit-btn" onClick={onDelete}>
+            <span className="atm-edit-btn">
               Delete
             </span>
           </div>

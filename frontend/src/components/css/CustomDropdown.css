@@ -1,0 +1,52 @@
+.dropdown-field {
+    width: 100%;
+    height: 40px;
+    font-size: 16px;
+    color: #070707;
+    border: 1.2px solid #fff;
+    outline: none;
+    border-radius: 5px;
+    background-color: white;
+    border: 1px solid rgb(74, 72, 72);
+    padding: 24px 0px;
+    appearance: none; /* Remove default arrow */
+    -webkit-appearance: none; /* Remove default arrow for Safari */
+    -moz-appearance: none; /* Remove default arrow for Firefox */
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 20px;
+  }
+  
+  .dropdown-field:focus {
+    border: 2px solid rgb(218, 45, 45);
+  }
+  
+  .dropdown-group {
+    position: relative;
+    margin: 12px 0;
+    width: 100%;
+  }
+  
+  .register-dropdown-label {
+    position: absolute;
+    top: 50%;
+    left: 5px;
+    transform: translateY(-50%);
+    font-size: 16px;
+    padding: 0 5px;
+    pointer-events: none;
+    transition: 0.5s;
+  }
+  
+  .dropdown-field.has-value ~ .register-dropdown-label,
+  .dropdown-field:focus ~ .register-dropdown-label {
+    top: 0;
+    font-size: 12px;
+    background: white;
+  }
+
+  .register-dropdown-option{
+    padding: 10px;
+    margin: 10px;
+  }
+  

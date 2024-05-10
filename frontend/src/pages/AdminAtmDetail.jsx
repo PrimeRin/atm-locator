@@ -30,6 +30,8 @@ function AdminAtmDetails() {
           onDelete={() => { setShowWarning(true); setShowDropdown(false) }}
           onCancel={handleCancel}
           onDeleteConfirm={handleDeleteConfirm}
+          text = {"ATM DETAILS"}
+          showThreeDot = {true}
         />
         <Details onSelect={() => toggleDropdown(false)} />
       </div>
