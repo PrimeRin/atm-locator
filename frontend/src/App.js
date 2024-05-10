@@ -9,6 +9,7 @@ import AdminAtmList from "./pages/AdminAtmList";
 import AdminNewAtm from "./pages/AdminNewAtm";
 import AdminAtmDetails from "./pages/AdminAtmDetail";
 import AdminAtmEdit from "./pages/AdminAtmEdit";
+import AdminAtmRegister from "./pages/AdminAtmRegister";
 
 function App() {
   return (
@@ -19,7 +20,7 @@ function App() {
       <Route path="/dashboard" element={<Dashboard/>}></Route>
       <Route path="/create-atm" element={<NewAtm/>}></Route>
       <Route path="/admin-dashboard" element={<AdminDashboard/>}></Route>
-      <Route path="/admin-register-atm" element={<AdminNewAtm/>}></Route>
+      <Route path="/admin-register-atm" element={<AdminAtmRegister/>}></Route>
       <Route path="/admin-atm-list" element={<AdminAtmList/>}></Route>
       <Route path="/admin-atm-list/:id" element={<AdminAtmDetails/>}></Route>
       <Route path="/admin-atm-list/:id/edit" element={<AdminAtmEdit/>}></Route>

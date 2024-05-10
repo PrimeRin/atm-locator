@@ -10,12 +10,21 @@
 .register-page-1{
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    justify-content: space-between;
+    height: 100%;
     padding: 20px 50px;
 }
 
-.register-page-2{
-    display: none;
+.register-page-1-hd{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.register-page-2-hd{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
 }
 
 .register-heading{
@@ -69,9 +78,25 @@
 .register-button{
     display: flex;
     flex-direction: row;
-    justify-content: flex-end;
+    justify-content:space-between;
     width: 100%;
     gap: 14px;
+}
+
+.save-button{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 14px;
+    width: 100%;
+}
+
+.inner-save-button{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    gap: 14px;
+    width: 100%;
 }
 
 .register-cancel{
@@ -83,4 +108,38 @@
     padding: 14px 40px;
     border-radius: 8px;
     background-color: aqua;
+}
+
+.register-back{
+    padding: 14px 40px;
+    border-radius: 8px;
+}
+
+.register-create{
+    padding: 14px 40px;
+    border-radius: 8px;
+}
+
+.register-page-2{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: space-between;
+    padding: 20px 50px;
+    gap: 8px;
+}
+
+.show-map{
+    display: flex;
+    flex-direction: row;
+}
+
+.show-map-text{
+    flex:3;
+    display: flex;
+    flex-direction: column;
+}
+
+.show-map-iframe{
+    flex: 6;
 }
