@@ -57,16 +57,16 @@
 
 .service-status{
     padding: 10px;
-    background-color: beige;
+    background-color:  rgb(206, 222, 231);;
     border-radius: 10px;
 }
 
 .service-status.active{
-    background-color: aqua;
+    background-color: rgb(112, 188, 226);;
 }
 
 .service-status:hover{
-    background-color: aqua;
+    background-color:  rgb(112, 188, 226);
 }
 
 .blank-none{
@@ -102,22 +102,43 @@
 .register-cancel{
     padding: 14px 26px;
     border-radius: 8px;
+    font-size: 15px;
+    border: 1px solid #2962ff;
+    color: #2962ff;
 }
 
 .register-next{
     padding: 14px 40px;
     border-radius: 8px;
-    background-color: aqua;
+    background-color: #2962ff;
+    color: white;
+    font-size: 15px;
 }
 
 .register-back{
     padding: 14px 40px;
     border-radius: 8px;
+    border: 1px solid #2962ff;
+    color: #2962ff;
+    font-size: 15px;
 }
 
 .register-create{
     padding: 14px 40px;
     border-radius: 8px;
+    color: white;
+    font-size: 15px;
+    background-color: #2962ff;
+}
+
+.register-cancel:hover{
+    background-color: rgb(112, 188, 226);
+    color: white;
+}
+
+.register-back:hover{
+   background-color: rgb(112, 188, 226); 
+   color: white;
 }
 
 .register-page-2{

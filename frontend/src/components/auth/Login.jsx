@@ -23,7 +23,7 @@ const Login = ({ onClose }) => {
        
        if (response.data.success) {
          console.log('Login successful');
-         navigate('/dashboard');
+         navigate('/admin-dashboard');
        } else {
          setError(response.data.message);
        }

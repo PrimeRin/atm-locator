@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import "../css/Details.css";
 import atm_img from "../../assets/amcs/BOB-ATM/bob/bob.png";
-import { FaEnvelope, FaPhone, FaGlobe} from "react-icons/fa";
+import { FaEnvelope, FaPhone, FaGlobe } from "react-icons/fa";
 import { FiMapPin } from "react-icons/fi";
 
-export default function Details({onSelect}) {
+export default function Details({ onSelect }) {
   return (
     <div className="admin-atm-details" onClick={onSelect}>
       <div className="atm-details-header">
@@ -79,21 +79,16 @@ export default function Details({onSelect}) {
 
               <div className="atm-details-contact-row">
                 <span className="details-icon">
-                <FiMapPin />
+                  <FiMapPin />
                 </span>
                 <div className="atm-details-contact-col">
                   <span className="atm-details-label">Gewog</span>
-                  <span>
-                    Changangkha
-                  </span>
+                  <span>Changangkha</span>
                 </div>
               </div>
             </div>
           </div>
-
         </div>
-
-        
 
         <div className="atm-details-map">
           <span className="atm-details-location">Map</span>

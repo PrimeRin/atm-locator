@@ -39,7 +39,7 @@
 
 
 .dots-icon:hover{
-    background-color:rgb(174, 174, 219); 
+    background-color:rgb(206, 222, 231);
     padding: 10px;
     border-radius: 10px;
 }
@@ -87,12 +87,13 @@
     width: 100%;
     gap: 10px;
     color: black; 
-    padding: 12px 0px; 
+    padding: 12px 4px; 
     border: none;
     width: 100%;
+    border-radius: 10px;
   }
   
   .dropdown-item-con:hover {
-    background-color: #eae1e1;
+    background-color: rgb(206, 222, 231);;;
   }
   

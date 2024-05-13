@@ -2,8 +2,13 @@ import React, { useState } from "react";
 import "../css/RegisterForm.css";
 import CustomInput from "./CustomInput";
 import CustomDropdown from "./CustomDropdown";
+import { dzongkhags } from "./dzongkhags_list";
 
 export default function RegisterForm({ page, onNext, onBack }) {
+  const dzongkhag_options = [];
+  dzongkhags.forEach((dzongkhag) => {
+    dzongkhag_options.push({ label: dzongkhag, value: dzongkhag });
+  });
   const options = [
     { value: "option1", label: "Option 1" },
     { value: "option2", label: "Option 2" },
@@ -25,8 +30,8 @@ export default function RegisterForm({ page, onNext, onBack }) {
               </div>
 
               <div className="register-location-row">
-                <CustomDropdown label="Dzongkhag*" options={options} />
-                <CustomDropdown label="Gewog*" options={options} />
+                <CustomDropdown label="Dzongkhag*" options={dzongkhag_options} />
+                <CustomDropdown label="Gewog*" options={dzongkhag_options} />
               </div>
             </div>
 

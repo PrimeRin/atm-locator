@@ -5,17 +5,9 @@ import CustomStepper from "../components/js/CustomStepper";
 import RegisterForm from "../components/js/RegisterForm";
 import "../components/css/AtmHeader.css";
 import "../components/css/CustomStepper.css";
+import GroupRegistration from "../components/js/GroupRegistration";
 
 function AdminAtmRegister() {
-  const [page, setPage] = useState(1);
-
-  function handleStepper() {
-    setPage(page + 1);
-  }
-
-  function handleBack(){
-    setPage(page -1);
-  }
 
   return (
     <AdminLayout>
@@ -31,8 +23,7 @@ function AdminAtmRegister() {
           showThreeDot={false}
         />
         <div className="admin-atm-edits-form-con">
-          <CustomStepper page={page} />
-          <RegisterForm page={page} onNext={handleStepper} onBack={handleBack}/>
+          <GroupRegistration/>
         </div>
       </div>
     </AdminLayout>

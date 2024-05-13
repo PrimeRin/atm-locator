@@ -81,7 +81,7 @@
     align-self: flex-start;
     padding: 6px 20px;
     border-radius: 20px;
-    background-color: rgb(237, 219, 198);
+    background-color: rgb(206, 222, 231);
 }
 
 .atm-details-contact-con{
@@ -112,7 +112,7 @@
     align-items: center;
     justify-content: center;
     border-radius: 20px;
-    background-color: rgb(237, 219, 198);
+    background-color: rgb(206, 222, 231);
     flex: 1;
     padding: 16px 8px;
 }

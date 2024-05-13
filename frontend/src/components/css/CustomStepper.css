@@ -43,15 +43,20 @@
 }
 
 .stepper-item.active{
-    background-color: beige;
+    background-color: rgb(112, 188, 226);
 }
 
 .stepper-item:hover{
-    background-color: beige;
+    background-color: rgb(185, 214, 229);
 }
 
 .stepper-icon{
     padding: 10px;
     border-radius: 50%;
-    background-color: rgb(112, 188, 226);
+    color: white;
+    background-color: #2962ff;
+}
+
+.custom-stepper-item{
+    color: #2962ff;
 }
