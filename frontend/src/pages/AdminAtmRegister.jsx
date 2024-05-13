@@ -1,8 +1,6 @@
 import { useState } from "react";
 import AdminLayout from "../components/layout/AdminLayout";
 import AtmHeader from "../components/js/AtmHeader";
-import CustomStepper from "../components/js/CustomStepper";
-import RegisterForm from "../components/js/RegisterForm";
 import "../components/css/AtmHeader.css";
 import "../components/css/CustomStepper.css";
 import GroupRegistration from "../components/js/GroupRegistration";
