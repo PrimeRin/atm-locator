@@ -3,6 +3,7 @@ import AtmLists from "../components/js/AtmLists";
 import SearchBar from "../components/js/SearchBar";
 import Filter from "../components/js/Filter";
 import "../components/css/AtmList.css";
+import "../components/css/AtmLists.css";
 
 function AdminAtmList() {
   return (

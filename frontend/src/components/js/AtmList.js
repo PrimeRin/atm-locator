@@ -5,40 +5,83 @@ import {
   faPhone,
   faEnvelope,
 } from "@fortawesome/free-solid-svg-icons";
+import { RiGlobalLine } from "react-icons/ri";
+import { MdOutlineLocalPhone } from "react-icons/md";
+import { MdOutlineModeEdit } from "react-icons/md";
+import { MdDeleteOutline } from "react-icons/md";
 import "../css/AtmList.css";
 import { useState } from "react";
+import DeleteWarning from "./DeleteWarning";
+import { useNavigate,  useLocation} from "react-router-dom";
 
-export default function AtmList({atm, onSelect}) {
-  const [showDialog, setShowDialog] = useState(false);
+export default function AtmList({ atm, onSelect }) {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [showDeleteWarning, setShowDeleteWarning] = useState(false);
+  const [showDropdown, setShowDropdown] = useState(false);
 
-  const toggleDialog = () => {
-    setShowDialog(!showDialog);
-  };
+  const navigateEdit = () => {
+    const currentPath = location.pathname;
+    const newPath = `${currentPath}/edit`;
+    navigate(newPath);
+  }
 
+  function toggleDropDown(){
+    setShowDropdown(!showDropdown);
+  }
+
+  function toggleDeleteWarning(){
+    toggleDropDown();
+    setShowDeleteWarning(!showDeleteWarning);
+  }
+  
   return (
-    <div className="atmlist-con" onClick={() => onSelect(atm)}>
+    <div className="atmlist-con">
       <div className="atm-top">
         <span className="atm-id">ATM_ID_{atm.id}</span>
-        <FontAwesomeIcon icon={faEllipsisV} onClick={toggleDialog} className="icon" />
-        {showDialog && (
-          <div className="dialog">
-            <button>Edit</button>
-            <button>Delete</button>
+        <FontAwesomeIcon
+          icon={faEllipsisV}
+          onClick={toggleDropDown}
+          className="icon"
+        />
+      </div>
+
+      {showDropdown && (
+        <div className="list-dropdown-menu">
+          <div className="list-dropdown-item-con" onClick={navigateEdit}>
+            <MdOutlineModeEdit size={25} />
+            <span className="list-atm-edit-btn">Edit</span>
           </div>
-        )}
-      </div>
-      <div className="location">
-        <span>{atm.name}</span>
-      </div>
-      <div className="contact-details">
-        <span>{atm.category}</span>
-        <div className="email">
-          <FontAwesomeIcon icon={faEnvelope} className="icon" />
-          <span>{atm.website}</span>
+          <div className="list-dropdown-item-con" onClick={setShowDeleteWarning}>
+            <MdDeleteOutline size={25} />
+            <span className="list-atm-edit-btn">
+              Delete
+            </span>
+          </div>
         </div>
-        <div className="phone">
-          <FontAwesomeIcon icon={faPhone} className="icon" />
-          <span>{atm.phone}</span>
+      )}
+
+      {showDeleteWarning && (
+        <DeleteWarning onCancel={toggleDeleteWarning} onDeleteConfirm={toggleDeleteWarning}/>
+      )}
+
+      <div className="atm-bottom" onClick={() => onSelect(atm)}>
+        <div className="location">
+          <span>{atm.name}</span>
+        </div>
+
+        <div className="contact-details">
+          <span>{atm.category}</span>
+          <div className="inner-contact-details">
+            <div className="email">
+              <RiGlobalLine icon={faEnvelope} className="icon" />
+              <span>{atm.website}</span>
+            </div>
+            <div className="phone">
+              <MdOutlineLocalPhone icon={faPhone} className="icon" />
+              <span>{atm.phone}</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>

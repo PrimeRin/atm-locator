@@ -1,86 +1,75 @@
 .atmlist-con{
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    width: 15vw;
-    padding: 10px;
-    border: 1px solid rgb(111, 106, 106);
-    border-radius: 0px;
-    gap: 10px;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid black;
+  padding: 10px;
+  gap: 10px;
+  box-shadow: 1px 1px 1px rgb(188, 185, 185);
+  border-radius: 10px;
+  position: relative;
 }
 
 .atm-top{
-    position: relative;
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    padding-right: 10px;
-}
-
-.contact-details{
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    width: 90%;
-    background: rgb(238, 236, 236);
-    padding: 10px;
-    border-radius: 2px;
-}
-
-.phone, .email{
-    padding-left: 10px;
-    display: flex;
-    flex-direction: row;
-    gap: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 .atm-id{
-    font-weight: 700;
+  font-size: 18px;
+  font-weight: 500;
 }
 
-.dialog {
-    position: absolute;
-    top: 18px;
-    right: 5px;
-    background-color: #fff;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    z-index: 1;
-    padding: 5px;
-    cursor: pointer;
-  }
-  
-  .dialog button {
-    display: block;
-    width: 100%;
-    padding: 8px 10px;
-    border: none;
-    background-color: transparent;
-    text-align: left;
-    cursor: pointer;
-  }
-  
-  .dialog button:hover {
-    background-color: #f9f9f9;
-  }
+.contact-details{
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  background-color: rgb(206, 222, 231);
+  padding: 10px;
+  border-radius: 10px;
+}
 
-  .admin-atm-list-con{
-    display: flex;
-    flex-direction: column;
-    grid-column-start: 2; 
-    grid-column-end: 6; 
-    grid-row-start: 2; 
-    grid-row-end: 2; 
-  }
+.inner-contact-details{
+  margin-left: 10px;
+}
 
-  .admin-atm-inner-con{
-    display: flex;
-    flex-direction: row;
-    height: 100%;
-  }
-  
+.email, .location, .phone, .website{
+  white-space: nowrap; 
+  overflow: hidden; 
+  text-overflow: ellipsis; 
+}
 
+.list-dropdown-menu {
+  padding: 10px;
+  border-radius: 10px;
+  position: absolute;
+  right: 25px;
+  top: 20px;
+  background-color: #f9f9f9; 
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); 
+  z-index: 5; 
+}
 
+.list-dropdown-item-con{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  align-content: center;
+  justify-content: flex-start;
+  width: 100%;
+  gap: 10px;
+  color: black; 
+  padding: 12px 4px; 
+  border: none;
+  width: 100%;
+  border-radius: 10px;
+}
 
+.list-dropdown-item-con:hover {
+  background-color: rgb(206, 222, 231);;;
+}
+
+.icon{
+  cursor: pointer;
+}

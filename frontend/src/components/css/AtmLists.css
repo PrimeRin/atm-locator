@@ -1,3 +1,17 @@
+.admin-atm-list-con{
+    display: flex;
+    flex-direction: column;
+    grid-column-start: 2; 
+    grid-column-end: 6; 
+    grid-row-start: 2; 
+    grid-row-end: 2; 
+  }
+  
+  .admin-atm-inner-con{
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+  }
 
 .atm-list-card{
     display: flex;
@@ -12,10 +26,10 @@
 }
 
 .atmlists-con {
-    margin-top: 20px;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr; 
-    grid-gap: 1rem; 
-    grid-auto-flow: row; 
-   }
+    grid-template-columns: repeat(auto-fill, minmax(16vw, 1fr)); /* Stretch to fill available space */
+    grid-gap: 1.5rem;
+    width: 100%;
+  }
+  
    
