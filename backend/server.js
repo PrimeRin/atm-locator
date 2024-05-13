@@ -117,7 +117,7 @@ app.get('/atm/:id', (req, res) => {
 
 
 app.get("/query_atm", (req, res) => {
-  const { dzongkhag, page, limit = 30 } = req.query;
+  const { dzongkhag, page, limit = 10 } = req.query;
   let offset = 0;
 
   if (!page) {
