@@ -1,10 +1,7 @@
 .admin-atm-list-con{
     display: flex;
     flex-direction: column;
-    grid-column-start: 2; 
-    grid-column-end: 6; 
-    grid-row-start: 2; 
-    grid-row-end: 2; 
+    grid-area: main;
   }
   
   .admin-atm-inner-con{
@@ -27,9 +24,10 @@
 
 .atmlists-con {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(16vw, 1fr)); /* Stretch to fill available space */
+    grid-template-columns: repeat(auto-fill, minmax(15vw, 1fr));
     grid-gap: 1.5rem;
     width: 100%;
+    overflow-y: scroll;
+    height: 75vh;
   }
-  
    
