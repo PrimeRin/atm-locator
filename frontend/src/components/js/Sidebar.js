@@ -24,8 +24,7 @@ function Sidebar({ openSidebarToggle, OpenSidebar, handleTabClick }) {
   const navigate = useNavigate(); 
 
   function logOut(){
-    localStorage.removeItem("user"); 
-    sessionStorage.removeItem("user");
+    localStorage.removeItem('jwtToken');
     navigate("/"); 
   }
 

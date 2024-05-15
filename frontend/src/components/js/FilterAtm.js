@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "../css/FilterAtm.css";
 import { dzongkhags } from "./dzongkhags_list";
 import Pagination from "./Pagination";
-import { queryAtmData } from "../service/queryAtmData";
+import { atmList } from "../service/atmList";
 import google_img from "../../assets/img/google-map.png";
 
 export default function FilterAtm() {
@@ -13,13 +13,13 @@ export default function FilterAtm() {
 
   const onPageChange = async (pageNumber, dzongkhag) => {
     setCurrentPage(pageNumber);
-    const data = await queryAtmData(pageNumber, dzongkhag);
+    const data = await atmList(pageNumber, dzongkhag);
     setAtmData(data);
   };
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await queryAtmData(currentPage, selectedDzongkhag);
+      const data = await atmList(currentPage, selectedDzongkhag);
       setAtmData(data);
     };
     fetchData();

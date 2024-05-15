@@ -19,24 +19,17 @@ const Login = ({ onClose }) => {
         {
           username,
           password,
-        },
-        { withCredentials: true } // This tells Axios to send cookies with the request
+        }
       );
   
       if (response.data.success) {
-        // Extract the session cookie from the response headers
-        const sessionCookie = response.headers["set-cookie"];
-  
-        // Set the session cookie in the browser. Ensure the path and other attributes match what your server expects
-        document.cookie = `sessionId=${sessionCookie}; path=/; SameSite=Lax`;
-  
-        // Navigate to the admin dashboard. Ensure this doesn't cause a full page reload if possible
+        localStorage.setItem('jwtToken', response.data.token);
         navigate("/admin-dashboard");
       } else {
         setError(response.data.message);
       }
     } catch (error) {
-      setError("Login failed");
+      setError("Incorrect Username or Password!");
     }
   };  
 
