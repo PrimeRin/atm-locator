@@ -17,9 +17,17 @@ import
  from 'react-icons/bs'
  import profile from "../../assets/img/profile.jpeg";
  import { CiLogout } from "react-icons/ci";
+ import { useNavigate } from "react-router-dom"; 
 
 function Sidebar({ openSidebarToggle, OpenSidebar, handleTabClick }) {
   const isActive = usePath();
+  const navigate = useNavigate(); 
+
+  function logOut(){
+    localStorage.removeItem("user"); 
+    sessionStorage.removeItem("user");
+    navigate("/"); 
+  }
 
   return (
     <aside
@@ -87,7 +95,7 @@ function Sidebar({ openSidebarToggle, OpenSidebar, handleTabClick }) {
         
         <div className="log-out-btn-con">
         <CiLogout size={25}/>
-        <span className="log-out-btn">
+        <span className="log-out-btn" onClick={logOut}>
           Log out
         </span>
       </div>

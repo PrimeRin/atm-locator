@@ -1,19 +1,12 @@
 const LocalStrategy = require('passport-local').Strategy;
-const mysql = require('mysql');
 const bcrypt = require('bcrypt');
 const db = require("./database.js");
-
-// Connect to MySQL
-db.connect((err) => {
-  if (err) throw err;
-  console.log('Connected to MySQL database');
-});
 
 // Passport configuration
 const passportConfig = (passport) => {
   passport.use(new LocalStrategy(
     function(username, password, done) {
-      db.query('SELECT * FROM Users WHERE user_name =?', [username], function(err, results) {
+      db.query('SELECT * FROM Users WHERE username = ?', [username], function(err, results) {
         if (err) { return done(err); }
         if (!results.length) {
           return done(null, false, { message: 'Incorrect username.' });
@@ -21,7 +14,7 @@ const passportConfig = (passport) => {
         const user = results[0];
         bcrypt.compare(password, user.password, function(err, res) {
           if (err) { return done(err); }
-          if (!res) { // Changed 'res === false' to 'res' to correctly check the result of bcrypt.compare
+          if (!res) { 
             return done(null, false, { message: 'Incorrect password.' });
           } else {
             return done(null, user);
@@ -33,11 +26,11 @@ const passportConfig = (passport) => {
 
   passport.serializeUser(function(user, done) {
     console.log('Serializing user:', user);
-    done(null, user.user_id);
+    done(null, user.id); // Serialize the user ID
   });
 
   passport.deserializeUser(function(id, done) {
-    db.query('SELECT * FROM Users WHERE user_id =?', [id], function(err, results) {
+    db.query('SELECT * FROM Users WHERE id = ?', [id], function(err, results) {
       if (err) {
         return done(err, null);
       }
