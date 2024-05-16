@@ -3,8 +3,19 @@ import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import "../css/SearchBar.css";
+import { useState } from "react";
 
-export default function SearchBar() {
+export default function SearchBar({onSearch}) {
+  const [inputText, setInputText] = useState('');
+
+  const handleInputChange = (e) => {
+    setInputText(e.target.value);
+  };
+
+  const handleSearch = () => {
+    onSearch(inputText);
+  };
+
   return (
     <div className="admin-search">
       <span className="atm-heading">ATM List</span>
@@ -15,10 +26,12 @@ export default function SearchBar() {
             type="text"
             id="search"
             placeholder="Search by atm id"
+            value={inputText}
+            onChange={handleInputChange}
             required
           />
         </div>
-        <input type="submit" value="Search" id="submit" />
+        <input type="submit" value="Search" id="submit"  onClick={handleSearch}/>
       </div>
     </div>
   );

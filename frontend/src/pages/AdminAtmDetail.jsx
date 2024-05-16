@@ -2,13 +2,30 @@ import AdminLayout from "../components/layout/AdminLayout";
 import AtmHeader from "../components/js/AtmHeader";
 import "../components/css/AtmHeader.css";
 import Details from "../components/js/Details";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { fetchAtmDetails } from "../components/service/atmDetail";
+import { useParams } from 'react-router-dom';
 
 function AdminAtmDetails() {
   const [showDropdown, setShowDropdown] = useState(false);
   const [showWarning, setShowWarning] = useState(false);
+  const [data, setData] = useState([]);
+  const { id } = useParams(); 
+
+  useEffect(() => {
+    fetchDataForAtmId(id);
+  }, [id]); 
+
+  const fetchDataForAtmId = async (id) => {
+    try {
+      const fetchedData = await fetchAtmDetails(id);
+      setData(fetchedData);
+    } catch (error) {
+      console.error('Failed to fetch ATM details:', error);
+    }
+  };
+  
   const toggleDropdown = (value) => {
-    console.log(value);
     setShowDropdown(value);
   };
 
@@ -33,7 +50,7 @@ function AdminAtmDetails() {
           text = {"ATM DETAILS"}
           showThreeDot = {true}
         />
-        <Details onSelect={() => toggleDropdown(false)} />
+        <Details onSelect={() => toggleDropdown(false)} data={data} />
       </div>
     </AdminLayout>
   );

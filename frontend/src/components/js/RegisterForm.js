@@ -4,7 +4,8 @@ import CustomInput from "./CustomInput";
 import CustomDropdown from "./CustomDropdown";
 import { dzongkhags } from "./dzongkhags_list";
 
-export default function RegisterForm({ page, onNext, onBack }) {
+export default function RegisterForm({ page, onNext, onBack, data}) {
+
   const dzongkhag_options = [];
   dzongkhags.forEach((dzongkhag) => {
     dzongkhag_options.push({ label: dzongkhag, value: dzongkhag });
@@ -22,7 +23,7 @@ export default function RegisterForm({ page, onNext, onBack }) {
           <div className="register-page-1-hd">
             <span className="register-heading">Basic Information</span>
             <span>Please fill the basic information of the ATM</span>
-            <CustomInput label="ATM Name*" />
+            <CustomInput label="ATM Name*" data={data? data.name : ''} />
             <span className="register-sub-heading">Add Location Manually</span>
             <div className="register-location-col">
               <div className="register-location-row">
@@ -30,8 +31,8 @@ export default function RegisterForm({ page, onNext, onBack }) {
               </div>
 
               <div className="register-location-row">
-                <CustomDropdown label="Dzongkhag*" options={dzongkhag_options} />
-                <CustomDropdown label="Gewog*" options={dzongkhag_options} />
+                <CustomDropdown label="Dzongkhag*" options={dzongkhag_options} data={data? data.dzongkhag : ''} />
+                <CustomDropdown label="Gewog*" options={dzongkhag_options} data={data? data.gewog : ''} />
               </div>
             </div>
 
@@ -40,24 +41,24 @@ export default function RegisterForm({ page, onNext, onBack }) {
             </span>
             <div className="register-location-col">
               <div className="register-location-row">
-                <CustomInput label="Website address*" />
+                <CustomInput label="Website address*" data={data? data.website : ''}/>
               </div>
 
               <div className="register-location-row">
-                <CustomInput label="Email Address*" />
-                <CustomInput label="Contact Number*" />
+                <CustomInput label="Email Address*" data={data? data.email : ''} />
+                <CustomInput label="Contact Number*" data={data? data.phone : ''} />
               </div>
             </div>
 
             <span className="register-sub-heading">Service Status</span>
             <div className="register-service-info">
-              <span className="service-status">Always Open</span>
-              <span className="service-status">Inactive</span>
-              <span className="service-status">Maintenance</span>
-              <span className="service-status active">Custom Time</span>
+              <span className={`service-status ${data ? data.service_status === 'Always Open'? 'active' : '' : ''}`}>Always Open</span>
+              <span className={`service-status ${data ? data.service_status === 'Inactive'? 'active' : '' : ''}`}>Inactive</span>
+              <span className={`service-status ${data ? data.service_status === 'Maintenance'? 'active' : '' : ''}`}>Maintenance</span>
+              <span className={`service-status ${data ? data.service_status === 'Custom Time'? 'active' : '' : ""}`}>Custom Time</span>
             </div>
             <div className="register-location-row">
-              <CustomInput label="Custom Time" />
+              <CustomInput label="Custom Time" data={data? data.service_status : ''} />
               <span className="blank-none"></span>
             </div>
           </div>
@@ -79,8 +80,8 @@ export default function RegisterForm({ page, onNext, onBack }) {
             <span>Please enter the latitude and longitude for the ATM</span>
 
             <div className="register-location-row">
-              <CustomInput label="Latitude*" />
-              <CustomInput label="Longitude*" />
+              <CustomInput label="Latitude*" data={data? data.latitude : ''} />
+              <CustomInput label="Longitude*" data={data? data.longitude : ''}/>
             </div>
 
             <span className="register-sub-heading">Display Map</span>

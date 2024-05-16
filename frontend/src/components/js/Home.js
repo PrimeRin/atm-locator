@@ -15,18 +15,11 @@ import {
 } from "recharts";
 import AtmHeader from "./AtmHeader";
 import { atmCount } from "../service/atmCount";
+import { bankFullName } from "./bankFullName";
 
 function Home() {
   const [bankATMCount, setBankATMCount] = useState([])
   const [dzongATMCount, setDzongATMCount] = useState([])
-  const bankFullName = {
-    BOB: 'Bank of Bhutan(Bob)',
-    BNB: 'Bhutan National Bank(BNB)',
-    DPNB: 'Druk PNB Bank(DPNB)',
-    DK: 'Digital Kidu Bank(DK)',
-    TB: 'T Bank(TB)',
-    BDBL: 'Bhutan Development Bank Limited'
-  }
 
   useEffect(() => {
     atmCount('bank')

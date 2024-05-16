@@ -38,7 +38,7 @@ export default function AtmList({ atm, onSelect }) {
   return (
     <div className="atmlist-con">
       <div className="atm-top">
-        <span className="atm-id">ATM_ID_{atm.id}</span>
+        <span className="atm-id">{atm.id}</span>
         <FontAwesomeIcon
           icon={faEllipsisV}
           onClick={toggleDropDown}

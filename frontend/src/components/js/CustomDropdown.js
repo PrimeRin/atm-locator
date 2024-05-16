@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "../css/CustomDropdown.css";
 
-const Dropdown = ({ label, options }) => {
+const Dropdown = ({ label, options, data }) => {
   const [selectedOption, setSelectedOption] = useState('');
 
   function handleChange(event){
@@ -12,7 +12,7 @@ const Dropdown = ({ label, options }) => {
     <div className="dropdown-group">
       <select
         className={`dropdown-field ${selectedOption ? "has-value" : ""}`}
-        value={selectedOption}
+        value={data? data : selectedOption}
         onChange={handleChange}
         required
       >
