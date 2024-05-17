@@ -2,19 +2,39 @@ import React, { useState } from "react";
 import "../css/RegisterForm.css";
 import CustomInput from "./CustomInput";
 import CustomDropdown from "./CustomDropdown";
-import { dzongkhags } from "./dzongkhags_list";
+import { dzongkhags, gewogs } from "./dzongkhags_list";
 
-export default function RegisterForm({ page, onNext, onBack, data}) {
+export default function RegisterForm({ page, onNext, onBack, data }) {
+  const [formData, setFormData] = useState([
+    { name: "", location_name: "", dzongkhag: "", gewog: "", latitude: "", longitude: "", website: "", phone: "", email: "", service_status: "" },
+  ]);
 
-  const dzongkhag_options = [];
-  dzongkhags.forEach((dzongkhag) => {
-    dzongkhag_options.push({ label: dzongkhag, value: dzongkhag });
+  const gewog_options = [];
+  gewogs.forEach((dzongkhag) => {
+    for (const key in dzongkhag) {
+      if (Object.hasOwnProperty.call(dzongkhag, key)) {
+        const gewogsArr = dzongkhag[key];
+        gewogsArr.forEach((gewog) => {
+          gewog_options.push(gewog);
+        });
+      }
+    }
   });
-  const options = [
-    { value: "option1", label: "Option 1" },
-    { value: "option2", label: "Option 2" },
-    { value: "option3", label: "Option 3" },
-  ];
+
+  console.log(gewog_options);
+
+  const handleInputChange = (key, value) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      [key]: value,
+    }));
+  };
+
+  console.log(formData);
+
+  const handleSubmit = () => {
+    console.log("Form Data:", formData);
+  };
 
   return (
     <div className="atm-register-con">
@@ -23,16 +43,41 @@ export default function RegisterForm({ page, onNext, onBack, data}) {
           <div className="register-page-1-hd">
             <span className="register-heading">Basic Information</span>
             <span>Please fill the basic information of the ATM</span>
-            <CustomInput label="ATM Name*" data={data? data.name : ''} />
+            <CustomInput
+              label="ATM Name*"
+              data={data ? data.name : ""}
+              key="name"
+              formData={formData.name}
+              onType={handleInputChange}
+            />
             <span className="register-sub-heading">Add Location Manually</span>
             <div className="register-location-col">
               <div className="register-location-row">
-                <CustomInput label="Location Name*" />
+                <CustomInput
+                  label="Location Name*"
+                  key="location_name"
+                  formData={formData.location_name}
+                  onType={handleInputChange}
+                />
               </div>
 
               <div className="register-location-row">
-                <CustomDropdown label="Dzongkhag*" options={dzongkhag_options} data={data? data.dzongkhag : ''} />
-                <CustomDropdown label="Gewog*" options={dzongkhag_options} data={data? data.gewog : ''} />
+                <CustomDropdown
+                  label="Dzongkhag*"
+                  value = "dzongkhag"
+                  options={dzongkhags}
+                  data={data ? data.dzongkhag : ""}
+                  onType={handleInputChange}
+                  formData={formData.dzongkhag}
+                />
+                <CustomDropdown
+                  label="Gewog*"
+                  value = "gewog"
+                  options={ formData.dzongkhag? gewogs[formData.dzongkhag]: gewog_options }
+                  data={data ? data.gewog : ""}
+                  onType={handleInputChange}
+                  formData={formData.gewog}
+                />
               </div>
             </div>
 
@@ -41,24 +86,93 @@ export default function RegisterForm({ page, onNext, onBack, data}) {
             </span>
             <div className="register-location-col">
               <div className="register-location-row">
-                <CustomInput label="Website address*" data={data? data.website : ''}/>
+                <CustomInput
+                  label="Website address*"
+                  key="website"
+                  data={data ? data.website : ""}
+                  onType={handleInputChange}
+                />
               </div>
 
               <div className="register-location-row">
-                <CustomInput label="Email Address*" data={data? data.email : ''} />
-                <CustomInput label="Contact Number*" data={data? data.phone : ''} />
+                <CustomInput
+                  label="Email Address*"
+                  key="email"
+                  data={data ? data.email : ""}
+                  onType={handleInputChange}
+                />
+                <CustomInput
+                  label="Contact Number*"
+                  key="phone"
+                  data={data ? data.phone : ""}
+                  onType={handleInputChange}
+                />
               </div>
             </div>
 
             <span className="register-sub-heading">Service Status</span>
             <div className="register-service-info">
-              <span className={`service-status ${data ? data.service_status === 'Always Open'? 'active' : '' : ''}`}>Always Open</span>
-              <span className={`service-status ${data ? data.service_status === 'Inactive'? 'active' : '' : ''}`}>Inactive</span>
-              <span className={`service-status ${data ? data.service_status === 'Maintenance'? 'active' : '' : ''}`}>Maintenance</span>
-              <span className={`service-status ${data ? data.service_status === 'Custom Time'? 'active' : '' : ""}`}>Custom Time</span>
+              <span
+                className={`service-status ${
+                  (data && data.service_status === "Always Open") ||
+                  (formData && formData.service_status === "Always Open")
+                    ? "active"
+                    : ""
+                }`}
+                onClick={() =>
+                  handleInputChange("service_status", "Always Open")
+                }
+              >
+                Always Open
+              </span>
+              <span
+                className={`service-status ${
+                  (data && data.service_status === "Inactive") ||
+                  (formData && formData.service_status === "Inactive")
+                    ? "active"
+                    : ""
+                }`}
+                onClick={() => handleInputChange("service_status", "Inactive")}
+              >
+                Inactive
+              </span>
+
+              <span
+                className={`service-status ${
+                  (data && data.service_status === "Maintenance") ||
+                  (formData && formData.service_status === "Maintenance")
+                    ? "active"
+                    : ""
+                }`}
+                onClick={() =>
+                  handleInputChange("service_status", "Maintenance")
+                }
+              >
+                Maintenance
+              </span>
+              <span
+                className={`service-status ${
+                  (data && data.service_status === "Custom Time") ||
+                  (formData && formData.service_status === "Custom Time")
+                    ? "active"
+                    : ""
+                }`}
+                onClick={() =>
+                  handleInputChange("service_status", "Custom Time")
+                }
+              >
+                Custom Time
+              </span>
             </div>
             <div className="register-location-row">
-              <CustomInput label="Custom Time" data={data? data.service_status : ''} />
+              {formData.service_status === "Custom Time" && (
+                <CustomInput
+                  label="Custom Time"
+                  key={"service_status"}
+                  data={data ? data.service_status : ""}
+                  onType={handleInputChange}
+                />
+              )}
               <span className="blank-none"></span>
             </div>
           </div>
@@ -80,8 +194,18 @@ export default function RegisterForm({ page, onNext, onBack, data}) {
             <span>Please enter the latitude and longitude for the ATM</span>
 
             <div className="register-location-row">
-              <CustomInput label="Latitude*" data={data? data.latitude : ''} />
-              <CustomInput label="Longitude*" data={data? data.longitude : ''}/>
+              <CustomInput
+                label="Latitude*"
+                key="latitude"
+                data={data ? data.latitude : ""}
+                onType={handleInputChange}
+              />
+              <CustomInput
+                label="Longitude*"
+                key="longitude"
+                data={data ? data.longitude : ""}
+                onType={handleInputChange}
+              />
             </div>
 
             <span className="register-sub-heading">Display Map</span>

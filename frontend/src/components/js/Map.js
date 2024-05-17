@@ -2,38 +2,40 @@ import React, { useState, useEffect } from "react";
 import "../css/Map.css";
 import AtmCategory from "./AtmCategory";
 import { categoryToImage } from "./MarkerImg";
-import { allAtmData } from "../service/allAtmData";
 import { useJsApiLoader, GoogleMap, Marker } from "@react-google-maps/api";
+import { atmList } from "../service/atmList";
 
 export default function Map() {
   const [map, setMap] = useState(/** @type google.maps.Map */ (null));
   const center = { lat: 27.522087, lng: 90.253892 };
+  const [page, setPage] = useState(1);
+  const [data, setData] = useState([]);
 
   const [checkboxStates, setCheckboxStates] = useState({
-    amc: true,
-    hotel: true,
-    resort: true,
-    standalone: true,
-    bdbl_atm: true,
-    bnb_atm: true,
-    bob_atm: true,
-    dpnb_atm: true,
-    tbl_atm: true,
+    BDBL: true,
+    BNB: true,
+    BOB: true,
+    DPNB: true,
+    TB: true,
   });
 
-  const [atmData, setAtmData] = useState([]);
-
   useEffect(() => {
-    const fetchData = async () => {
-      const data = await allAtmData();
-      setAtmData(data);
+    const fetchData = async (page) => {
+      const response = await atmList(page);
+      const { data, hasMore } = response;
+      setData((prevData) => [...prevData, ...data]);
+
+      if (hasMore) {
+        setPage((prevPage) => prevPage + 1);
+        fetchData(page + 1);
+      }
     };
-    fetchData();
-  }, []);
+
+    fetchData(page);
+  }, [page]);
 
   const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: process.env.GOOGLE_MAP_API,
-    libraries: ["places"],
   });
 
   if (!isLoaded) {
@@ -51,7 +53,7 @@ export default function Map() {
     <div className="map-container">
       <GoogleMap
         center={center}
-        zoom={8.45}
+        zoom={9}
         mapContainerStyle={{ width: "60vw", height: "40vw" }}
         options={{
           zoomControl: true,
@@ -61,15 +63,17 @@ export default function Map() {
         }}
         onLoad={(map) => setMap(map)}
       >
-        {atmData.map((atm, index) => (
+        {data
+          .filter((atm) => checkboxStates[atm.bank_category])
+          .map((atm, index) => (
             <Marker
               key={index}
               position={{
-                lat: atm.lat,
-                lng: atm.lng,
+                lat: atm.latitude,
+                lng: atm.longitude,
               }}
               icon={{
-                url: categoryToImage[atm.category],
+                url: categoryToImage[atm.bank_category],
                 scaledSize: new window.google.maps.Size(40, 40),
               }}
               onClick={() => {
@@ -82,40 +86,34 @@ export default function Map() {
         <span className="atm-heading">Filter ATM</span>
         <ul className="atm-categories">
           <AtmCategory
-            imageSrc={categoryToImage["hotel"]}
-            text="AMC"
-            checked={checkboxStates.amc}
-            onChange={() => handleCheckboxChange("amc")}
-          />
-          <AtmCategory
-            imageSrc={categoryToImage["hotel"]}
+            imageSrc={categoryToImage["BDBL"]}
             text="BDBL"
-            checked={checkboxStates.bdbl_atm}
-            onChange={() => handleCheckboxChange("bdbl_atm")}
+            checked={checkboxStates.BDBL}
+            onChange={() => handleCheckboxChange("BDBL")}
           />
           <AtmCategory
-            imageSrc={categoryToImage["bnb_atm"]}
+            imageSrc={categoryToImage["BNB"]}
             text="BNB"
-            checked={checkboxStates.bnb_atm}
-            onChange={() => handleCheckboxChange("bnb_atm")}
+            checked={checkboxStates.BNB}
+            onChange={() => handleCheckboxChange("BNB")}
           />
           <AtmCategory
-            imageSrc={categoryToImage["bob_atm"]}
+            imageSrc={categoryToImage["BOB"]}
             text="BOB"
-            checked={checkboxStates.bob_atm}
-            onChange={() => handleCheckboxChange("bob_atm")}
+            checked={checkboxStates.BOB}
+            onChange={() => handleCheckboxChange("BOB")}
           />
           <AtmCategory
-            imageSrc={categoryToImage["dpnb_atm"]}
+            imageSrc={categoryToImage["DPNB"]}
             text="DPNB"
-            checked={checkboxStates.dpnb_atm}
-            onChange={() => handleCheckboxChange("dpnb_atm")}
+            checked={checkboxStates.DPNB}
+            onChange={() => handleCheckboxChange("DPNB")}
           />
           <AtmCategory
-            imageSrc={categoryToImage["tbl_atm"]}
+            imageSrc={categoryToImage["TB"]}
             text="Tbank"
-            checked={checkboxStates.tbl_atm}
-            onChange={() => handleCheckboxChange("tbl_atm")}
+            checked={checkboxStates.TB}
+            onChange={() => handleCheckboxChange("TB")}
           />
         </ul>
       </div>

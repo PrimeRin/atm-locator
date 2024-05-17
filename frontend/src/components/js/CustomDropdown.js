@@ -1,29 +1,29 @@
 import React, { useState } from "react";
 import "../css/CustomDropdown.css";
 
-const Dropdown = ({ label, options, data }) => {
-  const [selectedOption, setSelectedOption] = useState('');
+const Dropdown = ({ label, value, options, data, onType, formData}) => {
 
-  function handleChange(event){
-    setSelectedOption(event.target.value);
+  function handleOnChange(event){
+    console.log('i AMA HERE',value, event.target.value);
+    onType(value, event.target.value)
   }
 
   return (
     <div className="dropdown-group">
       <select
-        className={`dropdown-field ${selectedOption ? "has-value" : ""}`}
-        value={data? data : selectedOption}
-        onChange={handleChange}
+        className={`dropdown-field ${data ? "has-value" : ""}`}
+        value={data? data : formData}
+        onChange={handleOnChange}
         required
       >
         <option value="none" disabled>{" "}</option>
-        {options.map((option) => (
+        {options.map((option, index) => (
           <option
             className="register-dropdown-option"
-            key={option.value}
-            value={option.value}
+            key={index}
+            value={option}
           >
-            {option.label}
+            {option}
           </option>
         ))}
       </select>

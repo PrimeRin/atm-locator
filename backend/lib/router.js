@@ -96,14 +96,13 @@ router.get("/atm_count", authenticateJWT, (req, res) => {
   });
 });
 
-
 router.get("/query_atm", authenticateJWT, async (req, res) => {
   const { search, filter, dzongkhag, page = 1, pageSize = 10 } = req.query;
 
   const pageNum = parseInt(page, 10);
   const size = parseInt(pageSize, 10);
   const offset = (pageNum - 1) * size;
-  const filterList = filter? filter.split(',').map(item => item.trim()) : [];
+  const filterList = filter ? filter.split(",").map((item) => item.trim()) : [];
 
   try {
     let sqlQuery = "SELECT * FROM atm_details WHERE 1=1";
@@ -111,11 +110,12 @@ router.get("/query_atm", authenticateJWT, async (req, res) => {
 
     if (search) {
       sqlQuery += " AND (name LIKE?)";
-      queryParams.push(`%${search}%`,);
+      queryParams.push(`%${search}%`);
     }
 
     if (filterList.length > 0) {
-      sqlQuery += " AND dzongkhag IN (" + filterList.map((_, i) => "?").join(",") + ")";
+      sqlQuery +=
+        " AND dzongkhag IN (" + filterList.map((_, i) => "?").join(",") + ")";
       queryParams.push(...filterList);
     }
 
@@ -129,24 +129,22 @@ router.get("/query_atm", authenticateJWT, async (req, res) => {
       if (err) {
         console.error(err);
         return res
-       .status(500)
-       .json({ error: "An error occurred while fetching ATM information" });
+          .status(500)
+          .json({ error: "An error occurred while fetching ATM information" });
       }
       return res.json(result);
     });
-
   } catch (error) {
     console.error(error);
     res.status(500).send("An error occurred during the search.");
   }
 });
 
-
-router.get('/admin-atm-list/:id', async (req, res) => {
+router.get("/admin-atm-list/:id", async (req, res) => {
   const { id } = req.params;
   console.log(id);
-  console.log('I AM HERE');
-  const sql = 'SELECT * FROM atm_details WHERE id = ?';
+  console.log("I AM HERE");
+  const sql = "SELECT * FROM atm_details WHERE id = ?";
   db.query(sql, [id], (err, results) => {
     if (err) {
       console.error(err);
@@ -182,7 +180,7 @@ router.get("/atm_list", (req, res) => {
     });
   } else {
     offset = (parseInt(page) - 1) * limit;
-    let sql = `SELECT * FROM atm_info LIMIT ? OFFSET ?`;
+    let sql = `SELECT * FROM atm_details LIMIT ? OFFSET ?`;
     let params = [limit, offset];
 
     if (dzongkhag) {
@@ -197,7 +195,12 @@ router.get("/atm_list", (req, res) => {
           .status(500)
           .json({ error: "An error occurred while fetching ATM information" });
       }
-      return res.json(result);
+
+      const hasMore = result.length === parseInt(limit);
+      return res.json({
+        data: result,
+        hasMore: hasMore,
+      });
     });
   }
 });

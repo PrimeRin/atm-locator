@@ -6,21 +6,23 @@ import { atmList } from "../service/atmList";
 import google_img from "../../assets/img/google-map.png";
 
 export default function FilterAtm() {
-  const [atmData, setAtmData] = useState([]);
+  const [data, setData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedDzongkhag, setSelectedDzongkhag] = useState("Thimphu");
   const totalPages = 20;
 
   const onPageChange = async (pageNumber, dzongkhag) => {
     setCurrentPage(pageNumber);
-    const data = await atmList(pageNumber, dzongkhag);
-    setAtmData(data);
+    const response = await atmList(pageNumber, dzongkhag);
+    const { data } = response;
+    setData(data);
   };
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await atmList(currentPage, selectedDzongkhag);
-      setAtmData(data);
+      const response = await atmList(currentPage, selectedDzongkhag);
+      const { data } = response;
+      setData(data);
     };
     fetchData();
   }, [currentPage, selectedDzongkhag]);
@@ -33,8 +35,8 @@ export default function FilterAtm() {
     <div className="filter-con">
       <span className="filter-heading">Search ATM</span>
       <div className="drop-down">
-        <select onChange={handleDzongkhagChange}>
-          <option disabled selected value="">
+        <select onChange={handleDzongkhagChange} value={selectedDzongkhag}>
+          <option disabled value="">
             Select one Dzongkhag
           </option>
           {dzongkhags.map((dzongkhag, index) => (
@@ -53,22 +55,28 @@ export default function FilterAtm() {
               <th>Bank Branch</th>
               <th>Phone</th>
               <th>Website</th>
-              <th>ATM_ID</th>
+              <th>Dzongkhag</th>
+              <th>Gewog</th>
             </tr>
           </thead>
           <tbody>
-            {atmData.map((atm, index) => (
-              <tr>
+            {data.map((atm, index) => (
+              <tr key={index}>
                 <td>
-                  <a href="http://www.google.com/maps/place/{atm.lat},{atm.lng}">
+                  <a
+                    href={`http://www.google.com/maps/place/${atm.latitude},${atm.longitude}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     <img src={google_img} className="map-icon" alt="Map" />
                   </a>
                 </td>
                 <td>{atm.name}</td>
-                <td>{atm.category}</td>
+                <td>{atm.bank_category}</td>
                 <td>{atm.phone}</td>
-                <td>{atm.website} 3</td>
+                <td>{atm.website}</td>
                 <td>{atm.dzongkhag}</td>
+                <td>{atm.gewog}</td>
               </tr>
             ))}
           </tbody>
