@@ -55,3 +55,18 @@
         width: 35vw;
     }
 }
+
+.google-map-con{
+    position: relative;
+    border: 5px solid black;
+}
+
+.current-location-icon{
+    position: absolute;
+    width: 32px;
+    top: 64px;
+    right: 10px;
+    padding: 4px;
+    background-color: white;
+    border-radius: 2px;
+}

@@ -1,0 +1,47 @@
+.atm-info-window{
+    margin-bottom: 20px;
+}
+
+.atm-info-heading{
+    width: 100%;
+    font-weight: 900;
+    font-size: 20px;
+    padding: 4px 0px;
+}
+
+.line{
+    border-top: 1px solid rgb(56, 55, 55);
+}
+
+.atm-info-con{
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    width: 20vw;
+}
+
+.atm-info-img{
+    margin-top: 4px;
+    width: 100%;
+}
+
+.label-bold{
+    font-weight: 500;
+}
+
+.google-map-btn{
+    margin-top: 10px;
+    padding: 6px;
+    border-radius: 10px;
+    background-color: rgb(78, 78, 151);
+    color: white;
+}
+
+.redirect-map{
+    text-decoration: none;
+    color: white;
+}
+
+.gm-style .gm-style-iw-a {
+    margin-top: -20px;
+}
