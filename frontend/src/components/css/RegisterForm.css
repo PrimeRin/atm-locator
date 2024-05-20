@@ -164,3 +164,15 @@
 .show-map-iframe{
     flex: 6;
 }
+
+.error-message{
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+.error-text{
+    font-size: 18px;
+    color: red;
+}

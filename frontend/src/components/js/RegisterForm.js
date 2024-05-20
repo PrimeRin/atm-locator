@@ -4,11 +4,16 @@ import CustomInput from "./CustomInput";
 import CustomDropdown from "./CustomDropdown";
 import { dzongkhags, gewogs } from "./dzongkhags_list";
 
-export default function RegisterForm({ page, onNext, onBack, data }) {
-  const [formData, setFormData] = useState([
-    { name: "", location_name: "", dzongkhag: "", gewog: "", latitude: "", longitude: "", website: "", phone: "", email: "", service_status: "" },
-  ]);
-
+export default function RegisterForm({
+  page,
+  onNext,
+  onBack,
+  data,
+  formData,
+  onType,
+  error,
+  onSubmit
+}) {
   const gewog_options = [];
   gewogs.forEach((dzongkhag) => {
     for (const key in dzongkhag) {
@@ -21,20 +26,14 @@ export default function RegisterForm({ page, onNext, onBack, data }) {
     }
   });
 
-  console.log(gewog_options);
-
-  const handleInputChange = (key, value) => {
-    setFormData((prevData) => ({
-      ...prevData,
-      [key]: value,
-    }));
-  };
-
-  console.log(formData);
-
-  const handleSubmit = () => {
-    console.log("Form Data:", formData);
-  };
+  function getGewogsByName(name) {
+    for (let i = 0; i < gewogs.length; i++) {
+      if (Object.keys(gewogs[i])[0] === name) {
+        return gewogs[i][name];
+      }
+    }
+    return null;
+  }
 
   return (
     <div className="atm-register-con">
@@ -46,37 +45,43 @@ export default function RegisterForm({ page, onNext, onBack, data }) {
             <CustomInput
               label="ATM Name*"
               data={data ? data.name : ""}
-              key="name"
-              formData={formData.name}
-              onType={handleInputChange}
+              value="name"
+              formData={formData.name ? formData.name : ""}
+              onType={onType}
             />
             <span className="register-sub-heading">Add Location Manually</span>
             <div className="register-location-col">
               <div className="register-location-row">
                 <CustomInput
                   label="Location Name*"
-                  key="location_name"
-                  formData={formData.location_name}
-                  onType={handleInputChange}
+                  value="location_name"
+                  formData={
+                    formData.location_name ? formData.location_name : ""
+                  }
+                  onType={onType}
                 />
               </div>
 
               <div className="register-location-row">
                 <CustomDropdown
                   label="Dzongkhag*"
-                  value = "dzongkhag"
+                  value="dzongkhag"
                   options={dzongkhags}
                   data={data ? data.dzongkhag : ""}
-                  onType={handleInputChange}
-                  formData={formData.dzongkhag}
+                  onType={onType}
+                  formData={formData.dzongkhag ? formData.dzongkhag : ""}
                 />
                 <CustomDropdown
                   label="Gewog*"
-                  value = "gewog"
-                  options={ formData.dzongkhag? gewogs[formData.dzongkhag]: gewog_options }
+                  value="gewog"
+                  options={
+                    formData.dzongkhag
+                      ? getGewogsByName(formData.dzongkhag)
+                      : gewog_options
+                  }
                   data={data ? data.gewog : ""}
-                  onType={handleInputChange}
-                  formData={formData.gewog}
+                  onType={onType}
+                  formData={formData.gewog ? formData.gewog : ""}
                 />
               </div>
             </div>
@@ -88,24 +93,27 @@ export default function RegisterForm({ page, onNext, onBack, data }) {
               <div className="register-location-row">
                 <CustomInput
                   label="Website address*"
-                  key="website"
+                  value="website"
                   data={data ? data.website : ""}
-                  onType={handleInputChange}
+                  onType={onType}
+                  formData={formData.website ? formData.website : ""}
                 />
               </div>
 
               <div className="register-location-row">
                 <CustomInput
                   label="Email Address*"
-                  key="email"
+                  value="email"
                   data={data ? data.email : ""}
-                  onType={handleInputChange}
+                  onType={onType}
+                  formData={formData.email ? formData.email : ""}
                 />
                 <CustomInput
                   label="Contact Number*"
-                  key="phone"
+                  value="phone"
                   data={data ? data.phone : ""}
-                  onType={handleInputChange}
+                  onType={onType}
+                  formData={formData.phone ? formData.phone : ""}
                 />
               </div>
             </div>
@@ -119,9 +127,9 @@ export default function RegisterForm({ page, onNext, onBack, data }) {
                     ? "active"
                     : ""
                 }`}
-                onClick={() =>
-                  handleInputChange("service_status", "Always Open")
-                }
+                onClick={() => {
+                  onType("service_status", "Always Open");
+                }}
               >
                 Always Open
               </span>
@@ -132,7 +140,9 @@ export default function RegisterForm({ page, onNext, onBack, data }) {
                     ? "active"
                     : ""
                 }`}
-                onClick={() => handleInputChange("service_status", "Inactive")}
+                onClick={() => {
+                  onType("service_status", "Inactive");
+                }}
               >
                 Inactive
               </span>
@@ -144,9 +154,9 @@ export default function RegisterForm({ page, onNext, onBack, data }) {
                     ? "active"
                     : ""
                 }`}
-                onClick={() =>
-                  handleInputChange("service_status", "Maintenance")
-                }
+                onClick={() => {
+                  onType("service_status", "Maintenance");
+                }}
               >
                 Maintenance
               </span>
@@ -157,9 +167,9 @@ export default function RegisterForm({ page, onNext, onBack, data }) {
                     ? "active"
                     : ""
                 }`}
-                onClick={() =>
-                  handleInputChange("service_status", "Custom Time")
-                }
+                onClick={() => {
+                  onType("service_status", "Custom Time");
+                }}
               >
                 Custom Time
               </span>
@@ -168,12 +178,16 @@ export default function RegisterForm({ page, onNext, onBack, data }) {
               {formData.service_status === "Custom Time" && (
                 <CustomInput
                   label="Custom Time"
-                  key={"service_status"}
+                  value={"custom_time"}
                   data={data ? data.service_status : ""}
-                  onType={handleInputChange}
+                  onType={onType}
+                  formData={formData.custom_time ? formData.custom_time : ""}
                 />
               )}
               <span className="blank-none"></span>
+            </div>
+            <div className="error-message">
+              {error ? <span className="error-text">{error}</span> : null}
             </div>
           </div>
           <div className="register-page-1-ft">
@@ -196,15 +210,17 @@ export default function RegisterForm({ page, onNext, onBack, data }) {
             <div className="register-location-row">
               <CustomInput
                 label="Latitude*"
-                key="latitude"
+                value="latitude"
                 data={data ? data.latitude : ""}
-                onType={handleInputChange}
+                onType={onType}
+                formData={formData.latitude ? formData.latitude : ""}
               />
               <CustomInput
                 label="Longitude*"
-                key="longitude"
+                value="longitude"
                 data={data ? data.longitude : ""}
-                onType={handleInputChange}
+                onType={onType}
+                formData={formData.longitude ? formData.longitude : ""}
               />
             </div>
 
@@ -225,6 +241,9 @@ export default function RegisterForm({ page, onNext, onBack, data }) {
                 loading="lazy"
               ></iframe>
             </div>
+            <div className="error-message">
+              {error ? <span className="error-text">{error}</span> : null}
+            </div>
           </div>
 
           <div className="register-page-2-ft">
@@ -234,7 +253,7 @@ export default function RegisterForm({ page, onNext, onBack, data }) {
                 <button className="register-back" onClick={onBack}>
                   BACK
                 </button>
-                <button className="register-create">CREATE</button>
+                <button className="register-create" onClick={onSubmit}>CREATE</button>
               </div>
             </div>
           </div>

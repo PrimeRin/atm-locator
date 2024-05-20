@@ -4,19 +4,20 @@ import "../css/CustomDropdown.css";
 const Dropdown = ({ label, value, options, data, onType, formData}) => {
 
   function handleOnChange(event){
-    console.log('i AMA HERE',value, event.target.value);
     onType(value, event.target.value)
   }
+
+  console.log('ggggg',formData);
 
   return (
     <div className="dropdown-group">
       <select
-        className={`dropdown-field ${data ? "has-value" : ""}`}
-        value={data? data : formData}
+        className={`dropdown-field ${formData? "has-value" : ""}`}
+        value={formData}
         onChange={handleOnChange}
         required
       >
-        <option value="none" disabled>{" "}</option>
+        <option disabled>{" "}</option>
         {options.map((option, index) => (
           <option
             className="register-dropdown-option"

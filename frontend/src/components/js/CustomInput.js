@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import "../css/CustomInput.css";
 
-export default function CustomInput({label, key, data, onType, formData}) {
+export default function CustomInput({label, value, data, onType, formData}) {
 
   function handleOnChange(event){
-    onType(key, event.target.value)
+    onType(value, event.target.value)
   }
 
   return (
