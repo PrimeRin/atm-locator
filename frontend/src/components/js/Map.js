@@ -42,6 +42,8 @@ export default function Map() {
     fetchData(page);
   }, [page]);
 
+  console.log('map data', data);
+
   const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: process.env.GOOGLE_MAP_API,
   });

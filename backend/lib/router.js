@@ -33,6 +33,7 @@ async function authenticateUser(username, password) {
 
 router.post("/login", async (req, res) => {
   const { username, password } = req.body;
+  debugger;
   try {
     const isValid = await authenticateUser(username, password);
     if (!isValid) {
@@ -99,8 +100,6 @@ router.get("/atm_count", authenticateJWT, (req, res) => {
 router.get("/query_atm", authenticateJWT, async (req, res) => {
   const { search, filter, dzongkhag, page = 1, pageSize = 10 } = req.query;
 
-  debugger;
-
   const pageNum = parseInt(page, 10);
   const size = parseInt(pageSize, 10);
   const offset = (pageNum - 1) * size;
@@ -134,7 +133,7 @@ router.get("/query_atm", authenticateJWT, async (req, res) => {
           .status(500)
           .json({ error: "An error occurred while fetching ATM information" });
       }
-      return res.json(result);
+      return res.json(result[0]);
     });
   } catch (error) {
     res.status(500).send("An error occurred during the search.");
@@ -206,48 +205,48 @@ router.get("/atm_list", (req, res) => {
 
 async function generateAtmId() {
   try {
-    // Execute the query and wait for the result
-    const result = await db.query("SELECT * FROM atm_details ORDER BY created_at DESC LIMIT 1;");
+    const result = await db.query("SELECT max(id) AS max_id FROM atm_details;");
 
-    // Check if the result contains at least one row
-    if (result.rows.length > 0) {
-      // Extract the maxId from the first row
-      const maxId = result.rows[0].id;
-
-      // Extract the numeric part, increment it, and format the new ID with zero-padding
-      const numericPart = parseInt(maxId.slice(4), 10); // More robust way to extract numeric part
+    if (result[0].length > 0) {
+      const maxId = result[0][0].max_id;
+      const numericPart = parseInt(maxId.slice(4), 10);
       const newNumericPart = numericPart + 1;
       const newAtmId = `ATM_${newNumericPart.toString().padStart(3, '0')}`;
 
       return newAtmId;
     } else {
-      // Return a default ID if no records are found
       return 'ATM_001';
     }
   } catch (error) {
-    console.error("Error generating ATM ID:", error); // More informative error message
+    console.error("Error generating ATM ID:", error); 
     return null;
   }
 }
 
-router.post("/create-atm",  authenticateJWT, async (req, res) => {
+router.post("/create-atm", authenticateJWT, async (req, res) => {
   try {
     const { name, location_name, dzongkhag, gewog, website, phone, email, service_status, custom_time, latitude, longitude } = req.body;
-    debugger;
-    const username = req.user.username
-    const id = uuidv4();
 
-    const creator = db.query(
-      "SELECT * FROM users WHERE username =?",
-      [username]
+    if (!name ||!dzongkhag ||!gewog ||!website ||!phone ||!email ||!service_status ||!latitude ||!longitude) {
+      return res.status(400).json({ message: "Missing required fields" });
+    }
+
+    const username = req.user.username;
+    const id = await generateAtmId();
+
+    const creatorResult = await db.query("SELECT id, bank FROM users WHERE username=?", [username]);
+
+    if (creatorResult.length === 0) {
+      return res.status(404).json({ message: "Creator not found" });
+    }
+    const creator = creatorResult[0];
+
+    const insertResult = await db.execute(
+      "INSERT INTO atm_details (id, name, dzongkhag, gewog, bank_category, website, phone, email, service_status, latitude, longitude, creator_id) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)",
+      [id, name, dzongkhag, gewog, creator[0].bank, website, phone, email, service_status, latitude, longitude, creator[0].id]
     );
 
-    const result = await db.query(
-      "INSERT INTO atm_details (id,name, dzongkhag, gewog, bank_category, website, phone, email, service_status, latitude, longitude, creator_id) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)",
-      [id,name, dzongkhag, gewog, creator[0].bank, website, phone, email, service_status, latitude, longitude, creator[0].id]
-    );
-
-    if (result.affectedRows > 0) {
+    if (insertResult[0].affectedRows > 0) {
       res.status(201).json({ message: "ATM created successfully" });
     } else {
       res.status(400).json({ message: "ATM creation failed" });
@@ -256,5 +255,24 @@ router.post("/create-atm",  authenticateJWT, async (req, res) => {
     res.status(500).json({ error: "An error occurred during creation" });
   }
 });
+
+
+router.delete('/atms/:id', authenticateJWT, async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const deletedAtm = await db.query('DELETE FROM atm_details WHERE id =?', [id]);
+
+    if (deletedAtm.affectedRows > 0) {
+      res.status(200).json({ message: 'ATM deleted successfully' });
+    } else {
+      res.status(404).json({ message: 'ATM not found' });
+    }
+  } catch (error) {
+    console.error('Error deleting ATM:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
 
 module.exports = router;

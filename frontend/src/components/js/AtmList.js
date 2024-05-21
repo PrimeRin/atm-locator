@@ -12,7 +12,8 @@ import { MdDeleteOutline } from "react-icons/md";
 import "../css/AtmList.css";
 import { useState } from "react";
 import DeleteWarning from "./DeleteWarning";
-import { useNavigate,  useLocation} from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+import { deleteAtm } from "../service/deleteAtm";
 
 export default function AtmList({ atm, onSelect }) {
   const navigate = useNavigate();
@@ -24,17 +25,28 @@ export default function AtmList({ atm, onSelect }) {
     const currentPath = location.pathname;
     const newPath = `${currentPath}/edit`;
     navigate(newPath);
-  }
+  };
 
-  function toggleDropDown(){
+  function toggleDropDown() {
     setShowDropdown(!showDropdown);
   }
 
-  function toggleDeleteWarning(){
+  function toggleDeleteWarning() {
     toggleDropDown();
     setShowDeleteWarning(!showDeleteWarning);
   }
-  
+
+  async function Delete() {
+    try {
+      const result = await deleteAtm(atm.id);
+      console.log(result);
+      toggleDeleteWarning();
+      onSelect(null);
+    } catch (error) {}
+    const errorMessage = 'An unknown error occurred';
+    console.error(errorMessage);
+  }
+
   return (
     <div className="atmlist-con">
       <div className="atm-top">
@@ -52,17 +64,21 @@ export default function AtmList({ atm, onSelect }) {
             <MdOutlineModeEdit size={25} />
             <span className="list-atm-edit-btn">Edit</span>
           </div>
-          <div className="list-dropdown-item-con" onClick={setShowDeleteWarning}>
+          <div
+            className="list-dropdown-item-con"
+            onClick={setShowDeleteWarning}
+          >
             <MdDeleteOutline size={25} />
-            <span className="list-atm-edit-btn">
-              Delete
-            </span>
+            <span className="list-atm-edit-btn">Delete</span>
           </div>
         </div>
       )}
 
       {showDeleteWarning && (
-        <DeleteWarning onCancel={toggleDeleteWarning} onDeleteConfirm={toggleDeleteWarning}/>
+        <DeleteWarning
+          onCancel={toggleDeleteWarning}
+          onDeleteConfirm={Delete}
+        />
       )}
 
       <div className="atm-bottom" onClick={() => onSelect(atm)}>
