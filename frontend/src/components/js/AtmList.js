@@ -23,7 +23,7 @@ export default function AtmList({ atm, onSelect }) {
 
   const navigateEdit = () => {
     const currentPath = location.pathname;
-    const newPath = `${currentPath}/edit`;
+    const newPath = `${currentPath}/${atm.id}/edit`;
     navigate(newPath);
   };
 

@@ -39,7 +39,7 @@ function AdminAtmEdit() {
           showThreeDot={false}
         />
         <div className="admin-atm-edits-form-con">
-          <GroupRegistration data={data}/>
+          {data && <GroupRegistration data={data}/>}
         </div>
       </div>
     </AdminLayout>

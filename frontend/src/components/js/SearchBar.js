@@ -10,9 +10,6 @@ export default function SearchBar({onSearch}) {
 
   const handleInputChange = (e) => {
     setInputText(e.target.value);
-  };
-
-  const handleSearch = () => {
     onSearch(inputText);
   };
 
@@ -31,7 +28,6 @@ export default function SearchBar({onSearch}) {
             required
           />
         </div>
-        <input type="submit" value="Search" id="submit"  onClick={handleSearch}/>
       </div>
     </div>
   );

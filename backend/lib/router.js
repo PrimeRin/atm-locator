@@ -6,34 +6,22 @@ const jwt = require("jsonwebtoken");
 const { v4: uuidv4 } = require("uuid");
 
 async function authenticateUser(username, password) {
-  return new Promise(async (resolve, reject) => {
-    db.query(
-      "SELECT * FROM users WHERE username =?",
-      [username],
-      async (error, results) => {
-        if (error) reject(error);
+  try {
+    const [rows] = await db.query("SELECT * FROM users WHERE username =?", [username]);
+    if (rows.length === 0) {
+      throw new Error("No user found");
+    }
 
-        if (results.length === 0) {
-          reject(new Error("No user found"));
-          return;
-        }
-
-        const user = results[0];
-
-        try {
-          const match = await bcrypt.compare(password, user.password);
-          resolve(match);
-        } catch (hashError) {
-          reject(hashError);
-        }
-      }
-    );
-  });
+    const user = rows[0];
+    const match = await bcrypt.compare(password, user.password);
+    return match;
+  } catch (error) {
+    throw error; 
+  }
 }
 
 router.post("/login", async (req, res) => {
   const { username, password } = req.body;
-  debugger;
   try {
     const isValid = await authenticateUser(username, password);
     if (!isValid) {
@@ -69,7 +57,7 @@ const authenticateJWT = (req, res, next) => {
   }
 };
 
-router.get("/atm_count", authenticateJWT, (req, res) => {
+router.get("/atm_count", authenticateJWT, async (req, res) => {
   const type = req.query.type;
 
   let sql;
@@ -86,15 +74,15 @@ router.get("/atm_count", authenticateJWT, (req, res) => {
     return res.status(400).json({ error: "Invalid type!!!" });
   }
 
-  db.query(sql, (err, results) => {
-    if (err) {
-      console.error(err);
-      return res
-        .status(500)
-        .json({ error: "An error occurred while fetching ATM information" });
-    }
+  try {
+    const [results] = await db.query(sql);
     return res.json(results);
-  });
+  } catch (err) {
+    console.error(err);
+    return res
+     .status(500)
+     .json({ error: "An error occurred while fetching ATM information" });
+  }
 });
 
 router.get("/query_atm", authenticateJWT, async (req, res) => {
@@ -110,96 +98,64 @@ router.get("/query_atm", authenticateJWT, async (req, res) => {
     let queryParams = [];
 
     if (search) {
-      sqlQuery += " AND (name LIKE?)";
+      sqlQuery += " AND id LIKE ?";
       queryParams.push(`%${search}%`);
     }
 
+    if (dzongkhag) {
+      sqlQuery += " AND dzongkhag = ?";
+      queryParams.push(dzongkhag);
+    }
+
     if (filterList.length > 0) {
-      sqlQuery +=
-        " AND dzongkhag IN (" + filterList.map((_, i) => "?").join(",") + ")";
+      const placeholders = filterList.map(() => '?').join(',');
+      sqlQuery += ` AND dzongkhag IN (${placeholders})`;
       queryParams.push(...filterList);
     }
 
-    // Correctly separate LIMIT and OFFSET with spaces
     sqlQuery += " LIMIT ? OFFSET ?";
     queryParams.push(size, offset);
 
     console.log(sqlQuery, queryParams);
 
-    db.query(sqlQuery, queryParams, (err, result) => {
-      if (err) {
-        console.error(err);
-        return res
-          .status(500)
-          .json({ error: "An error occurred while fetching ATM information" });
-      }
-      return res.json(result[0]);
-    });
+    const [result] = await db.query(sqlQuery, queryParams);
+    return res.json(result);
   } catch (error) {
-    res.status(500).send("An error occurred during the search.");
+    console.error(error);
+    return res.status(500).json({ error: "An error occurred during the search." });
   }
 });
 
 router.get("/admin-atm-list/:id", async (req, res) => {
   const { id } = req.params;
-  const sql = "SELECT * FROM atm_details WHERE id = ?";
-  db.query(sql, [id], (err, results) => {
-    if (err) {
-      console.error(err);
-      return res
-        .status(500)
-        .json({ error: "An error occurred while fetching ATM information" });
-    }
+  
+  try {
+    const [results] = await db.query("SELECT * FROM atm_details WHERE id =?", [id]);
     return res.json(results[0]);
-  });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: "An error occurred while fetching ATM information" });
+  }
 });
 
-router.get("/atm_list", (req, res) => {
+router.get("/atm_list", async (req, res) => {
   const { dzongkhag, page, limit = 10 } = req.query;
-  let offset = 0;
+  let offset = (parseInt(page) - 1) * parseInt(limit);
+  let sql = "SELECT * FROM atm_details";
 
-  if (!page) {
-    let sql = `SELECT * FROM atm_details`;
-    let params = [];
+  if (dzongkhag) {
+    sql += " WHERE dzongkhag =?"; 
+  }
+  sql += ` LIMIT ${offset}, ${limit}`;
 
-    if (dzongkhag) {
-      sql += ` WHERE dzongkhag = ?`;
-      params = [dzongkhag];
-    }
-
-    db.query(sql, params, (err, result) => {
-      if (err) {
-        console.error(err);
-        return res
-          .status(500)
-          .json({ error: "An error occurred while fetching ATM information" });
-      }
-      return res.json(result);
-    });
-  } else {
-    offset = (parseInt(page) - 1) * limit;
-    let sql = `SELECT * FROM atm_details LIMIT ? OFFSET ?`;
-    let params = [limit, offset];
-
-    if (dzongkhag) {
-      sql = `SELECT * FROM atm_details WHERE dzongkhag = ? LIMIT ? OFFSET ?`;
-      params = [dzongkhag, limit, offset];
-    }
-
-    db.query(sql, params, (err, result) => {
-      if (err) {
-        console.error(err);
-        return res
-          .status(500)
-          .json({ error: "An error occurred while fetching ATM information" });
-      }
-
-      const hasMore = result.length === parseInt(limit);
-      return res.json({
-        data: result,
-        hasMore: hasMore,
-      });
-    });
+  try {
+    const [rows] = await db.query(sql, [dzongkhag]);
+    const hasMore = rows.length === 10;
+    console.log('has more', hasMore);
+    return res.json({data: rows, hasMore: hasMore});
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ error: "An error occurred while fetching ATM information" });
   }
 });
 

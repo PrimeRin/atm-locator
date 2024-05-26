@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, lazy } from "react";
 import "../css/Map.css";
 import AtmCategory from "./AtmCategory";
 import { categoryToImage } from "./MarkerImg";
@@ -15,9 +15,12 @@ export default function Map() {
   const center = { lat: 27.522087, lng: 90.253892 };
   const [page, setPage] = useState(1);
   const [data, setData] = useState([]);
+  const [show, setShow] = useState(false);
   const { currentLocation, error } = UserLocation();
   const [selectedAtm, setSelectedAtm] = useState(null);
-  const [showCurrentLocation, setShowCurrentLocation] = useState(currentLocation !== null);
+  const [showCurrentLocation, setShowCurrentLocation] = useState(
+    currentLocation !== null
+  );
 
   const [checkboxStates, setCheckboxStates] = useState({
     BDBL: true,
@@ -42,7 +45,7 @@ export default function Map() {
     fetchData(page);
   }, [page]);
 
-  console.log('map data', data);
+  console.log("Data", data);
 
   const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: process.env.GOOGLE_MAP_API,
@@ -68,12 +71,17 @@ export default function Map() {
   function openDialog(atm) {
     map.setZoom(map.getZoom() + 1.5);
     map.setCenter({
-      lat: atm.latitude,
-      lng: atm.longitude,
+      lat: parseFloat(atm.latitude),
+      lng: parseFloat(atm.longitude),
     });
     if (map.getZoom() >= 13) {
+      setShow(true);
       setSelectedAtm(atm);
     }
+  }
+
+  function handleCloseDetail() {
+    setShow(false);
   }
 
   return (
@@ -81,7 +89,7 @@ export default function Map() {
       <div className="google-map-con">
         <GoogleMap
           ref={mapRef}
-          center={center}
+          center={selectedAtm || center}
           zoom={9}
           mapContainerStyle={{ width: "60vw", height: "40vw" }}
           options={{
@@ -98,8 +106,8 @@ export default function Map() {
               <Marker
                 key={index}
                 position={{
-                  lat: atm.latitude,
-                  lng: atm.longitude,
+                  lat: parseFloat(atm.latitude),
+                  lng: parseFloat(atm.longitude),
                 }}
                 icon={{
                   url: categoryToImage[atm.bank_category],
@@ -115,15 +123,20 @@ export default function Map() {
               <CurrentLocation
                 pos={currentLocation}
                 onClick={handleClickOnCurrentLocation}
-                onClose = {() => setShowCurrentLocation(false)}
+                onClose={() => setShowCurrentLocation(false)}
               />
             )}
 
-            {selectedAtm && <AtmInfo atm={selectedAtm} />}
+            {show && (
+              <AtmInfo atm={selectedAtm} onClose={()=>{handleCloseDetail(selectedAtm)}} />
+            )}
           </>
         </GoogleMap>
-        <div className="current-location-icon" onClick={handleClickOnCurrentLocation}>
-          <BiCurrentLocation size={25} style={{ color: 'blue' }}/>
+        <div
+          className="current-location-icon"
+          onClick={handleClickOnCurrentLocation}
+        >
+          <BiCurrentLocation size={25} style={{ color: "blue" }} />
         </div>
       </div>
       <div className="atm-filter">

@@ -7,13 +7,11 @@ const Dropdown = ({ label, value, options, data, onType, formData}) => {
     onType(value, event.target.value)
   }
 
-  console.log('ggggg',formData);
-
   return (
     <div className="dropdown-group">
       <select
-        className={`dropdown-field ${formData? "has-value" : ""}`}
-        value={formData}
+        className={`dropdown-field ${data || formData? "has-value" : ""}`}
+        value={data? data : formData}
         onChange={handleOnChange}
         required
       >

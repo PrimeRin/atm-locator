@@ -16,7 +16,7 @@ export default function AtmLists({data, hasMore, elementRef}) {
         {data.map((atm) => (
           <AtmList key={atm.id} atm={atm} onSelect={handleOnClick} />
         ))}
-        {hasMore && <div ref={elementRef}>Load more...</div>}
+        {hasMore && <div  className='load-more' ref={elementRef}>....</div>}
       </div>
     </div>
   );

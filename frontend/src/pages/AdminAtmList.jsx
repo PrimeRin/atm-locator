@@ -8,49 +8,43 @@ import { queryAtmData } from "../components/service/queryAtmData";
 import { useState, useEffect, useRef } from "react";
 
 function AdminAtmList() {
-  const [searchText, setSearchText] = useState(null);
+  const [searchText, setSearchText] = useState("");
   const [filter, setFilter] = useState([]);
   const [data, setData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const elementRef = useRef(null);
 
-  function onIntersection(entries) {
-    const firstEntry = entries[0];
-    if (firstEntry.isIntersecting && hasMore) {
-      fetchMoreItems();
-    }
-  }
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(onIntersection);
-    if (observer && elementRef.current) {
-      observer.observe(elementRef.current);
-    }
-
-    return () => {
-      if (observer) {
-        observer.disconnect();
-      }
-    };
-  }, [data, searchText, filter]);
-
-  useEffect(() => {
-    setCurrentPage(1);
-    fetchMoreItems();
-  }, [searchText, filter]); 
-
   async function fetchMoreItems() {
-    const data = await queryAtmData(currentPage, null, searchText, filter);
-    if (data.length === 0) {
+    const result = await queryAtmData(currentPage, null, searchText, filter);
+    if (result.length === 0) {
       setHasMore(false);
     } else {
-      setData((prevData) => [...prevData, ...data]);
+      setData((prevData) => [...prevData, ...result]);
       setCurrentPage((prevCurrentPage) => prevCurrentPage + 1);
     }
   }
 
-  function onSearch(text){
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      const firstEntry = entries[0];
+      if (firstEntry.isIntersecting && hasMore) {
+        fetchMoreItems();
+      } 
+    });
+
+    if (elementRef.current) {
+      observer.observe(elementRef.current);
+    }
+
+    return () => {
+      if (observer && elementRef.current) {
+        observer.unobserve(elementRef.current);
+      }
+    };
+  }, [data, hasMore]);
+
+  function onSearch(text) {
     setSearchText(text);
   }
 
@@ -61,7 +55,7 @@ function AdminAtmList() {
   return (
     <AdminLayout>
       <div className="admin-atm-list-con">
-        <SearchBar onSearch={onSearch}/>
+        <SearchBar onSearch={onSearch} />
         <div className="admin-atm-inner-con">
           <Filter onFilterChange={onFilterChange} />
           <AtmLists data={data} hasMore={hasMore} elementRef={elementRef} />

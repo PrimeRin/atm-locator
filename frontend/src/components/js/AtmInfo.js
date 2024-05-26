@@ -3,11 +3,11 @@ import { InfoWindow } from "@react-google-maps/api";
 import "../css/AtmInfo.css";
 import { categoryToImage, categoryToBankImage } from "./MarkerImg";
 
-export default function AtmInfo({ atm }) {
-  const pos = { lat: atm.latitude, lng: atm.longitude };
+export default function AtmInfo({ atm, onClose }) {
+  const pos = { lat: parseFloat(atm.latitude), lng: parseFloat(atm.longitude) };
 
   return (
-    <InfoWindow className="atm-info-window" position={pos}>
+    <InfoWindow className="atm-info-window" position={pos} onCloseClick={onClose}>
       <div className="atm-info-con">
         <span className="atm-info-heading">{atm.name}</span>
         <div className="line"></div>

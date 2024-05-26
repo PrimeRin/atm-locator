@@ -3,6 +3,7 @@ import "../css/RegisterForm.css";
 import CustomInput from "./CustomInput";
 import CustomDropdown from "./CustomDropdown";
 import { dzongkhags, gewogs } from "./dzongkhags_list";
+import { useNavigate } from "react-router-dom";
 
 export default function RegisterForm({
   page,
@@ -12,8 +13,11 @@ export default function RegisterForm({
   formData,
   onType,
   error,
-  onSubmit
+  onSubmit,
+  formReset,
 }) {
+  const navigate = useNavigate();
+
   const gewog_options = [];
   gewogs.forEach((dzongkhag) => {
     for (const key in dzongkhag) {
@@ -35,6 +39,10 @@ export default function RegisterForm({
     return null;
   }
 
+  function handleCancel() {
+    formReset();
+  }
+
   return (
     <div className="atm-register-con">
       {page === 1 && (
@@ -44,7 +52,6 @@ export default function RegisterForm({
             <span>Please fill the basic information of the ATM</span>
             <CustomInput
               label="ATM Name*"
-              data={data ? data.name : ""}
               value="name"
               formData={formData.name ? formData.name : ""}
               onType={onType}
@@ -67,7 +74,6 @@ export default function RegisterForm({
                   label="Dzongkhag*"
                   value="dzongkhag"
                   options={dzongkhags}
-                  data={data ? data.dzongkhag : ""}
                   onType={onType}
                   formData={formData.dzongkhag ? formData.dzongkhag : ""}
                 />
@@ -79,7 +85,6 @@ export default function RegisterForm({
                       ? getGewogsByName(formData.dzongkhag)
                       : gewog_options
                   }
-                  data={data ? data.gewog : ""}
                   onType={onType}
                   formData={formData.gewog ? formData.gewog : ""}
                 />
@@ -94,7 +99,6 @@ export default function RegisterForm({
                 <CustomInput
                   label="Website address*"
                   value="website"
-                  data={data ? data.website : ""}
                   onType={onType}
                   formData={formData.website ? formData.website : ""}
                 />
@@ -104,7 +108,6 @@ export default function RegisterForm({
                 <CustomInput
                   label="Email Address*"
                   value="email"
-                  data={data ? data.email : ""}
                   onType={onType}
                   formData={formData.email ? formData.email : ""}
                 />
@@ -123,7 +126,7 @@ export default function RegisterForm({
               <span
                 className={`service-status ${
                   (data && data.service_status === "Always Open") ||
-                  (formData && formData.service_status === "Always Open")
+                  (formData && formData.service_status === "Always open")
                     ? "active"
                     : ""
                 }`}
@@ -179,7 +182,6 @@ export default function RegisterForm({
                 <CustomInput
                   label="Custom Time"
                   value={"custom_time"}
-                  data={data ? data.service_status : ""}
                   onType={onType}
                   formData={formData.custom_time ? formData.custom_time : ""}
                 />
@@ -192,7 +194,9 @@ export default function RegisterForm({
           </div>
           <div className="register-page-1-ft">
             <div className="register-button">
-              <button className="register-cancel">CANCEL</button>
+              <button className="register-cancel" onClick={handleCancel}>
+                CANCEL
+              </button>
               <button className="register-next" onClick={onNext}>
                 NEXT
               </button>
@@ -211,14 +215,12 @@ export default function RegisterForm({
               <CustomInput
                 label="Latitude*"
                 value="latitude"
-                data={data ? data.latitude : ""}
                 onType={onType}
                 formData={formData.latitude ? formData.latitude : ""}
               />
               <CustomInput
                 label="Longitude*"
                 value="longitude"
-                data={data ? data.longitude : ""}
                 onType={onType}
                 formData={formData.longitude ? formData.longitude : ""}
               />
@@ -227,18 +229,22 @@ export default function RegisterForm({
             <span className="register-sub-heading">Display Map</span>
             <div className="show-map">
               <div className="show-map-text">
-                <span>Click Here to show the location on the map</span>
+                <span>Check the location of the ATM in the map.</span>
                 <div className="map-loader"></div>
               </div>
 
               <iframe
                 className="show-map-iframe"
-                src="https://www.google.com/maps/embed?pb=!1m181m121m31d3151.83543450960362d-74.00603d40.71282m31f02f03f03m21i10242i7684f13.13m31m21s0x89c24fa5d33f083b%3A0xc80b8f06e177fe622sNew%20York%2C%20NY%2C%20USA5e03m21sen2sus4v16344902083905m21sen2sus"
                 width="500"
                 height="400"
-                style={{ border: "0" }}
-                allowFullScreen
+                style={{ border: 0 }}
                 loading="lazy"
+                allowFullScreen
+                src={`https://www.google.com/maps?q=${
+                  formData ? formData.latitude : "40.7128"
+                },${
+                  formData ? formData.longitude : "-74.0060"
+                }&hl=es;z=14&output=embed&maptype=satellite`}
               ></iframe>
             </div>
             <div className="error-message">
@@ -248,12 +254,17 @@ export default function RegisterForm({
 
           <div className="register-page-2-ft">
             <div className="save-button">
-              <button className="register-cancel">CANCEL</button>
+              <button className="register-cancel" onClick={handleCancel}>
+                CANCEL
+              </button>
               <div className="inner-save-button">
                 <button className="register-back" onClick={onBack}>
                   BACK
                 </button>
-                <button className="register-create" onClick={onSubmit}>CREATE</button>
+                <button className="register-create" onClick={onSubmit}>
+                  {" "}
+                  {data ? "UPDATE" : "CREATE"}{" "}
+                </button>
               </div>
             </div>
           </div>

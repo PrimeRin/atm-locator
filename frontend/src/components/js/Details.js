@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import "../css/Details.css";
 import atm_img from "../../assets/amcs/BOB-ATM/bob/bob.png";
 import { FaEnvelope, FaPhone, FaGlobe } from "react-icons/fa";
@@ -10,7 +10,7 @@ export default function Details({ onSelect, data }) {
     <div className="admin-atm-details" onClick={onSelect}>
       <div className="atm-details-header">
         <div className="atm-details-img-con">
-          <img src={atm_img} className="atm-details-img" />
+          <img src={atm_img} className="atm-details-img" alt="ATM" />
         </div>
       </div>
       <div className="atm-details-body">
@@ -19,12 +19,16 @@ export default function Details({ onSelect, data }) {
           <span className="atm-details-name">{data.name}</span>
           <div className="atm-details-con">
             <span className="atm-details-label">Bank Category</span>
-            <span className="atm-details-value-bank">{bankFullName[data.bank_category]}</span>
+            <span className="atm-details-value-bank">
+              {bankFullName[data.bank_category]}
+            </span>
           </div>
 
           <div className="atm-details-con">
             <span className="atm-details-label">Status</span>
-            <span className="atm-details-value-bank">{data.service_status}</span>
+            <span className="atm-details-value-bank">
+              {data.service_status}
+            </span>
           </div>
 
           <div className="atm-details-con">
@@ -42,8 +46,7 @@ export default function Details({ onSelect, data }) {
 
               <div className="atm-details-contact-row">
                 <span className="details-icon">
-                  {" "}
-                  <FaPhone />{" "}
+                  <FaPhone />
                 </span>
                 <div className="atm-details-contact-col">
                   <span className="atm-details-label">Phone</span>
@@ -53,12 +56,14 @@ export default function Details({ onSelect, data }) {
 
               <div className="atm-details-contact-row">
                 <span className="details-icon">
-                  <FaGlobe />{" "}
+                  <FaGlobe />
                 </span>
                 <div className="atm-details-contact-col">
                   <span className="atm-details-label">Website</span>
                   <span>
-                    <a>{data.website}</a>
+                    <a href={data.website} target="_blank" rel="noopener noreferrer">
+                      {data.website}
+                    </a>
                   </span>
                 </div>
               </div>
@@ -97,12 +102,12 @@ export default function Details({ onSelect, data }) {
             lat: {data.latitude}, lng: {data.longitude}
           </span>
           <iframe
-            src="https://www.google.com/maps/embed?pb=!1m181m121m31d3151.83543450960362d-74.00603d40.71282m31f02f03f03m21i10242i7684f13.13m31m21s0x89c24fa5d33f083b%3A0xc80b8f06e177fe622sNew%20York%2C%20NY%2C%20USA5e03m21sen2sus4v16344902083905m21sen2sus"
             width="550"
             height="450"
-            style={{ border: "0" }}
-            allowFullScreen
+            style={{ border: 0 }}
             loading="lazy"
+            allowFullScreen
+            src={`https://www.google.com/maps?q=${data.latitude},${data.longitude}&hl=es;z=14&output=embed&maptype=satellite`}
           ></iframe>
         </div>
       </div>
