@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import CustomStepper from "./CustomStepper";
 import RegisterForm from "./RegisterForm";
 import { createAtm } from "../service/createAtm";
+import { updateAtm } from "../service/updateAtm";
 import Notice from "./Notice";
 
 export default function GroupRegistration({ data }) {
@@ -71,39 +72,109 @@ export default function GroupRegistration({ data }) {
     return isValid;
   }
 
+  console.log("form data", formData);
+
   function handleSubmit() {
     if (formData.latitude && formData.longitude) {
       setError(null);
-      createAtm(formData)
-        .then((response) => {
-          setType("success");
-          setNotice("ATM Created Successfully!");
-          setShowNotice(true);
-          setTimeout(() => {
-            navigate("/admin-register-atm");
-            setPage(1);
-            setFormData({
-              name: "",
-              location_name: "",
-              dzongkhag: "",
-              gewog: "",
-              website: "",
-              email: "",
-              phone: "",
-              service_status: "",
-              custom_time: "",
-              latitude: "",
-              longitude: "",
-            });
-          }, 2000);
-        })
-        .catch((error) => {
-          setType("error");
-          setShowNotice(true);
-          setNotice(
-            "There was an error submitting the form. Please try again."
-          );
-        });
+      if (data) {
+        updateAtm(data.id, formData)
+          .then((response) => {
+            console.log(response);
+            if (response.status == 200) {
+              setType("success");
+              setNotice("ATM Updated Successfully!");
+              setShowNotice(true);
+              setTimeout(() => {
+                navigate("/admin-atm-list");
+                setPage(1);
+                setFormData({
+                  name: "",
+                  location_name: "",
+                  dzongkhag: "",
+                  gewog: "",
+                  website: "",
+                  email: "",
+                  phone: "",
+                  service_status: "",
+                  custom_time: "",
+                  latitude: "",
+                  longitude: "",
+                });
+              }, 2000);
+            } else{
+            setType("error");
+            setShowNotice(true);
+            setNotice(
+              "There was an error updating the form. Please try again."
+            );
+            setTimeout(() => {
+              setShowNotice(false);
+              setPage(1);
+            }, 2000);
+            }
+          })
+          .catch((error) => {
+            setType("error");
+            setShowNotice(true);
+            setNotice(
+              "There was an error updating the form. Please try again."
+            );
+            setTimeout(() => {
+              setShowNotice(false);
+              setPage(1);
+            }, 2000);
+          });
+      } else {
+        createAtm(formData)
+          .then((response) => {
+            console.log("response", response);
+            if (response.status >= 200) {
+              setType("success");
+              setNotice("ATM Created Successfully!");
+              setShowNotice(true);
+              setTimeout(() => {
+                navigate("/admin-register-atm");
+                setPage(1);
+                setFormData({
+                  name: "",
+                  location_name: "",
+                  dzongkhag: "",
+                  gewog: "",
+                  website: "",
+                  email: "",
+                  phone: "",
+                  service_status: "",
+                  custom_time: "",
+                  latitude: "",
+                  longitude: "",
+                });
+              }, 2000);
+            }
+            else{
+              setType("error");
+              setShowNotice(true);
+              setNotice(
+                "There was an error submitting the form. Please try again."
+              );
+              setTimeout(() => {
+                setShowNotice(false);
+                setPage(1);
+              }, 2000);
+            }
+          })
+          .catch((error) => {
+            setType("error");
+            setShowNotice(true);
+            setNotice(
+              "There was an error submitting the form. Please try again."
+            );
+            setTimeout(() => {
+              setShowNotice(false);
+              setPage(1);
+            }, 2000);
+          });
+      }
     } else {
       setError("Please fill out all required fields.");
     }

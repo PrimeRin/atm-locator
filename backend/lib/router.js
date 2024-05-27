@@ -34,7 +34,6 @@ router.post("/login", async (req, res) => {
 
     res.status(200).json({ success: true, message: "success", token: token });
   } catch (error) {
-    console.error(error);
     res.status(500).send({ message: "Internal server error" });
   }
 });
@@ -116,12 +115,9 @@ router.get("/query_atm", authenticateJWT, async (req, res) => {
     sqlQuery += " LIMIT ? OFFSET ?";
     queryParams.push(size, offset);
 
-    console.log(sqlQuery, queryParams);
-
     const [result] = await db.query(sqlQuery, queryParams);
     return res.json(result);
   } catch (error) {
-    console.error(error);
     return res.status(500).json({ error: "An error occurred during the search." });
   }
 });
@@ -133,7 +129,6 @@ router.get("/admin-atm-list/:id", async (req, res) => {
     const [results] = await db.query("SELECT * FROM atm_details WHERE id =?", [id]);
     return res.json(results[0]);
   } catch (error) {
-    console.error(error);
     return res.status(500).json({ error: "An error occurred while fetching ATM information" });
   }
 });
@@ -151,10 +146,8 @@ router.get("/atm_list", async (req, res) => {
   try {
     const [rows] = await db.query(sql, [dzongkhag]);
     const hasMore = rows.length === 10;
-    console.log('has more', hasMore);
     return res.json({data: rows, hasMore: hasMore});
   } catch (err) {
-    console.error(err);
     return res.status(500).json({ error: "An error occurred while fetching ATM information" });
   }
 });
@@ -174,7 +167,6 @@ async function generateAtmId() {
       return 'ATM_001';
     }
   } catch (error) {
-    console.error("Error generating ATM ID:", error); 
     return null;
   }
 }
@@ -203,7 +195,7 @@ router.post("/create-atm", authenticateJWT, async (req, res) => {
     );
 
     if (insertResult[0].affectedRows > 0) {
-      res.status(201).json({ message: "ATM created successfully" });
+      res.status(200).json({ message: "ATM created successfully" });
     } else {
       res.status(400).json({ message: "ATM creation failed" });
     }
@@ -212,6 +204,77 @@ router.post("/create-atm", authenticateJWT, async (req, res) => {
   }
 });
 
+router.put("/update-atm/:id", authenticateJWT, async (req, res) => {
+  debugger;
+  try {
+    const atmId = req.params.id;
+    const {
+      name,
+      location_name,
+      dzongkhag,
+      gewog,
+      website,
+      phone,
+      email,
+      service_status,
+      custom_time,
+      latitude,
+      longitude,
+    } = req.body;
+
+    if (
+      !name ||
+      !dzongkhag ||
+      !gewog ||
+      !website ||
+      !phone ||
+      !email ||
+      !service_status ||
+      !latitude ||
+      !longitude
+    ) {
+      return res.status(400).json({ message: "Missing required fields" });
+    }
+
+    const username = req.user.username;
+
+    const creatorResult = await db.query("SELECT id, bank FROM users WHERE username=?", [username]);
+
+    if (creatorResult.length === 0) {
+      return res.status(404).json({ message: "Creator not found" });
+    }
+    const creator = creatorResult[0];
+
+    const updateResult = await db.execute(
+      "UPDATE atm_details SET name=?, dzongkhag=?, gewog=?, bank_category=?, website=?, phone=?, email=?, service_status=?, latitude=?, longitude=?, creator_id=? WHERE id=?",
+      [
+        name,
+        dzongkhag,
+        gewog,
+        creator[0].bank,
+        website,
+        phone,
+        email,
+        service_status,
+        latitude,
+        longitude,
+        creator[0].id,
+        atmId,
+      ]
+    );
+
+    if (updateResult[0].affectedRows > 0) {
+      console.log('update status 200');
+      res.status(200).json({ message: "ATM updated successfully" });
+    } else {
+      console.log('update status 400');
+      res.status(400).json({ message: "ATM update failed" });
+    }
+  } catch (error) {
+    console.log('update status 500');
+    res.status(500).json({ error: "An error occurred during the update" });
+  }
+});
 
 router.delete('/atms/:id', authenticateJWT, async (req, res) => {
   const { id } = req.params;
@@ -220,12 +283,13 @@ router.delete('/atms/:id', authenticateJWT, async (req, res) => {
     const deletedAtm = await db.query('DELETE FROM atm_details WHERE id =?', [id]);
 
     if (deletedAtm.affectedRows > 0) {
+      console.log('update status 200');
       res.status(200).json({ message: 'ATM deleted successfully' });
     } else {
+      console.log('update status 400');
       res.status(404).json({ message: 'ATM not found' });
     }
   } catch (error) {
-    console.error('Error deleting ATM:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
 });

@@ -5,13 +5,19 @@ import Details from "../components/js/Details";
 import { useState, useEffect } from "react";
 import { fetchAtmDetails } from "../components/service/atmDetail";
 import { useParams } from 'react-router-dom';
+import { deleteAtm } from "../components/service/deleteAtm";
+import Notice from "../components/js/Notice";
+import { useNavigate } from "react-router-dom";
 
 function AdminAtmDetails() {
   const [showDropdown, setShowDropdown] = useState(false);
   const [showWarning, setShowWarning] = useState(false);
   const [data, setData] = useState([]);
+  const [type, setType] = useState("none");
+  const [message, setMessage] = useState(null);
+  const [showNotice, setShowNotice] = useState(false);
+  const navigate = useNavigate();
   const { id } = useParams(); 
-
   useEffect(() => {
     fetchDataForAtmId(id);
   }, [id]); 
@@ -33,8 +39,27 @@ function AdminAtmDetails() {
     setShowWarning(false);
   }
 
-  const handleDeleteConfirm = () => {
+  async function handleDeleteConfirm(){
     setShowWarning(false);
+    try {
+      console.log('atm id.....', id);
+      await deleteAtm(id);
+      setMessage("ATM deleted successfully!");
+      setType("success");
+      setShowNotice(true);
+      setTimeout(() => {
+        navigate("/admin-atm-list");
+        setShowNotice(false);
+      }, 2000);
+    } catch (error) {
+      setMessage("An unknown error occurred");
+      console.log(error);
+      setType("error");
+      setShowNotice(true);
+      setTimeout(() => {
+        setShowNotice(false);
+      }, 2000);
+    }
   }
 
   return (
@@ -51,6 +76,7 @@ function AdminAtmDetails() {
           showThreeDot = {true}
         />
         <Details onSelect={() => toggleDropdown(false)} data={data} />
+        <Notice message={message} type={type} showNotice={showNotice} />
       </div>
     </AdminLayout>
   );

@@ -126,7 +126,7 @@ export default function RegisterForm({
               <span
                 className={`service-status ${
                   (data && data.service_status === "Always Open") ||
-                  (formData && formData.service_status === "Always open")
+                  (formData && formData.service_status === "Always Open")
                     ? "active"
                     : ""
                 }`}

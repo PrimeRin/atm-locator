@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faEllipsisV,
@@ -6,20 +6,25 @@ import {
   faEnvelope,
 } from "@fortawesome/free-solid-svg-icons";
 import { RiGlobalLine } from "react-icons/ri";
-import { MdOutlineLocalPhone } from "react-icons/md";
-import { MdOutlineModeEdit } from "react-icons/md";
-import { MdDeleteOutline } from "react-icons/md";
+import {
+  MdOutlineLocalPhone,
+  MdOutlineModeEdit,
+  MdDeleteOutline,
+} from "react-icons/md";
 import "../css/AtmList.css";
-import { useState } from "react";
 import DeleteWarning from "./DeleteWarning";
 import { useNavigate, useLocation } from "react-router-dom";
 import { deleteAtm } from "../service/deleteAtm";
+import Notice from "./Notice";
 
 export default function AtmList({ atm, onSelect }) {
   const navigate = useNavigate();
   const location = useLocation();
   const [showDeleteWarning, setShowDeleteWarning] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
+  const [type, setType] = useState("none");
+  const [message, setMessage] = useState(null);
+  const [showNotice, setShowNotice] = useState(false);
 
   const navigateEdit = () => {
     const currentPath = location.pathname;
@@ -32,74 +37,91 @@ export default function AtmList({ atm, onSelect }) {
   }
 
   function toggleDeleteWarning() {
-    toggleDropDown();
+    setShowDropdown(false);
     setShowDeleteWarning(!showDeleteWarning);
   }
 
-  async function Delete() {
+  async function handleDelete() {
     try {
-      const result = await deleteAtm(atm.id);
-      console.log(result);
+      console.log('atm id.....', atm.id);
+      await deleteAtm(atm.id);
+      setMessage("ATM deleted successfully!");
+      setType("success");
+      setShowNotice(true);
       toggleDeleteWarning();
-      onSelect(null);
-    } catch (error) {}
-    const errorMessage = 'An unknown error occurred';
-    console.error(errorMessage);
+      setTimeout(() => {
+        navigate("/admin-atm-list");
+        window.location.reload();
+        setShowNotice(false);
+      }, 2000);
+    } catch (error) {
+      setMessage("An unknown error occurred");
+      console.log(error);
+      toggleDeleteWarning();
+      setType("error");
+      setShowNotice(true);
+      setTimeout(() => {
+        setShowNotice(false);
+      }, 2000);
+    }
   }
 
   return (
-    <div className="atmlist-con">
-      <div className="atm-top">
-        <span className="atm-id">{atm.id}</span>
-        <FontAwesomeIcon
-          icon={faEllipsisV}
-          onClick={toggleDropDown}
-          className="icon"
-        />
-      </div>
-
-      {showDropdown && (
-        <div className="list-dropdown-menu">
-          <div className="list-dropdown-item-con" onClick={navigateEdit}>
-            <MdOutlineModeEdit size={25} />
-            <span className="list-atm-edit-btn">Edit</span>
-          </div>
-          <div
-            className="list-dropdown-item-con"
-            onClick={setShowDeleteWarning}
-          >
-            <MdDeleteOutline size={25} />
-            <span className="list-atm-edit-btn">Delete</span>
-          </div>
-        </div>
-      )}
-
-      {showDeleteWarning && (
-        <DeleteWarning
-          onCancel={toggleDeleteWarning}
-          onDeleteConfirm={Delete}
-        />
-      )}
-
-      <div className="atm-bottom" onClick={() => onSelect(atm)}>
-        <div className="location">
-          <span>{atm.name}</span>
+    <>
+      <div className="atmlist-con">
+        <div className="atm-top">
+          <span className="atm-id">{atm.id}</span>
+          <FontAwesomeIcon
+            icon={faEllipsisV}
+            onClick={toggleDropDown}
+            className="icon"
+          />
         </div>
 
-        <div className="contact-details">
-          <span>{atm.category}</span>
-          <div className="inner-contact-details">
-            <div className="email">
-              <RiGlobalLine icon={faEnvelope} className="icon" />
-              <span>{atm.website}</span>
+        {showDropdown && (
+          <div className="list-dropdown-menu">
+            <div className="list-dropdown-item-con" onClick={navigateEdit}>
+              <MdOutlineModeEdit size={25} />
+              <span className="list-atm-edit-btn">Edit</span>
             </div>
-            <div className="phone">
-              <MdOutlineLocalPhone icon={faPhone} className="icon" />
-              <span>{atm.phone}</span>
+            <div
+              className="list-dropdown-item-con"
+              onClick={() => setShowDeleteWarning(true)}
+            >
+              <MdDeleteOutline size={25} />
+              <span className="list-atm-edit-btn">Delete</span>
             </div>
           </div>
+        )}
+
+        {showDeleteWarning && (
+          <DeleteWarning
+            onCancel={toggleDeleteWarning}
+            onDeleteConfirm={handleDelete}
+          />
+        )}
+
+        <div className="atm-bottom" onClick={() => onSelect(atm)}>
+          <div className="location">
+            <span>{atm.name}</span>
+          </div>
+
+          <div className="contact-details">
+            <span>{atm.category}</span>
+            <div className="inner-contact-details">
+              <div className="email">
+                <RiGlobalLine icon={faEnvelope} className="icon" />
+                <span>{atm.website}</span>
+              </div>
+              <div className="phone">
+                <MdOutlineLocalPhone icon={faPhone} className="icon" />
+                <span>{atm.phone}</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
+      <Notice type={type} message={message} showNotice={showNotice} />
+    </>
   );
 }

@@ -13,6 +13,5 @@ export const createAtm = async (formData) => {
   };
 
   const response = await fetch(url, requestOptions);
-  const data = await response.json();
-  return data;
+  return response;
 };
