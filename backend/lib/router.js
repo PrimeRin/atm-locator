@@ -83,10 +83,7 @@ router.get("/atm_count", authenticateJWT, async (req, res) => {
      .json({ error: "An error occurred while fetching ATM information" });
   }
 });
-
-
-
-
+ 
 router.get("/query_atm", authenticateJWT, async (req, res) => {
   const { search, filter, dzongkhag, page = 1, pageSize = 10 } = req.query;
 
@@ -126,7 +123,6 @@ router.get("/query_atm", authenticateJWT, async (req, res) => {
     return res.status(500).json({ error: "An error occurred during the search." });
   }
 });
-
 
 router.get("/admin-atm-list/:id", async (req, res) => {
   const { id } = req.params;
@@ -181,7 +177,7 @@ router.post("/create-atm", authenticateJWT, async (req, res) => {
   try {
     const { name, location_name, dzongkhag, gewog, website, phone, email, service_status, custom_time, latitude, longitude } = req.body;
 
-    if (!name ||!dzongkhag ||!gewog ||!website ||!phone ||!email ||!service_status ||!latitude ||!longitude) {
+    if (!name ||!dzongkhag ||!gewog ||!website ||!phone ||!email ||!service_status ||!latitude ||!longitude ||!location_name) {
       return res.status(400).json({ message: "Missing required fields" });
     }
 
@@ -196,8 +192,8 @@ router.post("/create-atm", authenticateJWT, async (req, res) => {
     const creator = creatorResult[0];
 
     const insertResult = await db.execute(
-      "INSERT INTO atm_details (id, name, dzongkhag, gewog, bank_category, website, phone, email, service_status, latitude, longitude, creator_id) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)",
-      [id, name, dzongkhag, gewog, creator[0].bank, website, phone, email, service_status, latitude, longitude, creator[0].id]
+      "INSERT INTO atm_details (id, name, dzongkhag, gewog, bank_category, website, phone, email, service_status, latitude, longitude, location_name, custom_time, creator_id) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+      [id, name, dzongkhag, gewog, creator[0].bank, website, phone, email, service_status, latitude, longitude, location_name, custom_time, creator[0].id]
     );
 
     if (insertResult[0].affectedRows > 0) {
@@ -236,7 +232,8 @@ router.put("/update-atm/:id", authenticateJWT, async (req, res) => {
       !email ||
       !service_status ||
       !latitude ||
-      !longitude
+      !longitude ||
+      !location_name
     ) {
       return res.status(400).json({ message: "Missing required fields" });
     }
@@ -251,7 +248,7 @@ router.put("/update-atm/:id", authenticateJWT, async (req, res) => {
     const creator = creatorResult[0];
 
     const updateResult = await db.execute(
-      "UPDATE atm_details SET name=?, dzongkhag=?, gewog=?, bank_category=?, website=?, phone=?, email=?, service_status=?, latitude=?, longitude=?, creator_id=? WHERE id=?",
+      "UPDATE atm_details SET name=?, dzongkhag=?, gewog=?, bank_category=?, website=?, phone=?, email=?, service_status=?, latitude=?, longitude=?, location_name=?, custom_time=?, creator_id=? WHERE id=?",
       [
         name,
         dzongkhag,
@@ -263,6 +260,8 @@ router.put("/update-atm/:id", authenticateJWT, async (req, res) => {
         service_status,
         latitude,
         longitude,
+        location_name,
+        custom_time,
         creator[0].id,
         atmId,
       ]

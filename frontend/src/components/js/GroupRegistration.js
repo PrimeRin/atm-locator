@@ -27,6 +27,8 @@ export default function GroupRegistration({ data }) {
     longitude: data ? data.longitude : "",
   });
 
+  console.log('formdata', formData);
+
   const handleInputChange = (key, value) => {
     setFormData((prevData) => ({
       ...prevData,
@@ -64,7 +66,7 @@ export default function GroupRegistration({ data }) {
       if (!formData[field]) {
         if (field === "service_status" && !formData["custom_time"]) {
           isValid = false;
-        }
+        } 
         isValid = false;
       }
     });
@@ -88,6 +90,7 @@ export default function GroupRegistration({ data }) {
               setTimeout(() => {
                 navigate("/admin-atm-list");
                 setPage(1);
+                setShowNotice(false);
                 setFormData({
                   name: "",
                   location_name: "",
@@ -135,6 +138,7 @@ export default function GroupRegistration({ data }) {
               setShowNotice(true);
               setTimeout(() => {
                 navigate("/admin-register-atm");
+                setShowNotice(false);
                 setPage(1);
                 setFormData({
                   name: "",

@@ -125,7 +125,6 @@ export default function RegisterForm({
             <div className="register-service-info">
               <span
                 className={`service-status ${
-                  (data && data.service_status === "Always Open") ||
                   (formData && formData.service_status === "Always Open")
                     ? "active"
                     : ""
@@ -138,7 +137,6 @@ export default function RegisterForm({
               </span>
               <span
                 className={`service-status ${
-                  (data && data.service_status === "Inactive") ||
                   (formData && formData.service_status === "Inactive")
                     ? "active"
                     : ""
@@ -152,7 +150,6 @@ export default function RegisterForm({
 
               <span
                 className={`service-status ${
-                  (data && data.service_status === "Maintenance") ||
                   (formData && formData.service_status === "Maintenance")
                     ? "active"
                     : ""
@@ -165,7 +162,6 @@ export default function RegisterForm({
               </span>
               <span
                 className={`service-status ${
-                  (data && data.service_status === "Custom Time") ||
                   (formData && formData.service_status === "Custom Time")
                     ? "active"
                     : ""
@@ -181,7 +177,7 @@ export default function RegisterForm({
               {formData.service_status === "Custom Time" && (
                 <CustomInput
                   label="Custom Time"
-                  value={"custom_time"}
+                  value="custom_time"
                   onType={onType}
                   formData={formData.custom_time ? formData.custom_time : ""}
                 />
