@@ -84,6 +84,9 @@ router.get("/atm_count", authenticateJWT, async (req, res) => {
   }
 });
 
+
+
+
 router.get("/query_atm", authenticateJWT, async (req, res) => {
   const { search, filter, dzongkhag, page = 1, pageSize = 10 } = req.query;
 
@@ -115,12 +118,15 @@ router.get("/query_atm", authenticateJWT, async (req, res) => {
     sqlQuery += " LIMIT ? OFFSET ?";
     queryParams.push(size, offset);
 
+    console.log(sqlQuery, queryParams);
+
     const [result] = await db.query(sqlQuery, queryParams);
     return res.json(result);
   } catch (error) {
     return res.status(500).json({ error: "An error occurred during the search." });
   }
 });
+
 
 router.get("/admin-atm-list/:id", async (req, res) => {
   const { id } = req.params;
@@ -205,7 +211,6 @@ router.post("/create-atm", authenticateJWT, async (req, res) => {
 });
 
 router.put("/update-atm/:id", authenticateJWT, async (req, res) => {
-  debugger;
   try {
     const atmId = req.params.id;
     const {
@@ -264,14 +269,11 @@ router.put("/update-atm/:id", authenticateJWT, async (req, res) => {
     );
 
     if (updateResult[0].affectedRows > 0) {
-      console.log('update status 200');
       res.status(200).json({ message: "ATM updated successfully" });
     } else {
-      console.log('update status 400');
       res.status(400).json({ message: "ATM update failed" });
     }
   } catch (error) {
-    console.log('update status 500');
     res.status(500).json({ error: "An error occurred during the update" });
   }
 });
@@ -283,10 +285,8 @@ router.delete('/atms/:id', authenticateJWT, async (req, res) => {
     const deletedAtm = await db.query('DELETE FROM atm_details WHERE id =?', [id]);
 
     if (deletedAtm.affectedRows > 0) {
-      console.log('update status 200');
       res.status(200).json({ message: 'ATM deleted successfully' });
     } else {
-      console.log('update status 400');
       res.status(404).json({ message: 'ATM not found' });
     }
   } catch (error) {

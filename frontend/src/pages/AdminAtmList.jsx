@@ -44,6 +44,12 @@ function AdminAtmList() {
     };
   }, [data, hasMore]);
 
+  useEffect(() => {
+    setData([]);
+    setCurrentPage(1);
+    setHasMore(true);
+  }, [searchText, filter]);
+
   function onSearch(text) {
     setSearchText(text);
   }
@@ -55,10 +61,10 @@ function AdminAtmList() {
   return (
     <AdminLayout>
       <div className="admin-atm-list-con">
-        <SearchBar onSearch={onSearch} />
+        <SearchBar onSearch={onSearch} searchText={searchText} />
         <div className="admin-atm-inner-con">
           <Filter onFilterChange={onFilterChange} />
-          <AtmLists data={data} hasMore={hasMore} elementRef={elementRef} />
+          <AtmLists data={data} hasMore={hasMore} elementRef={elementRef} filter={filter} />
         </div>
       </div>
     </AdminLayout>

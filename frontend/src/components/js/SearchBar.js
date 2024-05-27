@@ -5,12 +5,11 @@ import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import "../css/SearchBar.css";
 import { useState } from "react";
 
-export default function SearchBar({onSearch}) {
+export default function SearchBar({onSearch, searchText}) {
   const [inputText, setInputText] = useState('');
 
   const handleInputChange = (e) => {
-    setInputText(e.target.value);
-    onSearch(inputText);
+    onSearch(e.target.value);
   };
 
   return (
@@ -23,7 +22,7 @@ export default function SearchBar({onSearch}) {
             type="text"
             id="search"
             placeholder="Search by atm id"
-            value={inputText}
+            value={searchText}
             onChange={handleInputChange}
             required
           />
