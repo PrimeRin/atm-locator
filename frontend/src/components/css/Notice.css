@@ -1,7 +1,37 @@
-.notice-con{
+@keyframes growFromCenter {
+    0% {
+      transform: scale(0);
+      opacity: 0;
+    }
+    50% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+  
+  @keyframes shrinkToCenter {
+    0% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    50% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    100% {
+      transform: scale(0);
+      opacity: 0;
+    }
+  }
+  
+  .notice-con {
     position: absolute;
     top: 30px;
-    left:30vw;
+    left: 30vw;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -13,15 +43,27 @@
     width: 30vw;
     border-radius: 8px;
     box-shadow: 1px 1px 1px rgb(107, 149, 228);
-}
-
-.message-icon{
-    border-radius: 50px;
+    animation-duration: 1s; /* Increased duration for slower animation */
+    animation-fill-mode: forwards;
+  }
+  
+  /* Entrance animation */
+  .notice-con.show {
+    animation-name: growFromCenter;
+  }
+  
+  /* Exit animation */
+  .notice-con.hide {
+    animation-name: shrinkToCenter;
+  }
+  
+  .message-icon {
+    border-radius: 50%;
     padding: 4px;
     color: white;
-}
-
-.cdd{
+  }
+  
+  .cdd {
     background-color: #da0909;
-}
-
+  }
+  

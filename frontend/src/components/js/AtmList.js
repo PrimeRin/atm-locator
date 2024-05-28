@@ -17,7 +17,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { deleteAtm } from "../service/deleteAtm";
 import Notice from "./Notice";
 
-export default function AtmList({ atm, onSelect }) {
+export default function AtmList({ atm, onSelect, onDelete }) {
   const navigate = useNavigate();
   const location = useLocation();
   const [showDeleteWarning, setShowDeleteWarning] = useState(false);
@@ -49,9 +49,9 @@ export default function AtmList({ atm, onSelect }) {
       setType("success");
       setShowNotice(true);
       toggleDeleteWarning();
+      onDelete(atm.id);
       setTimeout(() => {
         navigate("/admin-atm-list");
-        window.location.reload();
         setShowNotice(false);
       }, 2000);
     } catch (error) {

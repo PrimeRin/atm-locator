@@ -14,6 +14,7 @@ function AdminAtmList() {
   const [currentPage, setCurrentPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const elementRef = useRef(null);
+  const [deletedAtm, setDeletedAtm] = useState(null);
 
   async function fetchMoreItems() {
     const result = await queryAtmData(currentPage, null, searchText, filter);
@@ -58,13 +59,20 @@ function AdminAtmList() {
     setFilter(selectedFilters);
   }
 
+  const handleDelete = (atmId) => {
+    setDeletedAtm(atmId);
+    setData([]);
+    setCurrentPage(1);
+    setHasMore(true);
+  };
+
   return (
     <AdminLayout>
       <div className="admin-atm-list-con">
         <SearchBar onSearch={onSearch} searchText={searchText} />
         <div className="admin-atm-inner-con">
           <Filter onFilterChange={onFilterChange} />
-          <AtmLists data={data} hasMore={hasMore} elementRef={elementRef} filter={filter} />
+          <AtmLists data={data} hasMore={hasMore} elementRef={elementRef} filter={filter} onDelete={handleDelete}/>
         </div>
       </div>
     </AdminLayout>
