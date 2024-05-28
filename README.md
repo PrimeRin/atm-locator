@@ -6,7 +6,9 @@ This application is designed to manage ATMs throughout Bhutan, providing a compr
 
 1. Clone repo
 
-``` git clone git@github.com:PrimeRin/atm-locator.git ```
+``` 
+git clone git@github.com:PrimeRin/atm-locator.git
+```
 
 2. Set up backend (express)
 
