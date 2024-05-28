@@ -6,7 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon server.js",
-    "inspect": "nodemon --inspect server.js"
+    "inspect": "nodemon --inspect server.js",
+    "seed-user": "node lib/seed-user.js",
+    "seed-atm": "node lib/seed-atm.js"
   },
   "keywords": [],
   "author": "",
