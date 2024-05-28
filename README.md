@@ -42,7 +42,8 @@ npm start
 
  - create db name
 
-``` CREATE DATABASE atm_datas;
+``` 
+CREATE DATABASE atm_datas;
 
 use atm_datas
 ```
