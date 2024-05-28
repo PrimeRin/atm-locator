@@ -141,17 +141,26 @@ router.get("/admin-atm-list/:id", authenticateJWT, async (req, res) => {
 router.get("/atm_list", async (req, res) => {
   const { dzongkhag, page, limit = 10 } = req.query;
   let offset = (parseInt(page) - 1) * parseInt(limit);
-  let sql = "SELECT * FROM atm_details";
+  let sql = "SELECT COUNT(*) AS total FROM atm_details";
 
   if (dzongkhag) {
-    sql += " WHERE dzongkhag =?"; 
+    sql += " WHERE dzongkhag = ?";
   }
-  sql += ` LIMIT ${offset}, ${limit}`;
 
   try {
+    const [countRows] = await db.query(sql, [dzongkhag]);
+    const total = countRows[0].total;
+
+    sql = "SELECT * FROM atm_details";
+    if (dzongkhag) {
+      sql += " WHERE dzongkhag = ?";
+    }
+    sql += ` LIMIT ${offset}, ${limit}`;
+
     const [rows] = await db.query(sql, [dzongkhag]);
-    const hasMore = rows.length === 10;
-    return res.json({data: rows, hasMore: hasMore});
+    const hasMore = rows.length === parseInt(limit);
+
+    return res.json({ data: rows, hasMore: hasMore, total: total });
   } catch (err) {
     return res.status(500).json({ error: "An error occurred while fetching ATM information" });
   }

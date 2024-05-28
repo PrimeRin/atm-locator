@@ -8,8 +8,8 @@ import google_img from "../../assets/img/google-map.png";
 export default function FilterAtm() {
   const [data, setData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(0);
   const [selectedDzongkhag, setSelectedDzongkhag] = useState("Thimphu");
-  const totalPages = 20;
 
   const onPageChange = async (pageNumber, dzongkhag) => {
     setCurrentPage(pageNumber);
@@ -21,7 +21,10 @@ export default function FilterAtm() {
   useEffect(() => {
     const fetchData = async () => {
       const response = await atmList(currentPage, selectedDzongkhag);
-      const { data } = response;
+      const { data, total } = response;
+      const totalInt = parseInt(total, 10); // Convert total to an integer
+      const totalPages = Math.ceil(totalInt / 10); // Calculate total pages, rounding up
+      setTotalPages(totalPages);
       setData(data);
     };
     fetchData();
