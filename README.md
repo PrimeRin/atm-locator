@@ -36,13 +36,15 @@ npm start
 
  -  login to db
 
- ``` mysql -u your\_username -p ```
+ ```
+  mysql -u your_username -p 
+  ```
 
  - create db name
 
-``` CREATE DATABASE atm\_datas;
+``` CREATE DATABASE atm_datas;
 
-use atm\_datas
+use atm_datas
 ```
 
  - create table users
@@ -58,15 +60,15 @@ password VARCHAR(255) NOT NULL,
 
 bank ENUM('BOB', 'BNB', 'DK', 'TB', 'BDBL', 'DPNB') NOT NULL,
 
-created\_at TIMESTAMP DEFAULT CURRENT\_TIMESTAMP
+created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 ```
 
-- create table atm\_details
+- create table atm_details
 
 ```
-CREATE TABLE atm\_details (
+CREATE TABLE atm_details (
 
 id VARCHAR(50) PRIMARY KEY,
 
@@ -76,7 +78,7 @@ gewog VARCHAR(100),
 
 dzongkhag VARCHAR(100),
 
-bank\_category ENUM('BOB', 'BNB', 'DK', 'TB', 'BDBL', 'DPNB') NOT NULL,
+bank_category ENUM('BOB', 'BNB', 'DK', 'TB', 'BDBL', 'DPNB') NOT NULL,
 
 email VARCHAR(100),
 
@@ -88,17 +90,17 @@ latitude DECIMAL(10, 7),
 
 longitude DECIMAL(10, 7),
 
-service\_status VARCHAR(50),
+service_status VARCHAR(50),
 
-creator\_id VARCHAR(50),
+creator_id VARCHAR(50),
 
-created\_at TIMESTAMP DEFAULT CURRENT\_TIMESTAMP,
+created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 
-updated\_at TIMESTAMP DEFAULT CURRENT\_TIMESTAMP ON UPDATE CURRENT\_TIMESTAMP,
+updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 
-location\_name VARCHAR(100),
+location_name VARCHAR(100),
 
-custom\_time DATETIME
+custom_time DATETIME
 
 );
 ```
