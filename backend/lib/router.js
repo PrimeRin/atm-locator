@@ -16,7 +16,7 @@ async function authenticateUser(username, password) {
     const match = await bcrypt.compare(password, user.password);
     return match;
   } catch (error) {
-    throw error; 
+    throw error;
   }
 }
 
@@ -28,17 +28,22 @@ router.post("/login", async (req, res) => {
       return res.status(401).send({ message: "Invalid credentials" });
     }
 
-    const token = jwt.sign({ username: username }, process.env.JWT_SECRET, {
-      expiresIn: "12h",
+    const accessToken = jwt.sign({ username: username }, process.env.JWT_SECRET, {
+      expiresIn: "7d", 
     });
 
-    res.status(200).json({ success: true, message: "success", token: token });
+    const refreshToken = jwt.sign({ username: username }, process.env.REFRESH_SECRET, {
+      expiresIn: "7d", 
+    });
+
+    res.status(200).json({ success: true, accessToken, refreshToken });
   } catch (error) {
     res.status(500).send({ message: "Internal server error" });
   }
 });
 
 const authenticateJWT = (req, res, next) => {
+
   const authHeader = req.headers.authorization;
 
   if (authHeader) {
@@ -115,8 +120,6 @@ router.get("/query_atm", authenticateJWT, async (req, res) => {
     sqlQuery += " LIMIT ? OFFSET ?";
     queryParams.push(size, offset);
 
-    console.log(sqlQuery, queryParams);
-
     const [result] = await db.query(sqlQuery, queryParams);
     return res.json(result);
   } catch (error) {
@@ -124,7 +127,7 @@ router.get("/query_atm", authenticateJWT, async (req, res) => {
   }
 });
 
-router.get("/admin-atm-list/:id", async (req, res) => {
+router.get("/admin-atm-list/:id", authenticateJWT, async (req, res) => {
   const { id } = req.params;
   
   try {

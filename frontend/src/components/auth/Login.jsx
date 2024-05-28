@@ -14,16 +14,13 @@ const Login = ({ onClose }) => {
     e.preventDefault();
   
     try {
-      const response = await axios.post(
-        "http://localhost:8082/login",
-        {
-          username,
-          password,
-        }
-      );
+      const response = await axios.post("http://localhost:8082/login", {
+        username,
+        password,
+      });
   
       if (response.data.success) {
-        localStorage.setItem('jwtToken', response.data.token);
+        localStorage.setItem('jwtToken', response.data.accessToken);
         navigate("/admin-dashboard");
       } else {
         setError(response.data.message);
@@ -31,13 +28,11 @@ const Login = ({ onClose }) => {
     } catch (error) {
       setError("Incorrect Username or Password!");
     }
-  };  
+  };
 
   return (
     <div className="Logincontainer">
-      <button className="cross-btn" onClick={onClose}>
-        X
-      </button>
+      <button className="cross-btn" onClick={onClose}>X</button>
       <div>
         <img src={rmalogo} alt="rmalogo" className="logo" />
         <h4>ATM LOCATOR</h4>
@@ -57,9 +52,7 @@ const Login = ({ onClose }) => {
           onChange={(e) => setPassword(e.target.value)}
           className="logininputs"
         />
-        <button type="submit" className="loginbutton">
-          Login
-        </button>
+        <button type="submit" className="loginbutton">Login</button>
       </form>
       {error && <p className="error">{error}</p>}
     </div>

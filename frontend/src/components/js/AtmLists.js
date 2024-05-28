@@ -13,7 +13,7 @@ export default function AtmLists({ data, hasMore, elementRef, filter }) {
 
   return (
     <div className="atm-list-card">
-      {filter.length > 0 && (
+      {(filter.length > 0) && (
         <div className="atmlists-con">
           {data.map((atm) => (
             <AtmList key={atm.id} atm={atm} onSelect={handleOnClick} />
@@ -25,7 +25,7 @@ export default function AtmLists({ data, hasMore, elementRef, filter }) {
           )}
         </div>
       )}
-      {filter.length == 0 && <div className="no-data">
+      {(filter.length == 0 || data.length == 0) &&  <div className="no-data">
         <img src={img_404} alt="404" className="no-data-img" />
         <span className="no-atm-found">No ATM Found!</span>
         <span>Seems like we don't have any ATMs in this category.</span>

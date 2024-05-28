@@ -34,18 +34,15 @@ export default function Map() {
     const fetchData = async (page) => {
       const response = await atmList(page);
       const { data, hasMore } = response;
-      setData((prevData) => [...prevData, ...data]);
-
+      setData((prevData) => [...prevData,...data]);
+  
       if (hasMore) {
         setPage((prevPage) => prevPage + 1);
-        fetchData(page + 1);
       }
     };
-
+  
     fetchData(page);
-  }, [page]);
-
-  console.log("Data", data);
+  }, [page]); 
 
   const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: process.env.GOOGLE_MAP_API,

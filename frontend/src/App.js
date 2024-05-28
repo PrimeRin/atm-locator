@@ -1,33 +1,39 @@
 import {BrowserRouter,Routes,Route} from "react-router-dom"
 import LandingPage from "./pages/Landing";
-import Dashboard from "./components/js/Dashboard";
-import Login from "../src/components/auth/Login"
-import NewAtm from "./components/js/NewAtm";
-import AtmDetail from "./components/js/AtmDetail";
 import AdminDashboard from "./pages/AdminDashboard";
 import AdminAtmList from "./pages/AdminAtmList";
-import AdminNewAtm from "./pages/AdminNewAtm";
 import AdminAtmDetails from "./pages/AdminAtmDetail";
 import AdminAtmEdit from "./pages/AdminAtmEdit";
 import AdminAtmRegister from "./pages/AdminAtmRegister";
+import PageNotFound from "./components/js/PageNotFound";
+import { useState, useEffect } from "react";
 
 function App() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  useEffect(() => {
+    setIsAuthenticated(!!localStorage.getItem("jwtToken"));
+  }, []);
+
   return (
     <BrowserRouter>
-    <Routes>
-      <Route path="/" element={<LandingPage/>}></Route>
-      <Route path="/login" element={<Login/>}></Route> 
-      <Route path="/dashboard" element={<Dashboard/>}></Route>
-      <Route path="/create-atm" element={<NewAtm/>}></Route>
-      <Route path="/admin-dashboard" element={<AdminDashboard/>}></Route>
-      <Route path="/admin-register-atm" element={<AdminAtmRegister/>}></Route>
-      <Route path="/admin-atm-list" element={<AdminAtmList/>}></Route>
-      <Route path="/admin-atm-list/:id" element={<AdminAtmDetails/>}></Route>
-      <Route path="/admin-atm-list/:id/edit" element={<AdminAtmEdit/>}></Route>
-      <Route path="/test" element={<AdminAtmDetails/>}></Route>
-    </Routes>
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        {isAuthenticated && (
+          <>
+            <Route path="/admin-dashboard" element={<AdminDashboard />} />
+            <Route path="/admin-register-atm" element={<AdminAtmRegister />} />
+            <Route path="/admin-atm-list" element={<AdminAtmList />} />
+            <Route path="/admin-atm-list/:id" element={<AdminAtmDetails />} />
+            <Route path="/admin-atm-list/:id/edit" element={<AdminAtmEdit />} />
+          </>
+        )}
+        <Route path="*" element={<PageNotFound />} />
+      </Routes>
     </BrowserRouter>
   );
 }
+
+
 
 export default App;

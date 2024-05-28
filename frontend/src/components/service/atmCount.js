@@ -9,6 +9,7 @@ export const atmCount = async (type) => {
     }
   
     const token = localStorage.getItem('jwtToken');
+    console.log('jwt token', token); 
   
     const requestOptions = {
       method: 'GET',

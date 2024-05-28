@@ -1,4 +1,3 @@
-import { useState } from "react";
 import AdminLayout from "../components/layout/AdminLayout";
 import AtmHeader from "../components/js/AtmHeader";
 import "../components/css/AtmHeader.css";

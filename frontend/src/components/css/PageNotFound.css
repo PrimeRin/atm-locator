@@ -1,0 +1,18 @@
+.page-not-found-con{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center
+}
+
+.page-not-found-img{
+    width: 50vw;
+    height: 50vh;
+}
+
+.page-not-found-text{
+    font-size: 16px;
+    font-weight: 500;
+}

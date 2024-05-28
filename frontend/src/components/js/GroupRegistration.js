@@ -27,8 +27,6 @@ export default function GroupRegistration({ data }) {
     longitude: data ? data.longitude : "",
   });
 
-  console.log('formdata', formData);
-
   const handleInputChange = (key, value) => {
     setFormData((prevData) => ({
       ...prevData,

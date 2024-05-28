@@ -44,11 +44,7 @@ function Home() {
     dzongkhag: item.dzongkhag, 
     count: item.count 
   }));
-
-  console.log(dzongATMCount);
-  console.log(transformedData);
   
-
   return (
     <main className="main-container">
       <AtmHeader
