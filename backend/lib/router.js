@@ -97,6 +97,16 @@ router.get("/query_atm", authenticateJWT, async (req, res) => {
   const offset = (pageNum - 1) * size;
   const filterList = filter ? filter.split(",").map((item) => item.trim()) : [];
 
+  const username = req.user.username;
+
+  const creatorResult = await db.query("SELECT id, bank FROM users WHERE username=?", [username]);
+
+  if (creatorResult.length === 0) {
+    return res.status(404).json({ message: "Creator not found" });
+  }
+  
+  const creator = creatorResult[0];
+
   try {
     let sqlQuery = "SELECT * FROM atm_details WHERE 1=1";
     let queryParams = [];
@@ -116,6 +126,10 @@ router.get("/query_atm", authenticateJWT, async (req, res) => {
       sqlQuery += ` AND dzongkhag IN (${placeholders})`;
       queryParams.push(...filterList);
     }
+
+    sqlQuery += " AND bank_category = ?";
+    queryParams.push(creator[0].bank);
+    
 
     sqlQuery += " LIMIT ? OFFSET ?";
     queryParams.push(size, offset);
