@@ -88,6 +88,25 @@ router.get("/atm_count", authenticateJWT, async (req, res) => {
      .json({ error: "An error occurred while fetching ATM information" });
   }
 });
+
+router.get("/user", authenticateJWT, async (req, res) => {
+
+  const username = req.user.username;
+
+  try {
+    const [creatorResult] = await db.query("SELECT * FROM users WHERE username=?", [username]);
+
+    if (creatorResult.length === 0) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const creator = creatorResult[0];
+
+    return res.json(creator);
+  } catch (error) {
+    return res.status(500).json({ error: "An error occurred during the search." });
+  }
+});
  
 router.get("/query_atm", authenticateJWT, async (req, res) => {
   const { search, filter, dzongkhag, page = 1, pageSize = 10 } = req.query;
