@@ -7,7 +7,7 @@ import "../components/css/AtmLists.css";
 import { queryAtmData } from "../components/service/queryAtmData";
 import { useState, useEffect, useRef } from "react";
 
-function AdminAtmList() {
+function AdminAtmList({user}) {
   const [searchText, setSearchText] = useState("");
   const [filter, setFilter] = useState([]);
   const [data, setData] = useState([]);
@@ -67,7 +67,7 @@ function AdminAtmList() {
   };
 
   return (
-    <AdminLayout>
+    <AdminLayout user={user}>
       <div className="admin-atm-list-con">
         <SearchBar onSearch={onSearch} searchText={searchText} />
         <div className="admin-atm-inner-con">
