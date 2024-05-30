@@ -4,7 +4,7 @@ import
  from 'react-icons/bs'
  import profile from "../../assets/img/profile.jpeg";
 
-function Header({OpenSidebar}) {
+function Header({OpenSidebar, user}) {
   return (
     <header className='header'>
         <div className='menu-icon'>
@@ -16,8 +16,8 @@ function Header({OpenSidebar}) {
              <BsFillCircleFill className='active-dot' size={12}/>
            </div>
            <div className='profile-details'>
-              <span className='profile-name'>Bank Manager</span>
-              <span className='bank-name'>BOB</span>
+              <span className='profile-name'>{user.username}</span>
+              <span className='bank-name'>{user.bank}</span>
            </div>
         </div>
     </header>
