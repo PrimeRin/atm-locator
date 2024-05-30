@@ -19,7 +19,7 @@ import
  import { CiLogout } from "react-icons/ci";
  import { useNavigate } from "react-router-dom"; 
 
-function Sidebar({ openSidebarToggle, OpenSidebar, handleTabClick, user }) {
+function Sidebar({ openSidebarToggle, OpenSidebar, handleTabClick}) {
   const isActive = usePath();
   const navigate = useNavigate(); 
 
@@ -87,8 +87,8 @@ function Sidebar({ openSidebarToggle, OpenSidebar, handleTabClick, user }) {
             <BsFillCircleFill className="profile-active-dot" size={20} />
           </div>
           <div className="profile-profile-details">
-            <span className="profile-profile-name">{user && user.username}</span>
-            <span className="profile-bank-name">{user && user.bank}</span>
+            <span className="profile-profile-name">Bank Manager</span>
+            <span className="profile-bank-name">BOB</span>
           </div>
         </div>
         
