@@ -4,13 +4,14 @@ import atm_img from "../../assets/amcs/BOB-ATM/bob/bob.png";
 import { FaEnvelope, FaPhone, FaGlobe } from "react-icons/fa";
 import { FiMapPin } from "react-icons/fi";
 import { bankFullName } from "./bankFullName";
+import { categoryToBankImage } from "./MarkerImg";
 
 export default function Details({ onSelect, data }) {
   return (
     <div className="admin-atm-details" onClick={onSelect}>
       <div className="atm-details-header">
         <div className="atm-details-img-con">
-          <img src={atm_img} className="atm-details-img" alt="ATM" />
+          <img src={categoryToBankImage[data.bank_category]} className="atm-details-img" alt="ATM" />
         </div>
       </div>
       <div className="atm-details-body">

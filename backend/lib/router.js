@@ -88,6 +88,25 @@ router.get("/atm_count", authenticateJWT, async (req, res) => {
      .json({ error: "An error occurred while fetching ATM information" });
   }
 });
+
+router.get("/user", authenticateJWT, async (req, res) => {
+
+  const username = req.user.username;
+
+  try {
+    const [creatorResult] = await db.query("SELECT * FROM users WHERE username=?", [username]);
+
+    if (creatorResult.length === 0) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const creator = creatorResult[0];
+
+    return res.json(creator);
+  } catch (error) {
+    return res.status(500).json({ error: "An error occurred during the search." });
+  }
+});
  
 router.get("/query_atm", authenticateJWT, async (req, res) => {
   const { search, filter, dzongkhag, page = 1, pageSize = 10 } = req.query;
@@ -96,6 +115,16 @@ router.get("/query_atm", authenticateJWT, async (req, res) => {
   const size = parseInt(pageSize, 10);
   const offset = (pageNum - 1) * size;
   const filterList = filter ? filter.split(",").map((item) => item.trim()) : [];
+
+  const username = req.user.username;
+
+  const creatorResult = await db.query("SELECT id, bank FROM users WHERE username=?", [username]);
+
+  if (creatorResult.length === 0) {
+    return res.status(404).json({ message: "Creator not found" });
+  }
+  
+  const creator = creatorResult[0];
 
   try {
     let sqlQuery = "SELECT * FROM atm_details WHERE 1=1";
@@ -116,6 +145,10 @@ router.get("/query_atm", authenticateJWT, async (req, res) => {
       sqlQuery += ` AND dzongkhag IN (${placeholders})`;
       queryParams.push(...filterList);
     }
+
+    sqlQuery += " AND bank_category = ?";
+    queryParams.push(creator[0].bank);
+    
 
     sqlQuery += " LIMIT ? OFFSET ?";
     queryParams.push(size, offset);

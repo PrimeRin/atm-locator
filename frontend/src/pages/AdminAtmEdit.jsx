@@ -7,7 +7,7 @@ import { useState, useEffect } from "react";
 import { useParams } from 'react-router-dom';
 import { fetchAtmDetails } from "../components/service/atmDetail";
 
-function AdminAtmEdit() {
+function AdminAtmEdit({user}) {
   const [data, setData] = useState(null);
   const { id } = useParams(); 
 
@@ -26,7 +26,7 @@ function AdminAtmEdit() {
   };
 
   return (
-    <AdminLayout>
+    <AdminLayout user={user}>
       <div className="admin-atm-edits-con">
         <AtmHeader
           showDropdown={false}

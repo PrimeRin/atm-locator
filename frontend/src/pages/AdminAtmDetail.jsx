@@ -9,7 +9,7 @@ import { deleteAtm } from "../components/service/deleteAtm";
 import Notice from "../components/js/Notice";
 import { useNavigate } from "react-router-dom";
 
-function AdminAtmDetails() {
+function AdminAtmDetails({user}) {
   const [showDropdown, setShowDropdown] = useState(false);
   const [showWarning, setShowWarning] = useState(false);
   const [data, setData] = useState([]);
@@ -63,7 +63,7 @@ function AdminAtmDetails() {
   }
 
   return (
-    <AdminLayout>
+    <AdminLayout user={user}>
       <div className="admin-atm-details-con">
         <AtmHeader
           showDropdown={showDropdown}
