@@ -4,10 +4,10 @@ import "../components/css/AtmHeader.css";
 import "../components/css/CustomStepper.css";
 import GroupRegistration from "../components/js/GroupRegistration";
 
-function AdminAtmRegister({user}) {
+function AdminAtmRegister() {
 
   return (
-    <AdminLayout user={user}>
+    <AdminLayout>
       <div className="admin-atm-edits-con">
         <AtmHeader
           showDropdown={false}

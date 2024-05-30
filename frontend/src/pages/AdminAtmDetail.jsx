@@ -9,7 +9,7 @@ import { deleteAtm } from "../components/service/deleteAtm";
 import Notice from "../components/js/Notice";
 import { useNavigate } from "react-router-dom";
 
-function AdminAtmDetails({user}) {
+function AdminAtmDetails() {
   const [showDropdown, setShowDropdown] = useState(false);
   const [showWarning, setShowWarning] = useState(false);
   const [data, setData] = useState([]);
@@ -42,7 +42,6 @@ function AdminAtmDetails({user}) {
   async function handleDeleteConfirm(){
     setShowWarning(false);
     try {
-      console.log('atm id.....', id);
       await deleteAtm(id);
       setMessage("ATM deleted successfully!");
       setType("success");
@@ -53,7 +52,6 @@ function AdminAtmDetails({user}) {
       }, 2000);
     } catch (error) {
       setMessage("An unknown error occurred");
-      console.log(error);
       setType("error");
       setShowNotice(true);
       setTimeout(() => {
@@ -63,7 +61,7 @@ function AdminAtmDetails({user}) {
   }
 
   return (
-    <AdminLayout user={user}>
+    <AdminLayout>
       <div className="admin-atm-details-con">
         <AtmHeader
           showDropdown={showDropdown}

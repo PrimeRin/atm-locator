@@ -2,9 +2,9 @@ import AdminLayout from "../components/layout/AdminLayout";
 import "../components/css/NewAtm.css";
 import NewAtm from "../components/js/NewAtm";
 
-function AdminNewAtm({user}) {
+function AdminNewAtm() {
   return (
-    <AdminLayout user={user}>
+    <AdminLayout>
       <NewAtm/>
     </AdminLayout>
   );

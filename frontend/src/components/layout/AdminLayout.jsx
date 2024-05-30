@@ -1,11 +1,15 @@
-import { useState } from "react";
+// AdminLayout.js
+import { useState, useContext } from "react";
+import { useNavigate, useRouteLoaderData } from "react-router-dom";
+import { UserContext } from "../js/UserContext";
 import Header from "../js/Header";
 import Sidebar from "../js/Sidebar";
+import PageNotFound from "../js/PageNotFound";
 import "../css/AdminDashboard.css";
-import { useNavigate } from "react-router-dom";
 
-const AdminLayout = ({ children, user }) => {
+const AdminLayout = ({ children }) => {
   const [openSidebarToggle, setOpenSidebarToggle] = useState(false);
+  const { user } = useContext(UserContext);
   const navigate = useNavigate();
 
   const OpenSidebar = () => {
@@ -13,21 +17,27 @@ const AdminLayout = ({ children, user }) => {
   };
 
   const handleTabClick = (tab) => {
-    navigate(`/${tab}`); 
+    navigate(`/${tab}`);
   };
-  
+
   return (
-    <div className="grid-container">
-      <Header user={user}/>
-      <Sidebar
-        activeTabName={"admin-dashboard"}
-        openSidebarToggle={openSidebarToggle}
-        OpenSidebar={OpenSidebar}
-        handleTabClick={handleTabClick}
-        user={user}
-      />
-      {children}
-    </div>
+    <>
+      {user ? (
+        <div className="grid-container">
+          <Header user={user}/>
+          <Sidebar
+            activeTabName={"admin-dashboard"}
+            openSidebarToggle={openSidebarToggle}
+            OpenSidebar={OpenSidebar}
+            handleTabClick={handleTabClick}
+            user={user}
+          />
+          {children}
+        </div>
+      ) : (
+        <PageNotFound />
+      )}
+    </>
   );
 };
 

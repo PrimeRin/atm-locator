@@ -338,5 +338,8 @@ router.delete('/atms/:id', authenticateJWT, async (req, res) => {
   }
 });
 
+router.get("/test", async (req, res) => {
+  res.status(200).json({message: 'backend is running'});
+}); 
 
 module.exports = router;

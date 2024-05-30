@@ -16,8 +16,8 @@ function Header({OpenSidebar, user}) {
              <BsFillCircleFill className='active-dot' size={12}/>
            </div>
            <div className='profile-details'>
-              <span className='profile-name'>{user && user.username}</span>
-              <span className='bank-name'>{user && user.bank}</span>
+              <span className='profile-name'>{user.username}</span>
+              <span className='bank-name'>{user.bank}</span>
            </div>
         </div>
     </header>

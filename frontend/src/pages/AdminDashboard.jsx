@@ -2,11 +2,11 @@ import AdminLayout from '../components/layout/AdminLayout'
 import Home from '../components/js/Home';
 import UserLocation from '../components/js/UserLocation';
 
-function AdminDashboard({user}) {
+function AdminDashboard() {
   console.log('admin dashboard');
 
   return (
-    <AdminLayout user={user}>
+    <AdminLayout>
       <Home/>
     </AdminLayout>
   )
