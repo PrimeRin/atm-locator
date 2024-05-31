@@ -1,6 +1,5 @@
 import React from "react";
 import "../css/Details.css";
-import atm_img from "../../assets/amcs/BOB-ATM/bob/bob.png";
 import { FaEnvelope, FaPhone, FaGlobe } from "react-icons/fa";
 import { FiMapPin } from "react-icons/fi";
 import { bankFullName } from "./bankFullName";
@@ -107,6 +106,7 @@ export default function Details({ onSelect, data }) {
             height="450"
             style={{ border: 0 }}
             loading="lazy"
+            title="atm location"
             allowFullScreen
             src={`https://www.google.com/maps?q=${data.latitude},${data.longitude}&hl=es;z=14&output=embed&maptype=satellite`}
           ></iframe>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { TiTick } from "react-icons/ti";
 import { RiAlertFill } from "react-icons/ri";
 import "../css/Notice.css";

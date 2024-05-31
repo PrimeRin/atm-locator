@@ -4,8 +4,6 @@ import bnb_atm from "../../assets/img/icon_BNB-ATM.png";
 import dpnb_atm from "../../assets/img/icon_DPNB-ATM.png";
 import tbl_atm from "../../assets/img/icon_TBL-ATM.png";
 import hotel from "../../assets/img/icon_hotel.png";
-import resort from "../../assets/img/icon_resort.png";
-import standalone from "../../assets/img/icon_standalone.png";
 
 import bob_img from "../../assets/amcs/BOB-ATM/bob/bob.png";
 import bdbl_img from "../../assets/amcs/BDBL-ATM/bdbl/bdbl.png";

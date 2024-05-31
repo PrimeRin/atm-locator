@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, lazy } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "../css/Map.css";
 import AtmCategory from "./AtmCategory";
 import { categoryToImage } from "./MarkerImg";
@@ -16,7 +16,7 @@ export default function Map() {
   const [page, setPage] = useState(1);
   const [data, setData] = useState([]);
   const [show, setShow] = useState(false);
-  const { currentLocation, error } = UserLocation();
+  const { currentLocation } = UserLocation();
   const [selectedAtm, setSelectedAtm] = useState(null);
   const [showCurrentLocation, setShowCurrentLocation] = useState(
     currentLocation !== null

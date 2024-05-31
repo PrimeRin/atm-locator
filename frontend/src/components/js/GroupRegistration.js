@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CustomStepper from "./CustomStepper";
 import RegisterForm from "./RegisterForm";
@@ -81,7 +81,7 @@ export default function GroupRegistration({ data }) {
         updateAtm(data.id, formData)
           .then((response) => {
             console.log(response);
-            if (response.status == 200) {
+            if (response.status === 200) {
               setType("success");
               setNotice("ATM Updated Successfully!");
               setShowNotice(true);

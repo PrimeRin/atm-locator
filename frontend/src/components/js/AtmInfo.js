@@ -1,7 +1,7 @@
 import React from "react";
 import { InfoWindow } from "@react-google-maps/api";
 import "../css/AtmInfo.css";
-import { categoryToImage, categoryToBankImage } from "./MarkerImg";
+import { categoryToBankImage } from "./MarkerImg";
 
 export default function AtmInfo({ atm, onClose }) {
   const pos = { lat: parseFloat(atm.latitude), lng: parseFloat(atm.longitude) };
@@ -31,6 +31,7 @@ export default function AtmInfo({ atm, onClose }) {
         <img
           src={categoryToBankImage[atm.bank_category]}
           className="atm-info-img"
+          alt="atm info"
         />
         <button className="google-map-btn">
           <a

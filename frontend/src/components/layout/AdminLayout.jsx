@@ -1,6 +1,6 @@
 // AdminLayout.js
 import { useState, useContext } from "react";
-import { useNavigate, useRouteLoaderData } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { UserContext } from "../js/UserContext";
 import Header from "../js/Header";
 import Sidebar from "../js/Sidebar";

@@ -1,7 +1,7 @@
 import React from "react";
 import "../css/Filter.css";
 import { dzongkhags } from "./dzongkhags_list";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 export default function Filter({ onFilterChange }) {
   const [selectedFilters, setSelectedFilters] = useState(dzongkhags);

@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import { MdOutlineModeEdit } from "react-icons/md";
 import { TiTick } from "react-icons/ti";
 import { PiLineVertical } from "react-icons/pi";

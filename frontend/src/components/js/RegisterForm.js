@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import "../css/RegisterForm.css";
 import CustomInput from "./CustomInput";
 import CustomDropdown from "./CustomDropdown";
 import { dzongkhags, gewogs } from "./dzongkhags_list";
-import { useNavigate } from "react-router-dom";
 
 export default function RegisterForm({
   page,
@@ -16,7 +15,6 @@ export default function RegisterForm({
   onSubmit,
   formReset,
 }) {
-  const navigate = useNavigate();
 
   const gewog_options = [];
   gewogs.forEach((dzongkhag) => {
@@ -236,6 +234,7 @@ export default function RegisterForm({
                 style={{ border: 0 }}
                 loading="lazy"
                 allowFullScreen
+                title="ATM Location"
                 src={`https://www.google.com/maps?q=${
                   formData ? formData.latitude : "40.7128"
                 },${

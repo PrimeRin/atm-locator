@@ -13,7 +13,7 @@ function AdminAtmEdit() {
 
   useEffect(() => {
     fetchDataForAtmId(id);
-  }, [id]); 
+  }, []); 
 
   const fetchDataForAtmId = async (id) => {
     try {

@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import "../css/CustomInput.css";
 
 export default function CustomInput({label, value, onType, formData}) {

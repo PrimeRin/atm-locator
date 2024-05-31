@@ -7,7 +7,7 @@ import {
 import rma_logo from "../../assets/img/rma-logo.png";
 import usePath from "./usePath";
 import 
- {BsFillCircleFill, BsJustify}
+ {BsFillCircleFill}
  from 'react-icons/bs'
  import profile from "../../assets/img/profile.jpeg";
  import { CiLogout } from "react-icons/ci";

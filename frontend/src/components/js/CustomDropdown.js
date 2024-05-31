@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import "../css/CustomDropdown.css";
 
 const Dropdown = ({ label, value, options, data, onType, formData}) => {

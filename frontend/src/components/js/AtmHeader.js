@@ -1,5 +1,4 @@
 import React from "react";
-import { useState } from "react";
 import "../css/AtmHeader.css";
 import { SlArrowLeft } from "react-icons/sl";
 import { BsThreeDotsVertical } from "react-icons/bs";
