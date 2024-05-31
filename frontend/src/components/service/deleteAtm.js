@@ -1,5 +1,6 @@
 export const deleteAtm = async (id) => {
-    const url = `http://localhost:8082/atms/${id}`; // Adjusted URL for DELETE operation
+    const backend = process.env.REACT_APP_BACKEND_URL;
+    const url = `${backend}/atms/${id}`; 
   
     const token = localStorage.getItem("jwtToken");
   

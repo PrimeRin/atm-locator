@@ -1,9 +1,10 @@
 export const atmList = async (page, dzongkhag) => {
+    const backend = process.env.REACT_APP_BACKEND_URL;
     let url;
     if (dzongkhag) {
-      url = `http://localhost:8082/atm_list?page=${page}&dzongkhag=${dzongkhag}`;
+      url = `${backend}/atm_list?page=${page}&dzongkhag=${dzongkhag}`;
     } else {
-      url = `http://localhost:8082/atm_list?page=${page}`;
+      url = `${backend}/atm_list?page=${page}`;
     }
   
     const response = await fetch(url);

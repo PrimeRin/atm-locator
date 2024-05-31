@@ -1,11 +1,12 @@
 export const fetchUser = async () => {
   const cachedUser = localStorage.getItem("user");
+  const backend = process.env.REACT_APP_BACKEND_URL;
 
   if (cachedUser) {
     return JSON.parse(cachedUser);
   }
 
-  let url = `http://localhost:8082/user`;
+  let url = `${backend}/user`;
   const token = localStorage.getItem("jwtToken");
 
   const requestOptions = {

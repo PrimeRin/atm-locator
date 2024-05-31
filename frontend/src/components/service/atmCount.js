@@ -1,11 +1,12 @@
 export const atmCount = async (type) => {
+  const backend = process.env.REACT_APP_BACKEND_URL;
     let url;
     if (type === 'bank') {
-      url = `http://localhost:8082/atm_count?type=bank`;
+      url = `${backend}/atm_count?type=bank`;
     } 
 
     if (type === 'dzongkhag') {
-      url = `http://localhost:8082/atm_count?type=dzongkhag`;
+      url = `${backend}/atm_count?type=dzongkhag`;
     }
   
     const token = localStorage.getItem('jwtToken');

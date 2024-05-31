@@ -1,5 +1,6 @@
 export const updateAtm = async (atmId, formData) => {
-    const url = `http://localhost:8082/update-atm/${atmId}`;
+  const backend = process.env.REACT_APP_BACKEND_URL;
+    const url = `${backend}/update-atm/${atmId}`;
   
     const token = localStorage.getItem("jwtToken");
   

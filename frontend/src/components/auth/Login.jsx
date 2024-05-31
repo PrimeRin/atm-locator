@@ -9,12 +9,13 @@ const Login = ({ onClose }) => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  const backend = process.env.REACT_APP_BACKEND_URL;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
   
     try {
-      const response = await axios.post("http://localhost:8082/login", {
+      const response = await axios.post(`${backend}/login`, {
         username,
         password,
       });

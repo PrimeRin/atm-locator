@@ -1,5 +1,6 @@
 export const queryAtmData = async (page, dzongkhag, search, filter) => {
-  let url = `http://localhost:8082/query_atm?page=${page}`;
+  const backend = process.env.REACT_APP_BACKEND_URL;
+  let url = `${backend}/query_atm?page=${page}`;
 
   if (dzongkhag) {
     url += `&dzongkhag=${dzongkhag}`;

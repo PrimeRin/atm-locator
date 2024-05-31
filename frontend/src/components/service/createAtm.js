@@ -1,5 +1,6 @@
 export const createAtm = async (formData) => {
-  const url = `http://localhost:8082/create-atm`;
+  const backend = process.env.REACT_APP_BACKEND_URL;
+  const url = `${backend}/create-atm`;
 
   const token = localStorage.getItem("jwtToken");
 

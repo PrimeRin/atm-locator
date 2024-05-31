@@ -1,5 +1,6 @@
 export const fetchAtmDetails = async (id) => {
-    let url = `http://localhost:8082/admin-atm-list/${id}`;
+  const backend = process.env.REACT_APP_BACKEND_URL;
+    let url = `${backend}/admin-atm-list/${id}`;
 
 
     const token = localStorage.getItem("jwtToken");
