@@ -102,8 +102,8 @@ export default function Details({ onSelect, data }) {
             lat: {data.latitude}, lng: {data.longitude}
           </span>
           <iframe
-            width="550"
-            height="450"
+            width="80%"
+            height="80%"
             style={{ border: 0 }}
             loading="lazy"
             title="atm location"

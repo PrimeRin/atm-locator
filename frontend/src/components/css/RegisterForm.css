@@ -13,6 +13,7 @@
     justify-content: space-between;
     height: 100%;
     padding: 20px 50px;
+    overflow-y: scroll;
 }
 
 .register-page-1-hd{
@@ -148,6 +149,7 @@
     justify-content: space-between;
     padding: 20px 50px;
     gap: 8px;
+    overflow-y: scroll;
 }
 
 .show-map{

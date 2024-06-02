@@ -3,6 +3,8 @@
     border-radius: 10px;
     margin-bottom: 10px;
     height: 100%;
+    overflow-y: scroll;
+    padding-bottom: 10px;
 }
 
 .atm-details-header{

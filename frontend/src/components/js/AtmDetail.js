@@ -4,7 +4,6 @@ import Layout from "../layout/Layout";
 import LabeledInput from "./LabeledInput";
 import LabeledInputXL from "./LabeledInputXL";
 import Dropdown from "./Dropdown";
-import { dzongkhags } from "./dzongkhags_list";
 import atm from "../../assets/img/atm.png";
 import { useParams } from 'react-router-dom';
 import { fetchAtmDetails } from "../service/atmDetail";
