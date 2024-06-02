@@ -19,8 +19,14 @@ export const UserProvider = ({ children }) => {
     handleFetchUser();
   }, []);
 
+  const logout = () => {
+    localStorage.removeItem("user");
+    localStorage.removeItem("jwtToken"); 
+    setUser(null);
+  };
+
   return (
-    <UserContext.Provider value={{ user, setUser }}>
+    <UserContext.Provider value={{ user, setUser, logout }}>
       {children}
     </UserContext.Provider>
   );

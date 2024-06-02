@@ -85,10 +85,11 @@ export default function Map() {
     <div className="map-container">
       <div className="google-map-con">
         <GoogleMap
+          className="map"
           ref={mapRef}
           center={selectedAtm || center}
           zoom={9}
-          mapContainerStyle={{ width: "60vw", height: "40vw" }}
+          mapContainerStyle={{ width: "100%", height: "100%" }}
           options={{
             zoomControl: true,
             streetViewControl: true,

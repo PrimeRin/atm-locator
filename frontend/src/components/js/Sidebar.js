@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useContext} from "react";
 import {
   BsGrid1X2Fill,
   BsFillArchiveFill,
@@ -12,13 +12,15 @@ import
  import profile from "../../assets/img/profile.jpeg";
  import { CiLogout } from "react-icons/ci";
  import { useNavigate } from "react-router-dom"; 
+ import { UserContext } from "./UserContext";
 
 function Sidebar({ openSidebarToggle, OpenSidebar, handleTabClick, user}) {
   const isActive = usePath();
   const navigate = useNavigate(); 
+  const { logout } = useContext(UserContext);
 
   function logOut(){
-    localStorage.removeItem('jwtToken');
+    logout();
     navigate("/"); 
   }
 

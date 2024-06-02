@@ -49,6 +49,7 @@
 
 .table-con{
     width: 100%;
+    overflow-x: scroll;
 }
 
 .custom-table {

@@ -4,6 +4,13 @@
     justify-content: space-between;
 }
 
+.google-map-con{
+    position: relative;
+    border: 5px solid black;
+    width: 60vw;
+    height: 40vw;
+}
+
 .atm-filter{
     width: 20vw;
 }
@@ -46,19 +53,19 @@
         flex-direction: column;
     } 
 
+    .google-map-con{
+        width: 82vw;
+        height: 60vw;
+    }
+
     .map{
-        width: "60vw";
-        height: "40vw";
+        width: "100vw";
+        height: "50vw";
     }
 
     .atm-filter{
         width: 35vw;
     }
-}
-
-.google-map-con{
-    position: relative;
-    border: 5px solid black;
 }
 
 .current-location-icon{

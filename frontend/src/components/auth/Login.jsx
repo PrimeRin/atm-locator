@@ -23,6 +23,7 @@ const Login = ({ onClose }) => {
       if (response.data.success) {
         localStorage.setItem('jwtToken', response.data.accessToken);
         navigate("/admin-dashboard");
+        window.location.reload();
       } else {
         setError(response.data.message);
       }
