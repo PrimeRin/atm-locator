@@ -1,10 +1,10 @@
 .warning-con{
     display: flex;
     flex-direction: column;
+    width: 25vw;
     position: absolute;
     top: 40%;
-    left: 40%;
-    width: 25vw;
+    left: 50%;
     background-color: white;
     padding: 20px;
     border-radius: 20px;

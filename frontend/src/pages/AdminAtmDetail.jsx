@@ -72,6 +72,7 @@ function AdminAtmDetails() {
           onDeleteConfirm={handleDeleteConfirm}
           text = {"ATM DETAILS"}
           showThreeDot = {true}
+          data = {data}
         />
         <Details onSelect={() => toggleDropdown(false)} data={data} />
         <Notice message={message} type={type} showNotice={showNotice} />

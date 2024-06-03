@@ -16,6 +16,7 @@ export default function AtmHeader({
   onDeleteConfirm,
   text,
   showThreeDot,
+  data
 }) {
   const navigate = useNavigate();
   const location = useLocation();
@@ -56,7 +57,7 @@ export default function AtmHeader({
       )}
 
       {showWarning && (
-        <DeleteWarning onCancel={onCancel} onDeleteConfirm={onDeleteConfirm} />
+        <DeleteWarning onCancel={onCancel} onDeleteConfirm={onDeleteConfirm} atm={data} />
       )}
     </div>
   );

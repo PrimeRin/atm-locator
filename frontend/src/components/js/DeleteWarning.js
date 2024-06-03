@@ -1,7 +1,7 @@
 import React from "react";
 import "../css/DeleteWarning.css";
 
-export default function DeleteWarning({onCancel, onDeleteConfirm}) {
+export default function DeleteWarning({onCancel, onDeleteConfirm, atm}) {
   return (
     <div className="warning-con">
       <span className="delete-heading">Delete ATM?</span>
@@ -10,8 +10,8 @@ export default function DeleteWarning({onCancel, onDeleteConfirm}) {
         result in permanently removing all information related to this ATM.
       </span>
       <div className="delete-atm-warning">
-        <span>ATM ID</span>
-        <span>atm name</span>
+        <span>{atm.id}</span>
+        <span>{atm.name}</span>
       </div>
       <div className='warning-btn'>
         <button className="warning-cancel-btn" onClick={onCancel}>CANCEL</button>

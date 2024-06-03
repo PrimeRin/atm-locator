@@ -84,21 +84,13 @@ export default function AtmList({ atm, onSelect, onDelete }) {
             </div>
             <div
               className="list-dropdown-item-con"
-              onClick={() => setShowDeleteWarning(true)}
+              onClick={() => { setShowDropdown(false); setShowDeleteWarning(true)} }
             >
               <MdDeleteOutline size={25} />
               <span className="list-atm-edit-btn">Delete</span>
             </div>
           </div>
         )}
-
-        {showDeleteWarning && (
-          <DeleteWarning
-            onCancel={toggleDeleteWarning}
-            onDeleteConfirm={handleDelete}
-          />
-        )}
-
         <div className="atm-bottom" onClick={() => onSelect(atm)}>
           <div className="location">
             <span>{atm.name}</span>
@@ -119,6 +111,13 @@ export default function AtmList({ atm, onSelect, onDelete }) {
           </div>
         </div>
       </div>
+      {showDeleteWarning && (
+          <DeleteWarning
+            onCancel={toggleDeleteWarning}
+            onDeleteConfirm={handleDelete}
+            atm={atm}
+          />
+        )}
       <Notice type={type} message={message} showNotice={showNotice} />
     </>
   );
