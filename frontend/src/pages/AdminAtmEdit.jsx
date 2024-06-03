@@ -19,7 +19,6 @@ function AdminAtmEdit() {
     try {
       const fetchedData = await fetchAtmDetails(id);
       setData(fetchedData);
-      console.log(data);
     } catch (error) {
       console.error('Failed to fetch ATM details:', error);
     }

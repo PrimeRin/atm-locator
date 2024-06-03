@@ -43,7 +43,6 @@ export default function AtmList({ atm, onSelect, onDelete }) {
 
   async function handleDelete() {
     try {
-      console.log('atm id.....', atm.id);
       await deleteAtm(atm.id);
       setMessage("ATM deleted successfully!");
       setType("success");
@@ -56,7 +55,6 @@ export default function AtmList({ atm, onSelect, onDelete }) {
       }, 2000);
     } catch (error) {
       setMessage("An unknown error occurred");
-      console.log(error);
       toggleDeleteWarning();
       setType("error");
       setShowNotice(true);

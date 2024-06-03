@@ -11,8 +11,6 @@ export default function AtmLists({ data, hasMore, elementRef, filter, onDelete})
     navigate(`/admin-atm-list/${atm.id}`);
   };
 
-  console.log('data', data);
-
   return (
     <div className="atm-list-card">
     {filter.length > 0 && (

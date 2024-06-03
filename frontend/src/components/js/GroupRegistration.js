@@ -72,15 +72,12 @@ export default function GroupRegistration({ data }) {
     return isValid;
   }
 
-  console.log("form data", formData);
-
   function handleSubmit() {
     if (formData.latitude && formData.longitude) {
       setError(null);
       if (data) {
         updateAtm(data.id, formData)
           .then((response) => {
-            console.log(response);
             if (response.status === 200) {
               setType("success");
               setNotice("ATM Updated Successfully!");
@@ -129,7 +126,6 @@ export default function GroupRegistration({ data }) {
       } else {
         createAtm(formData)
           .then((response) => {
-            console.log("response", response);
             if (response.status >= 200) {
               setType("success");
               setNotice("ATM Created Successfully!");
